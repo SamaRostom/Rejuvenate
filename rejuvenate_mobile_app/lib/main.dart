@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rejuvenate_mobile_app/screens/editprofile.dart';
-import 'package:rejuvenate_mobile_app/screens/viewprofile.dart';
+import 'screens/editprofile.dart';
+import 'screens/viewprofile.dart';
+
+import 'screens/patientreport.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,21 +10,22 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Rejuvenate',
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
+        scaffoldBackgroundColor: Colors.cyan,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       // initialRoute: EditProfile.routeName,
       initialRoute: ViewProfile.routeName,
-      routes:{
+      routes: {
         EditProfile.routeName: (context) => const EditProfile(),
         ViewProfile.routeName: (context) => const ViewProfile(),
+        PatientReport.routeName: (context) => const PatientReport(),
       },
     );
   }
