@@ -13,6 +13,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       // appBar: AppBar(
       //   leading: IconButton(onPressed: () => Get.back(), icon: Icons.arrow_back),
       // ),
