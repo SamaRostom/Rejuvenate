@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/custom_text.dart';
+
 enum GenderTypeEnum { Male, Female }
 
+enum AnswerTypeEnum { Yes, NO }
+
 class PatientReport extends StatefulWidget {
-  static const routeName = "/patientreport";
+  static const routeName = "/patient-report";
 
   const PatientReport({super.key});
 
@@ -18,27 +22,49 @@ class _PatientReportState extends State<PatientReport> {
     _selectedVal = _sugarTypeList[0];
   }
   GenderTypeEnum? _genderTypeEnum;
+  AnswerTypeEnum? _answerTypeEnum;
   final _sugarTypeList = ["Sugar Type 1", "Sugar Type 2", "NONE"];
   String? _selectedVal = "Sugar Type 1";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Fill the Form'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Fill the Form'),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
-          child: Column(children: [
-            TextFormField(
-              decoration: const InputDecoration(
-                  labelText: 'Name', border: OutlineInputBorder()),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const CustomText(
+              shadows: [
+                Shadow(
+                  blurRadius: 30,
+                  color: Colors.cyan,
+                ),
+              ],
+              text: 'Fill the Form',
+              fontSize: 60,
             ),
             const SizedBox(height: 10.0),
             TextFormField(
-              decoration: const InputDecoration(
-                  labelText: 'Age', border: OutlineInputBorder()),
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide:
+                        const BorderSide(color: Colors.blue, width: 2.0)),
+                labelText: 'Name',
+              ),
+            ),
+            const SizedBox(height: 10.0),
+            TextFormField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide:
+                        const BorderSide(color: Colors.blue, width: 2.0)),
+                labelText: 'Age',
+              ),
             ),
             const SizedBox(height: 10.0),
             Center(
@@ -52,7 +78,7 @@ class _PatientReportState extends State<PatientReport> {
                     builder: (BuildContext context) => SizedBox(
                       height: 250,
                       child: CupertinoDatePicker(
-                        backgroundColor: Colors.lightBlue,
+                        backgroundColor: Colors.blue,
                         initialDateTime: dateTime,
                         onDateTimeChanged: (DateTime newTime) {
                           setState(() => dateTime = newTime);
@@ -65,17 +91,24 @@ class _PatientReportState extends State<PatientReport> {
                 },
               ),
             ),
-            // const Text(
-            //   'Gender',
-            //   textAlign: TextAlign.right,
-            // ),
+            const Text(
+              'Choose the Gender',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 23, 75, 82),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
             Row(
               children: [
                 Expanded(
                   child: RadioListTile<GenderTypeEnum>(
                     value: GenderTypeEnum.Male,
                     groupValue: _genderTypeEnum,
-                    tileColor: Colors.blue.shade50,
+                    tileColor: Colors.blue.shade200,
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2.0)),
                     title: Text(GenderTypeEnum.Male.name),
                     onChanged: (val) {
                       setState(() {
@@ -91,7 +124,12 @@ class _PatientReportState extends State<PatientReport> {
                   child: RadioListTile<GenderTypeEnum>(
                     value: GenderTypeEnum.Female,
                     groupValue: _genderTypeEnum,
-                    tileColor: Colors.blue.shade50,
+                    tileColor: Colors.blue.shade200,
+                    shape: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(color: Colors.white, width: 2.0),
+                    ),
                     title: Text(GenderTypeEnum.Female.name),
                     onChanged: (val) {
                       setState(
@@ -124,13 +162,69 @@ class _PatientReportState extends State<PatientReport> {
                 Icons.arrow_drop_down_circle,
                 color: Colors.blue,
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                   labelText: "Sugar Types",
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.accessibility_new_rounded,
                     color: Colors.blue,
                   ),
-                  border: OutlineInputBorder()),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(color: Colors.cyan, width: 2.0))),
+            ),
+            const SizedBox(height: 10.0),
+            //BLOOD
+            const Text(
+              'Do you have Blood Pressure',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 23, 75, 82),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: RadioListTile<AnswerTypeEnum>(
+                    value: AnswerTypeEnum.Yes,
+                    groupValue: _answerTypeEnum,
+                    tileColor: Colors.blue.shade200,
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2.0)),
+                    title: Text(AnswerTypeEnum.Yes.name),
+                    onChanged: (val) {
+                      setState(() {
+                        _answerTypeEnum = val;
+                      });
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 5.0,
+                ),
+                Expanded(
+                  child: RadioListTile<AnswerTypeEnum>(
+                    value: AnswerTypeEnum.NO,
+                    groupValue: _answerTypeEnum,
+                    tileColor: Colors.blue.shade200,
+                    shape: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(color: Colors.white, width: 2.0),
+                    ),
+                    title: Text(AnswerTypeEnum.NO.name),
+                    onChanged: (val) {
+                      setState(
+                        () {
+                          _answerTypeEnum = val;
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ]),
         ),
