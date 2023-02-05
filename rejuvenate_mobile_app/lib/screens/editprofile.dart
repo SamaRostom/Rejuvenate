@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
 class EditProfile extends StatefulWidget {
-  static const routeName = "/edit-profile";
   const EditProfile({super.key});
   @override
-  // ignore: library_private_types_in_public_api
   State<EditProfile> createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
-  // final TextEditingController _wordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +14,9 @@ class _EditProfileState extends State<EditProfile> {
       // appBar: AppBar(
       //   leading: IconButton(onPressed: () => Get.back(), icon: Icons.arrow_back),
       // ),
-      body: Column(
+      // body: SingleChildScrollView(
+        body: Column(
+      // child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
@@ -41,7 +40,7 @@ class _EditProfileState extends State<EditProfile> {
                         borderRadius: BorderRadius.circular(50.0),
                         borderSide:
                             const BorderSide(color: Colors.cyan, width: 2.0)),
-                        prefixIcon: const Icon(Icons.person),
+                        prefixIcon: const Icon(Icons.person_outlined),
                     labelText: "Full Name",
                     labelStyle: const TextStyle(color: Colors.grey),
                     contentPadding: const EdgeInsets.symmetric(
@@ -99,7 +98,7 @@ class _EditProfileState extends State<EditProfile> {
                 // onSubmitted: (str) => _submitWord(),
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.email),
+                  prefixIcon: const Icon(Icons.email_outlined),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50.0),
                         borderSide:
@@ -129,7 +128,7 @@ class _EditProfileState extends State<EditProfile> {
                 // onSubmitted: (str) => _submitWord(),
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.password_rounded),
+                  prefixIcon: const Icon(Icons.password),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50.0),
                         borderSide:
@@ -177,21 +176,51 @@ class _EditProfileState extends State<EditProfile> {
                 // style: TextStyle(color: Theme.of(context).primaryColor),
               )),
 
-          // Container(
-          //   margin: const EdgeInsets.only(right: 10),
-          //   child: ElevatedButton(
-          //     onPressed: ,
-          //     child: FittedBox(
-          //       child: Text("Confirm",
-          //           style: Theme.of(context)
-          //               .textTheme
-          //               .headline6!
-          //               .copyWith(color: Colors.white)),
-          //     ),
-          //   ),
-          // ),
+            const SizedBox(
+              height: 30,
+            ),
+
+            // ElevatedButton(
+            // onPressed:()=> Navigator.of(context).pushNamed('/splashscreen'),
+            // child: const Text('Save Changes'),
+            // ),
+
+            Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10, left: 15, right: 15, bottom: 0),
+                  child: Container(
+                  padding: const EdgeInsets.only(
+                    top: 10, left: 15, right: 15, bottom: 5),
+                  decoration: BoxDecoration(
+                    color: Colors.cyan,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                      child: ElevatedButton(
+                        onPressed:()=> Navigator.of(context).pushNamed('/savingprofileupdates'),
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0.0,
+                          backgroundColor: Colors.black.withOpacity(0),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(12),),
+                          ),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Save Changes',
+                              style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
         ],
       ),
+      // ),
     );
   }
 }
