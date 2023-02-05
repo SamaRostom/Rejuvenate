@@ -8,8 +8,6 @@ enum GenderTypeEnum { Male, Female }
 enum AnswerTypeEnum { Yes, NO }
 
 class PatientReport extends StatefulWidget {
-  static const routeName = "/patient-report";
-
   const PatientReport({super.key});
 
   @override
