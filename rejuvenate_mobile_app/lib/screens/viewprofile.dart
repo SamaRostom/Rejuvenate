@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rejuvenate_mobile_app/screens/editprofile.dart';
 
 class ViewProfile extends StatefulWidget {
   const ViewProfile({super.key});
@@ -27,10 +26,7 @@ class _ViewProfileState extends State<ViewProfile> {
                 height:150,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
-                  child: Image.network(
-                    'https://cdn5.vectorstock.com/i/1000x1000/28/59/businesspeople-design-person-icon-flat-vector-9372859.jpg',
-                    fit: BoxFit.cover,
-                  ),
+                  child: Image.asset('assets/viewprofileTest.jpg',fit: BoxFit.cover),
                 )),
               
               Positioned(
@@ -41,7 +37,7 @@ class _ViewProfileState extends State<ViewProfile> {
                 height: 35,
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color:Colors.cyan),
                 child: const Icon(Icons.edit,
-                color: Colors.black,
+                color: Colors.white,
                 size:20,
                 ),
               ),
