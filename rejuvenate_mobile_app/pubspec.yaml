@@ -29,9 +29,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  # before_after_image_slider_nullsafty: <latest version>
-  # before_after: ^2.1.0
-  
+
+  before_after_image_slider_nullsafty: ^1.0.1
+  lottie: ^2.2.0
 
   flutter:
     sdk: flutter
@@ -73,6 +73,9 @@ flutter:
     # - images/a_dot_ham.jpeg
     - assets/1.jpg
     - assets/2.jpg
+    # - assets/successcheck.json
+    - assets/checkdone.json
+    - assets/viewprofileTest.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
