@@ -17,11 +17,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Rejuvenate',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.cyan,
+        scaffoldBackgroundColor: Color.fromARGB(255, 250, 249, 246),
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       // initialRoute: EditProfile.routeName,
-      initialRoute: ViewProfile.routeName,
+      initialRoute: PatientReport.routeName,
       routes: {
         EditProfile.routeName: (context) => const EditProfile(),
         ViewProfile.routeName: (context) => const ViewProfile(),
