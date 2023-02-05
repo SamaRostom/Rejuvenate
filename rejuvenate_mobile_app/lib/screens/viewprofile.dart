@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rejuvenate_mobile_app/screens/editprofile.dart';
 
 class ViewProfile extends StatefulWidget {
-  static const routeName = "/view-user-profile";
   const ViewProfile({super.key});
   @override
   State<ViewProfile> createState() => _ViewProfileState();
@@ -67,7 +66,7 @@ class _ViewProfileState extends State<ViewProfile> {
       ),
 ),
       floatingActionButton: FloatingActionButton(
-        onPressed:()=> Navigator.pushNamed(context, EditProfile.routeName),
+        onPressed:()=> Navigator.of(context).pushNamed('/editprofile'),
         // tooltip: 'Increment',
         child: const Icon(Icons.edit),
       ), 
