@@ -73,9 +73,8 @@ flutter:
   assets:
     # - images/a_dot_burr.jpeg
     # - images/a_dot_ham.jpeg
-    - assets/1.jpg
-    - assets/2.jpg
-    # - assets/successcheck.json
+    - assets/Final1Test.jpg
+    - assets/Final2Test.jpg
     - assets/checkdone.json
     - assets/viewprofileTest.jpg
 
