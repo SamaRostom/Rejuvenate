@@ -4,6 +4,7 @@ import 'screens/finalresult.dart';
 import 'screens/login.dart';
 import 'screens/signup.dart';
 import 'screens/savingprofileupdates.dart';
+import 'screens/uploadimage.dart';
 import 'screens/viewprofile.dart';
 import 'screens/patientreport.dart';
 
@@ -26,12 +27,13 @@ class MyApp extends StatelessWidget {
       // initialRoute: '/finalresult',
 
       routes: {
-        '/login':(context) => const LoginScreen(),
-        '/signup':(context) => const SignupScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/signup': (context) => const SignupScreen(),
         '/editprofile': (context) => const EditProfile(),
         '/viewprofile': (context) => const ViewProfile(),
         '/finalresult': (context) => const FinalResult(),
         '/patientreport': (context) => const PatientReport(),
+        '/uploadimage': (context) => const UploadImage(),
         '/savingprofileupdates': (context) => const SavingProfileUpdates(),
       },
     );
