@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "778438743285",
+    "project_id": "rejuvenate-8f1cc",
+    "storage_bucket": "rejuvenate-8f1cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778438743285:android:c0a914fe3a7883bc9ae1bc",
+        "android_client_info": {
+          "package_name": "com.example.rejuvenate_mobile_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778438743285-gqr535s0fbajgreeb44uaff4mn4lk8o4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1MO44fvq6oN1DxEOVDhqiPD0BZ8SgJJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778438743285-gqr535s0fbajgreeb44uaff4mn4lk8o4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
