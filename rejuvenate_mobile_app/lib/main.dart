@@ -1,15 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'screens/editprofile.dart';
 import 'screens/finalresult.dart';
-import 'screens/login.dart';
-import 'screens/signup.dart';
+import 'screens/login_signup/forget_password.dart';
+import 'screens/login_signup/login.dart';
+import 'screens/login_signup/verify_email.dart';
+import 'screens/patientreport.dart';
 import 'screens/savingprofileupdates.dart';
+import 'screens/login_signup/signup.dart';
 import 'screens/uploadimage.dart';
 import 'screens/viewprofile.dart';
-import 'screens/patientreport.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,12 +30,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
-      initialRoute: '/login',
-      // initialRoute: '/finalresult',
-
+      initialRoute: '/signup',
       routes: {
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
+        '/forgetpassword': (context) => const ForgetPassword(),
+        '/verifyemail': (context) => const VerifyEmail(),
         '/editprofile': (context) => const EditProfile(),
         '/viewprofile': (context) => const ViewProfile(),
         '/finalresult': (context) => const FinalResult(),
