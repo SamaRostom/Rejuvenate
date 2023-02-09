@@ -29,9 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 100,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
 
@@ -45,17 +42,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            // const SizedBox(
-            //   height: 30,
-            // ),
+            const SizedBox(
+              height: 30,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Image.asset(
                   'assets/Home.png',
-                  height: 250,
-                  width: 500,
+                  height: 300,
+                  width: 400,
                 ),
               ],
             ),
@@ -69,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(246, 86, 203, 209),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 70, vertical: 20),
+                          horizontal: 60, vertical: 20),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40))),
                   onPressed: () {
@@ -77,13 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: const Text(
                     'Get Started',
-                    style: TextStyle(color: Colors.white, fontSize: 30),
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
               ],
-            ),
-            const SizedBox(
-              height: 40,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
