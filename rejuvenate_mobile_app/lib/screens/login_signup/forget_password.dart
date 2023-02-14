@@ -35,7 +35,7 @@ class _ForgetPasswordState extends ConsumerState<ForgetPassword> {
                 child: Text('Reset Password',
                     style: GoogleFonts.notoSansAdlam(fontSize: 35))),
           ),
-          toolbarHeight: 100,
+          toolbarHeight: 80,
           backgroundColor: Colors.cyan,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
