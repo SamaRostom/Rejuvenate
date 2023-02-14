@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rejuvenate_mobile_app/screens/dashboard/dashboard.dart';
 import 'package:rejuvenate_mobile_app/screens/home.dart';
 
 import 'screens/editprofile.dart';
@@ -31,19 +32,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
-      initialRoute: '/',
+      initialRoute: '/dashboard',
       routes: {
+        '/': (context) => const HomeScreen(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
         '/forgetpassword': (context) => const ForgetPassword(),
         '/verifyemail': (context) => const VerifyEmail(),
+        '/dashboard': (context) => const Dashboard(),
         '/editprofile': (context) => const EditProfile(),
         '/viewprofile': (context) => const ViewProfile(),
         '/finalresult': (context) => const FinalResult(),
         '/patientreport': (context) => const PatientReport(),
         '/uploadimage': (context) => const UploadImage(),
         '/savingprofileupdates': (context) => const SavingProfileUpdates(),
-        '/': (context) => const HomeScreen(),
       },
     );
   }
