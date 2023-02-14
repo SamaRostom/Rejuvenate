@@ -56,7 +56,7 @@ class _SignupState extends ConsumerState<SignupScreen> {
             child:
                 Text('Sign Up', style: GoogleFonts.notoSansAdlam(fontSize: 45)),
           )),
-          toolbarHeight: 100,
+          toolbarHeight: 80,
           backgroundColor: Colors.cyan,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
