@@ -7,7 +7,7 @@ class UserModel {
   String lname;
   String gender;
   String phone;
-  String birth;
+  DateTime birth;
   String role;
   UserModel(
     this.email,
@@ -21,7 +21,14 @@ class UserModel {
   int compareTo(UserModel other) => email.compareTo(other.email);
 
   factory UserModel.fromSnapshot(DocumentSnapshot snapshot) {
-    return UserModel(snapshot.get('email'), snapshot.get('fname'),snapshot.get('lname'),snapshot.get('phone'),snapshot.get('gender'),snapshot.get('birth'),snapshot.get('role'));
+    return UserModel(
+        snapshot.get('email'),
+        snapshot.get('fname'),
+        snapshot.get('lname'),
+        snapshot.get('phone'),
+        snapshot.get('gender'),
+        (snapshot.get('birth') as Timestamp).toDate(),
+        snapshot.get('role')
+      );
   }
 }
-
