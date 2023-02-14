@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rejuvenate_mobile_app/services/user_services.dart';
 
+import '../../config/size_config.dart';
 import '../../utils/validations.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -28,6 +29,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
         key: scaffoldKey,
@@ -38,7 +40,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                 child: Text('Log in',
                     style: GoogleFonts.notoSansAdlam(fontSize: 45))),
           ),
-          toolbarHeight: 100,
+          toolbarHeight: 80,
           backgroundColor: Colors.cyan,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
