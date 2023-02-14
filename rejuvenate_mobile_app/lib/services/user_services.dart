@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/user_model.dart';
 import '../providers/user_provider.dart';
+import '../utils/constants.dart';
 import '../utils/error_message.dart';
 import '../widgets/loading_widget.dart';
 import '../utils/constants.dart' as val;
@@ -80,9 +81,9 @@ class UserService {
         UserService().getNewUserData().then((value) {
           UserModel user = UserModel.fromSnapshot(value);
           ref.read(newUserDataProivder.notifier).state = user;
-          // Data.loggedin = true;
+          loggedin = true;
           Navigator.of(context)
-              .pushNamedAndRemoveUntil('/viewprofile', (route) => false);
+              .pushNamedAndRemoveUntil('/dashboard', (route) => false);
         });
       } else {
         // ignore: use_build_context_synchronously
@@ -134,10 +135,11 @@ class UserService {
   }
 
 
-  signOut(BuildContext context) async {
+  static signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     // SharedPreferences preferences = await SharedPreferences.getInstance();
     // preferences.setBool("remember", false);
+    loggedin = false;
     Navigator.of(context).pushReplacementNamed('/login');
   }
 
