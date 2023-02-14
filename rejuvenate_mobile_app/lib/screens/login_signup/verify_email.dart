@@ -8,6 +8,7 @@ import 'package:rejuvenate_mobile_app/services/user_services.dart';
 
 import '../../models/user_model.dart';
 import '../../providers/user_provider.dart';
+import '../../widgets/loading_widget.dart';
 
 class VerifyEmail extends ConsumerStatefulWidget {
   const VerifyEmail({super.key});
@@ -18,8 +19,8 @@ class VerifyEmail extends ConsumerStatefulWidget {
 
 class _VerifyEmailState extends ConsumerState<VerifyEmail> {
   bool isEmailVerified = false;
-   Timer? timer;
-   
+  Timer? timer;
+
   @override
   void initState() {
     super.initState();
@@ -41,12 +42,21 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
     if (isEmailVerified) timer?.cancel();
   }
 
-  void redirectToHome(String fname,String lname, String phone, String gender, DateTime birth) {
-    UserService.saveUser(fname, lname, phone, gender, birth);
-    UserService().getNewUserData().then((value) {
+  void redirectToHome(String fname, String lname, String phone, String gender, DateTime birth) async {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: LoadingWidget(),
+          );
+        });
+    await UserService.saveUser(fname, lname, phone, gender, birth);
+    await UserService().getNewUserData().then((value) {
       UserModel user = UserModel.fromSnapshot(value);
       ref.read(newUserDataProivder.notifier).state = user;
-      Navigator.of(context).pushNamedAndRemoveUntil('/viewprofile', (route) => false);
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/viewprofile', (route) => false);
     });
   }
 
@@ -72,7 +82,8 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
 
   @override
   Widget build(BuildContext context) {
-    final data = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final data =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return SafeArea(
       child: Scaffold(
@@ -93,54 +104,55 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
           ),
         ),
         body: Center(
-        child: SafeArea(
-          child: (isEmailVerified)
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Welcome To Rejuvenate',
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 15),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                           Colors.cyan,
+          child: SafeArea(
+            child: (isEmailVerified)
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Welcome To Rejuvenate',
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
                       ),
-                      onPressed: () {
-                        redirectToHome(data['fname'],data['lname'],data['phone'],data['gender'],data['birth']);
-                      },
-                      child: const Text('Continue'),
-                    ),
-                  ],
-                )
-              : Column(
-                  children: [
-                    const SizedBox(height: 40,),
-                    const Text(
-                      'Please Verify Your Email',
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                             Colors.cyan,
+                      const SizedBox(height: 15),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.cyan,
+                        ),
+                        onPressed: () {
+                          redirectToHome(data['fname'], data['lname'],
+                              data['phone'], data['gender'], data['birth']);
+                        },
+                        child: const Text('Continue'),
                       ),
-                      onPressed: () {
-                        sendVerificationEmail();
-                      },
-                      child: const Text('Resend Verification Email'),
-                    )
-                  ],
-                ),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      const Text(
+                        'Please Verify Your Email',
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.cyan,
+                        ),
+                        onPressed: () {
+                          sendVerificationEmail();
+                        },
+                        child: const Text('Resend Verification Email'),
+                      )
+                    ],
+                  ),
+          ),
         ),
-      ),
       ),
     );
   }
