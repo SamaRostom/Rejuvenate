@@ -12,14 +12,19 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: Colors.lightBlue,
-        fontWeight: FontWeight.bold,
-        fontSize: fontSize,
-        shadows: shadows,
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          text,
+          style: TextStyle(
+            color: Colors.lightBlue,
+            fontWeight: FontWeight.bold,
+            fontSize: fontSize,
+            shadows: shadows,
+          ),
+        ),
+      ],
     );
   }
 }
