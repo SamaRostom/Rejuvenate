@@ -2,6 +2,9 @@ import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../widgets/custom_text.dart';
 
 class UploadImage extends StatefulWidget {
   const UploadImage({super.key});
@@ -11,6 +14,7 @@ class UploadImage extends StatefulWidget {
 }
 
 class _UploadImageState extends State<UploadImage> {
+  File? myfile;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,13 +22,26 @@ class _UploadImageState extends State<UploadImage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const CustomText(
+              shadows: [
+                Shadow(
+                  blurRadius: 30,
+                  color: Colors.cyan,
+                ),
+              ],
+              text: ' Choose How To Enter The Image ',
+              fontSize: 40,
+            ),
             ElevatedButton(
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.blue),
                   padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
                   textStyle: MaterialStateProperty.all(
                       const TextStyle(fontSize: 14, color: Colors.white))),
-              onPressed: () {
+              onPressed: () async {
+                XFile? xFile =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                myfile = File(xFile!.path);
                 setState(() {});
               },
               child: Column(
@@ -43,7 +60,11 @@ class _UploadImageState extends State<UploadImage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                XFile? xFile =
+                    await ImagePicker().pickImage(source: ImageSource.camera);
+                myfile = File(xFile!.path);
+              },
               child: Column(
                 children: const [
                   Icon(Icons.camera_alt_outlined),
