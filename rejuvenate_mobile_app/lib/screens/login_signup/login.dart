@@ -16,6 +16,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginState extends ConsumerState<LoginScreen> {
   String? gender;
   final _formKey = GlobalKey<FormState>();
+  bool passwordVisible = false;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -51,133 +52,149 @@ class _LoginState extends ConsumerState<LoginScreen> {
         body: Form(
           key: _formKey,
           // child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 50),
-                  //email
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 50, left: 15, right: 15, bottom: 0),
-                    child: TextFormField(
-                      controller: _emailController,
-                      obscureText: false,
-                      decoration: CommonStyle.textFieldStyle(
-                          labelText: ("Enter your Email"), hintText: ("Email")),
-                      validator: (value) {
-                        if (!value!.isValidEmail) {
-                          return 'Enter valid email';
-                        }
-                        if (value[value.length - 1] == '.') {
-                          return 'Enter valid email';
-                        }
-                        return null;
-                      },
-                    ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 50),
+                //email
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 50, left: 15, right: 15, bottom: 0),
+                  child: TextFormField(
+                    controller: _emailController,
+                    obscureText: false,
+                    decoration: CommonStyle.textFieldStyle2(
+                        labelText: ("Email"),
+                        prefixIcon: const Icon(Icons.email_outlined)),
+                    validator: (value) {
+                      if (!value!.isValidEmail) {
+                        return 'Enter valid email';
+                      }
+                      if (value[value.length - 1] == '.') {
+                        return 'Enter valid email';
+                      }
+                      return null;
+                    },
                   ),
+                ),
 
-                  //password
-                  Padding(
+                //password
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 30, left: 15, right: 15, bottom: 0),
+                  child: TextFormField(
+                    controller: _passwordController,
+                    obscureText: passwordVisible,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    decoration: CommonStyle.textFieldStyle2(
+                      labelText: ("Password"),
+                      prefixIcon: const Icon(Icons.lock_outline_rounded),
+                      suffixIcon: IconButton(
+                          icon: Icon(passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(
+                              () {
+                                passwordVisible = !passwordVisible;
+                              },
+                            );
+                          }),
+                    ),
+                    validator: (value) {
+                      if (!value!.isValidPassword) {
+                        return 'enter At Least 8 characters one letter and one number';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                const SizedBox(height: 60),
+                //sign in button
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 15, right: 15, bottom: 10),
+                  child: Container(
                     padding: const EdgeInsets.only(
-                        top: 30, left: 15, right: 15, bottom: 0),
-                    child: TextFormField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: CommonStyle.textFieldStyle(
-                          labelText: ("Enter your Password"),
-                          hintText: ("Password")),
-                      validator: (value) {
-                        if (!value!.isValidPassword) {
-                          return 'enter At Least 8 characters one letter and one number';
+                        top: 5, left: 15, right: 15, bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Validate returns true if the form is valid, or false otherwise.
+                        if (_formKey.currentState!.validate()) {
+                          UserService().signIn(ref, context, _emailController,
+                              _passwordController);
                         }
-                        return null;
                       },
-                    ),
-                  ),
-                  const SizedBox(height: 60),
-                  //sign in button
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10, left: 15, right: 15, bottom: 10),
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                          top: 5, left: 15, right: 15, bottom: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Validate returns true if the form is valid, or false otherwise.
-                          if (_formKey.currentState!.validate()) {
-                            UserService().signIn(ref,
-                                context, _emailController, _passwordController);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0.0,
-                          backgroundColor: Colors.red.withOpacity(0),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(2),
-                            ),
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0.0,
+                        backgroundColor: Colors.red.withOpacity(0),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(2),
                           ),
                         ),
-                        child: const Center(
-                          child: Text(
-                            'Log in',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Log in',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
                           ),
                         ),
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      TextButton(
-                        child: Text(
-                          'Forget Password?',
-                          style: GoogleFonts.notoSansAdlam(
-                              fontSize: 20,
-                              decoration: TextDecoration.underline,
-                              color: Colors.cyan),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/forgetpassword');
-                        },
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Create a new account',
-                        style: GoogleFonts.notoSansAdlam(fontSize: 23, color: Colors.grey),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    TextButton(
+                      child: Text(
+                        'Forget Password?',
+                        style: GoogleFonts.notoSansAdlam(
+                            fontSize: 20,
+                            decoration: TextDecoration.underline,
+                            color: Colors.cyan),
                       ),
-                      TextButton(
-                        child: Text(
-                          'Signup',
-                          style: GoogleFonts.notoSansAdlam(
-                              fontSize: 20,
-                              decoration: TextDecoration.underline,
-                              color:  Colors.cyan),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/signup');
-                        },
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/forgetpassword');
+                      },
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Create a new account',
+                      style: GoogleFonts.notoSansAdlam(
+                          fontSize: 23, color: Colors.grey),
+                    ),
+                    TextButton(
+                      child: Text(
+                        'Signup',
+                        style: GoogleFonts.notoSansAdlam(
+                            fontSize: 20,
+                            decoration: TextDecoration.underline,
+                            color: Colors.cyan),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/signup');
+                      },
+                    )
+                  ],
+                ),
+              ],
             ),
+          ),
           // ),
         ),
       ),
