@@ -18,7 +18,7 @@ class CustomText extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-            color: Colors.lightBlue,
+            color: Colors.cyan,
             fontWeight: FontWeight.bold,
             fontSize: fontSize,
             shadows: shadows,
