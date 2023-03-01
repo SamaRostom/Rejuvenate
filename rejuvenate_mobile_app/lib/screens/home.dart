@@ -18,23 +18,15 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         body: Column(
           children: [
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Image.asset(
                   'assets/Logo.jpg',
                   width: 300,
-                  height: 130,
+                  height: 110,
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-
-              mainAxisSize: MainAxisSize.max,
-              // ignore: prefer_const_literals_to_create_immutables
-              children: [
                 Text(
                   'Face and Body Retouching',
                   style:
@@ -57,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             const SizedBox(
-              height: 60,
+              height: 80,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(246, 86, 203, 209),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 60, vertical: 20),
+                          horizontal: 70, vertical: 20),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40))),
                   onPressed: () {
