@@ -242,6 +242,37 @@ class _PatientReportState extends State<PatientReport> {
                       textAlign: TextAlign.center,
                     ),
                     const AnswerType(),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Text(
+                      "Do you have any other medical condition, injury or anything else we should be aware of that we have not mentioned?",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 23, 75, 82),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    const AnswerType(),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Text(
+                      "If yes enter the condition",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 23, 75, 82),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: const BorderSide(
+                                color: Colors.cyan, width: 2.0)),
+                      ),
+                    ),
                   ]),
             ),
           ),
