@@ -19,6 +19,7 @@ class SignupScreen extends ConsumerStatefulWidget {
 class _SignupState extends ConsumerState<SignupScreen> {
   DateTime dateTime = DateTime(2000, 2, 1, 10, 20);
   String? gender;
+  bool passwordVisible = false;
   GenderTypeEnum? _genderTypeEnum;
   final _formKey = GlobalKey<FormState>();
   final _fnameController = TextEditingController();
@@ -78,12 +79,11 @@ class _SignupState extends ConsumerState<SignupScreen> {
                   child: TextFormField(
                     controller: _fnameController,
                     obscureText: false,
-                    decoration: CommonStyle.textFieldStyle(
-                        labelText: ("Enter your first name"),
-                        hintText: ("First name")),
+                    decoration: CommonStyle.textFieldStyle2(
+                        labelText: ("First name"),
+                        prefixIcon: const Icon(Icons.person)),
                     validator: (value) {
-                      if (!value!.isNotEmpty && !value.isValidName
-                       ) {
+                      if (!value!.isNotEmpty && !value.isValidName) {
                         return 'Please enter your first name';
                       }
                       return null;
@@ -98,9 +98,9 @@ class _SignupState extends ConsumerState<SignupScreen> {
                   child: TextFormField(
                     controller: _lnameController,
                     obscureText: false,
-                    decoration: CommonStyle.textFieldStyle(
-                        labelText: ("Enter your last name"),
-                        hintText: ("Last name")),
+                    decoration: CommonStyle.textFieldStyle2(
+                        labelText: ("Last name"),
+                        prefixIcon: const Icon(Icons.person)),
                     validator: (value) {
                       if (!value!.isNotEmpty && !value.isValidName) {
                         return 'Please enter your last name';
@@ -117,9 +117,9 @@ class _SignupState extends ConsumerState<SignupScreen> {
                   child: TextFormField(
                     controller: _phoneController,
                     obscureText: false,
-                    decoration: CommonStyle.textFieldStyle(
-                        labelText: ("Enter your phone number"),
-                        hintText: ("Phone number")),
+                    decoration: CommonStyle.textFieldStyle2(
+                        labelText: ("Phone number"),
+                        prefixIcon: const Icon(Icons.phone)),
                     validator: (value) {
                       if (!value!.isNotEmpty && !value.isValidPhone) {
                         return 'Please enter your phone number';
@@ -183,8 +183,10 @@ class _SignupState extends ConsumerState<SignupScreen> {
                               child: CupertinoTheme(
                                 data: const CupertinoThemeData(
                                   textTheme: CupertinoTextThemeData(
-                                    dateTimePickerTextStyle:
-                                        TextStyle(color: Colors.white, fontSize: 25,),
+                                    dateTimePickerTextStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 25,
+                                    ),
                                   ),
                                 ),
                                 child: CupertinoDatePicker(
@@ -289,8 +291,9 @@ class _SignupState extends ConsumerState<SignupScreen> {
                   child: TextFormField(
                     controller: _emailController,
                     obscureText: false,
-                    decoration: CommonStyle.textFieldStyle(
-                        labelText: ("Enter your Email"), hintText: ("Email")),
+                    decoration: CommonStyle.textFieldStyle2(
+                        labelText: ("Email"),
+                        prefixIcon: const Icon(Icons.email_outlined)),
                     validator: (value) {
                       if (!value!.isValidEmail) {
                         return 'Enter valid email';
@@ -309,10 +312,24 @@ class _SignupState extends ConsumerState<SignupScreen> {
                       top: 20, left: 15, right: 15, bottom: 0),
                   child: TextFormField(
                     controller: _passwordController,
-                    obscureText: true,
-                    decoration: CommonStyle.textFieldStyle(
-                        labelText: ("Enter your Password"),
-                        hintText: ("Password")),
+                    obscureText: passwordVisible,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    decoration: CommonStyle.textFieldStyle2(
+                      labelText: ("Password"),
+                      prefixIcon: const Icon(Icons.lock_outline_rounded),
+                      suffixIcon: IconButton(
+                          icon: Icon(passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(
+                              () {
+                                passwordVisible = !passwordVisible;
+                              },
+                            );
+                          }),
+                    ),
                     validator: (value) {
                       if (!value!.isValidPassword) {
                         return 'enter At Least 8 characters one letter and one number';
@@ -322,26 +339,38 @@ class _SignupState extends ConsumerState<SignupScreen> {
                   ),
                 ),
                 // Confirm password
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 15, left: 15, right: 15, bottom: 10),
-                    child: TextFormField(
-                      controller: _confirmpasswordController,
-                      obscureText: true,
-                      decoration: CommonStyle.textFieldStyle(
-                          labelText: ("Confirm your Password"),
-                          hintText: ("Password")),
-                      validator: (value) {
-                        if (!value!.isValidPassword) {
-                          return 'enter At Least 8 characters one letter and one number';
-                        }
-                        if (value != _passwordController.value.text) {
-                          return 'Passwords do not match';
-                        }
-                        return null;
-                      },
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 15, left: 15, right: 15, bottom: 10),
+                  child: TextFormField(
+                    controller: _confirmpasswordController,
+                    obscureText: true,
+                    decoration: CommonStyle.textFieldStyle2(
+                      labelText: ("Confirm Password"),
+                      prefixIcon: const Icon(Icons.lock_outline_rounded),
+                      suffixIcon: IconButton(
+                          icon: Icon(passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(
+                              () {
+                                passwordVisible = !passwordVisible;
+                              },
+                            );
+                          }),
                     ),
+                    validator: (value) {
+                      if (!value!.isValidPassword) {
+                        return 'enter At Least 8 characters one letter and one number';
+                      }
+                      if (value != _passwordController.value.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
                   ),
+                ),
                 //sign in button
                 Padding(
                   padding: const EdgeInsets.only(
@@ -358,8 +387,16 @@ class _SignupState extends ConsumerState<SignupScreen> {
                         // Validate returns true if the form is valid, or false otherwise.
                         if (_formKey.currentState!.validate()) {
                           // signUp();
-                          UserService().signUp(ref, context, _fnameController, _lnameController, _phoneController, _genderController,  dateTime,  _emailController,
-       _passwordController);
+                          UserService().signUp(
+                              ref,
+                              context,
+                              _fnameController,
+                              _lnameController,
+                              _phoneController,
+                              _genderController,
+                              dateTime,
+                              _emailController,
+                              _passwordController);
                         }
                       },
                       style: ElevatedButton.styleFrom(
