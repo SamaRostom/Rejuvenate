@@ -10,40 +10,51 @@ class FinalResult extends StatefulWidget {
 class _FinalResultState extends State<FinalResult> {
   @override
   Widget build(BuildContext context) {
-      // padding: const EdgeInsets.symmetric(horizontal: 24),
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.cyan,
+        title: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 50.0),
+            child: Text(
+              "Final Result",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(fontSize: 28, color: Colors.white),
+            ),
+          ),
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
-      child: Center(
-      child: Column(
-        // height: 24.0,
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(
-            height: 50,
+        child: Center(
+          child: Column(
+            children: [
+              // const SizedBox(
+              //   height: 50,
+              // ),
+              Container(
+                height: 600.0,
+                width: 450.0,
+                margin: const EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white),
+                ),
+                child: BeforeAfter(
+                  isVertical: false,
+                  beforeImage: Image.asset('assets/Final1Test.jpg'),
+                  afterImage: Image.asset('assets/Final2Test.jpg'),
+                  thumbColor: Colors.cyan,
+                  thumbRadius: 15.0,
+                  overlayColor: Colors.grey,
+                ),
+              ),
+            ],
           ),
-
-          Container(
-            height: 600.0,
-            width: 450.0,
-            margin: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white),
-            ),
-          child: BeforeAfter(
-              isVertical: true,
-              beforeImage: Image.asset('assets/Final1Test.jpg'),
-              afterImage: Image.asset('assets/Final2Test.jpg'),
-              thumbColor: Colors.cyan,
-              thumbRadius: 15.0,
-              overlayColor: Colors.grey,
-            ),
-          ),
-
-        ],
-        
-      ),),),
+        ),
+      ),
     );
   }
 }
