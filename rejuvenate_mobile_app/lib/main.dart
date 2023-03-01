@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rejuvenate_mobile_app/screens/dashboard/dashboard.dart';
 import 'package:rejuvenate_mobile_app/screens/home.dart';
 
+import 'screens/choosingproblem.dart';
 import 'screens/editprofile.dart';
 import 'screens/finalresult.dart';
 import 'screens/login_signup/forget_password.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         '/patientreport': (context) => const PatientReport(),
         '/uploadimage': (context) => const UploadImage(),
         '/savingprofileupdates': (context) => const SavingProfileUpdates(),
+        '/choosingproblem': (context) => const ChoosingProblem(),
       },
     );
   }
