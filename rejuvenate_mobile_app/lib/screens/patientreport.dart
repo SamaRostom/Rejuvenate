@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rejuvenate_mobile_app/widgets/answer_type.dart';
 
 import '../widgets/custom_text.dart';
 
@@ -21,6 +22,8 @@ class _PatientReportState extends State<PatientReport> {
   }
   GenderTypeEnum? _genderTypeEnum;
   AnswerTypeEnum? _answerTypeEnum;
+  AnswerTypeEnum? _answerrTypeEnum;
+  AnswerTypeEnum? _answerrrTypeEnum;
   final _sugarTypeList = ["Sugar Type 1", "Sugar Type 2", "NONE"];
   String? _selectedVal = "Sugar Type 1";
 
@@ -32,199 +35,334 @@ class _PatientReportState extends State<PatientReport> {
       // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const CustomText(
-              shadows: [
-                Shadow(
-                  blurRadius: 30,
-                  color: Colors.cyan,
-                ),
-              ],
-              text: 'Fill the Form',
-              fontSize: 60,
-            ),
-            const SizedBox(height: 10.0),
-            TextFormField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide:
-                        const BorderSide(color: Colors.blue, width: 2.0)),
-                labelText: 'Name',
-              ),
-            ),
-            const SizedBox(height: 10.0),
-            TextFormField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide:
-                        const BorderSide(color: Colors.blue, width: 2.0)),
-                labelText: 'Age',
-              ),
-            ),
-            const SizedBox(height: 10.0),
-            Center(
-              child: CupertinoButton(
-                child: Text(
-                  '${dateTime.day}/${dateTime.month}/${dateTime.year}',
-                ),
-                onPressed: () {
-                  showCupertinoModalPopup(
-                    context: context,
-                    builder: (BuildContext context) => SizedBox(
-                      height: 250,
-                      child: CupertinoDatePicker(
-                        backgroundColor: Colors.blue,
-                        initialDateTime: dateTime,
-                        onDateTimeChanged: (DateTime newTime) {
-                          setState(() => dateTime = newTime);
-                        },
-                        use24hFormat: true,
-                        mode: CupertinoDatePickerMode.date,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            const Text(
-              'Choose the Gender',
-              style: TextStyle(
-                  color: Color.fromARGB(255, 23, 75, 82),
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: RadioListTile<GenderTypeEnum>(
-                    value: GenderTypeEnum.Male,
-                    groupValue: _genderTypeEnum,
-                    tileColor: Colors.blue.shade200,
-                    shape: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0)),
-                    title: Text(GenderTypeEnum.Male.name),
-                    onChanged: (val) {
-                      setState(() {
-                        _genderTypeEnum = val;
-                      });
-                    },
+        child: SingleChildScrollView(
+          child: Form(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              const CustomText(
+                shadows: [
+                  Shadow(
+                    blurRadius: 10,
+                    color: Colors.cyan,
                   ),
-                ),
-                const SizedBox(
-                  width: 5.0,
-                ),
-                Expanded(
-                  child: RadioListTile<GenderTypeEnum>(
-                    value: GenderTypeEnum.Female,
-                    groupValue: _genderTypeEnum,
-                    tileColor: Colors.blue.shade200,
-                    shape: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide:
-                          const BorderSide(color: Colors.white, width: 2.0),
-                    ),
-                    title: Text(GenderTypeEnum.Female.name),
-                    onChanged: (val) {
-                      setState(
-                        () {
-                          _genderTypeEnum = val;
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            DropdownButtonFormField(
-              value: _selectedVal,
-              items: _sugarTypeList
-                  .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Text(e),
-                      ))
-                  .toList(),
-              onChanged: (val) {
-                setState(() {
-                  _selectedVal = val;
-                });
-              },
-              icon: const Icon(
-                Icons.arrow_drop_down_circle,
-                color: Colors.blue,
+                ],
+                text: 'Fill the Form',
+                fontSize: 60,
               ),
-              decoration: InputDecoration(
-                  labelText: "Sugar Types",
-                  prefixIcon: const Icon(
-                    Icons.accessibility_new_rounded,
-                    color: Colors.blue,
-                  ),
+              const SizedBox(height: 10.0),
+              TextFormField(
+                decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       borderSide:
-                          const BorderSide(color: Colors.cyan, width: 2.0))),
-            ),
-            const SizedBox(height: 10.0),
-            //BLOOD
-            const Text(
-              'Do you have Blood Pressure',
-              style: TextStyle(
-                  color: Color.fromARGB(255, 23, 75, 82),
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: RadioListTile<AnswerTypeEnum>(
-                    value: AnswerTypeEnum.Yes,
-                    groupValue: _answerTypeEnum,
-                    tileColor: Colors.blue.shade200,
-                    shape: OutlineInputBorder(
+                          const BorderSide(color: Colors.cyan, width: 2.0)),
+                  labelText: 'Name',
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              const Text(
+                'Choose the Gender',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 23, 75, 82),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: RadioListTile<GenderTypeEnum>(
+                      value: GenderTypeEnum.Male,
+                      groupValue: _genderTypeEnum,
+                      tileColor: Colors.cyan.shade200,
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: const BorderSide(
+                              color: Colors.white, width: 2.0)),
+                      title: Text(GenderTypeEnum.Male.name),
+                      onChanged: (val) {
+                        setState(() {
+                          _genderTypeEnum = val;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5.0,
+                  ),
+                  Expanded(
+                    child: RadioListTile<GenderTypeEnum>(
+                      value: GenderTypeEnum.Female,
+                      groupValue: _genderTypeEnum,
+                      tileColor: Colors.cyan.shade200,
+                      shape: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 2.0)),
-                    title: Text(AnswerTypeEnum.Yes.name),
-                    onChanged: (val) {
-                      setState(() {
-                        _answerTypeEnum = val;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  width: 5.0,
-                ),
-                Expanded(
-                  child: RadioListTile<AnswerTypeEnum>(
-                    value: AnswerTypeEnum.NO,
-                    groupValue: _answerTypeEnum,
-                    tileColor: Colors.blue.shade200,
-                    shape: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide:
-                          const BorderSide(color: Colors.white, width: 2.0),
+                            const BorderSide(color: Colors.white, width: 2.0),
+                      ),
+                      title: Text(GenderTypeEnum.Female.name),
+                      onChanged: (val) {
+                        setState(
+                          () {
+                            _genderTypeEnum = val;
+                          },
+                        );
+                      },
                     ),
-                    title: Text(AnswerTypeEnum.NO.name),
-                    onChanged: (val) {
-                      setState(
-                        () {
-                          _answerTypeEnum = val;
-                        },
-                      );
-                    },
                   ),
+                ],
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              DropdownButtonFormField(
+                value: _selectedVal,
+                items: _sugarTypeList
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() {
+                    _selectedVal = val;
+                  });
+                },
+                icon: const Icon(
+                  Icons.arrow_drop_down_circle,
+                  color: Colors.cyan,
                 ),
-              ],
-            ),
-          ]),
+                decoration: InputDecoration(
+                    labelText: "Sugar Types",
+                    prefixIcon: const Icon(
+                      Icons.accessibility_new_rounded,
+                      color: Colors.cyan,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.cyan, width: 2.0))),
+              ),
+              const SizedBox(height: 10.0),
+              //BLOOD
+              const Text(
+                'Do you have Blood Pressure?',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 23, 75, 82),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: RadioListTile<AnswerTypeEnum>(
+                      value: AnswerTypeEnum.Yes,
+                      groupValue: _answerTypeEnum,
+                      tileColor: Colors.cyan.shade200,
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: const BorderSide(
+                              color: Colors.white, width: 2.0)),
+                      title: Text(AnswerTypeEnum.Yes.name),
+                      onChanged: (val) {
+                        setState(() {
+                          _answerTypeEnum = val;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5.0,
+                  ),
+                  Expanded(
+                    child: RadioListTile<AnswerTypeEnum>(
+                      value: AnswerTypeEnum.NO,
+                      groupValue: _answerTypeEnum,
+                      tileColor: Colors.cyan.shade200,
+                      shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2.0),
+                      ),
+                      title: Text(AnswerTypeEnum.NO.name),
+                      onChanged: (val) {
+                        setState(
+                          () {
+                            _answerTypeEnum = val;
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              //Problems
+              const Text(
+                'Do you have any known cardiovascular problems (abnormal ECG, previous heart attack, etc)?',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 23, 75, 82),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: RadioListTile<AnswerTypeEnum>(
+                      value: AnswerTypeEnum.Yes,
+                      groupValue: _answerrTypeEnum,
+                      tileColor: Colors.cyan.shade200,
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: const BorderSide(
+                              color: Colors.white, width: 2.0)),
+                      title: Text(AnswerTypeEnum.Yes.name),
+                      onChanged: (val) {
+                        setState(() {
+                          _answerrTypeEnum = val;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5.0,
+                  ),
+                  Expanded(
+                    child: RadioListTile<AnswerTypeEnum>(
+                      value: AnswerTypeEnum.NO,
+                      groupValue: _answerrTypeEnum,
+                      tileColor: Colors.cyan.shade200,
+                      shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2.0),
+                      ),
+                      title: Text(AnswerTypeEnum.NO.name),
+                      onChanged: (val) {
+                        setState(
+                          () {
+                            _answerrTypeEnum = val;
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'Has your doctor ever told you that your cholesterol was too high?',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 23, 75, 82),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              const AnswerType(
+                  // children: [
+                  //   Expanded(
+                  //     child: RadioListTile<AnswerTypeEnum>(
+                  //       value: AnswerTypeEnum.Yes,
+                  //       groupValue: _answerrrTypeEnum,
+                  //       tileColor: Colors.cyan.shade200,
+                  //       shape: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(20.0),
+                  //           borderSide: const BorderSide(
+                  //               color: Colors.white, width: 2.0)),
+                  //       title: Text(AnswerTypeEnum.Yes.name),
+                  //       onChanged: (val) {
+                  //         setState(() {
+                  //           _answerrrTypeEnum = val;
+                  //         });
+                  //       },
+                  //     ),
+                  //   ),
+                  //   const SizedBox(
+                  //     width: 5.0,
+                  //   ),
+                  //   Expanded(
+                  //     child: RadioListTile<AnswerTypeEnum>(
+                  //       value: AnswerTypeEnum.NO,
+                  //       groupValue: _answerrrTypeEnum,
+                  //       tileColor: Colors.cyan.shade200,
+                  //       shape: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(20.0),
+                  //         borderSide:
+                  //             const BorderSide(color: Colors.white, width: 2.0),
+                  //       ),
+                  //       title: Text(AnswerTypeEnum.NO.name),
+                  //       onChanged: (val) {
+                  //         setState(
+                  //           () {
+                  //             _answerrrTypeEnum = val;
+                  //           },
+                  //         );
+                  //       },
+                  //     ),
+                  //   ),
+                  // ],
+                  ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'Do you have any injuries or orthopedic problems (leg, knees, etc)?',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 23, 75, 82),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              const AnswerType(
+                  // children: [
+                  //   Expanded(
+                  //     child: RadioListTile<AnswerTypeEnum>(
+                  //       value: AnswerTypeEnum.Yes,
+                  //       groupValue: _answerTypeEnum,
+                  //       tileColor: Colors.cyan.shade200,
+                  //       shape: OutlineInputBorder(
+                  //           borderRadius: BorderRadius.circular(20.0),
+                  //           borderSide: const BorderSide(
+                  //               color: Colors.white, width: 2.0)),
+                  //       title: Text(AnswerTypeEnum.Yes.name),
+                  //       onChanged: (val) {
+                  //         setState(() {
+                  //           _answerTypeEnum = val;
+                  //         });
+                  //       },
+                  //     ),
+                  //   ),
+                  //   const SizedBox(
+                  //     width: 5.0,
+                  //   ),
+                  //   Expanded(
+                  //     child: RadioListTile<AnswerTypeEnum>(
+                  //       value: AnswerTypeEnum.NO,
+                  //       groupValue: _answerTypeEnum,
+                  //       tileColor: Colors.cyan.shade200,
+                  //       shape: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(20.0),
+                  //         borderSide:
+                  //             const BorderSide(color: Colors.white, width: 2.0),
+                  //       ),
+                  //       title: Text(AnswerTypeEnum.NO.name),
+                  //       onChanged: (val) {
+                  //         setState(
+                  //           () {
+                  //             _answerTypeEnum = val;
+                  //           },
+                  //         );
+                  //       },
+                  //     ),
+                  //   ),
+                  // ],
+                  ),
+            ]),
+          ),
         ),
       ),
     );
