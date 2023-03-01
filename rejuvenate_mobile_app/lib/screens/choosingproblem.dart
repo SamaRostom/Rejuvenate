@@ -82,29 +82,32 @@ class _ChoosingProblemState extends State<ChoosingProblem> {
             const SizedBox(
               height: 60.0,
             ),
-            DropdownButtonFormField(
-              value: _selectedVal,
-              items: _problemList
-                  .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Text(e),
-                      ))
-                  .toList(),
-              onChanged: (val) {
-                setState(() {
-                  _selectedVal = val;
-                });
-              },
-              icon: const Icon(
-                Icons.arrow_drop_down_circle,
-                color: Colors.cyan,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: DropdownButtonFormField(
+                value: _selectedVal,
+                items: _problemList
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() {
+                    _selectedVal = val;
+                  });
+                },
+                icon: const Icon(
+                  Icons.arrow_drop_down_circle,
+                  color: Colors.cyan,
+                ),
+                decoration: InputDecoration(
+                    labelText: "Problems",
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50.0),
+                        borderSide:
+                            const BorderSide(color: Colors.cyan, width: 2.0))),
               ),
-              decoration: InputDecoration(
-                  labelText: "Problems",
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide:
-                          const BorderSide(color: Colors.cyan, width: 2.0))),
             ),
           ],
         ),
