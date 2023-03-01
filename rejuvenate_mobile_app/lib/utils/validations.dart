@@ -23,6 +23,23 @@ class CommonStyle {
       filled: true,
     );
   }
+
+  static InputDecoration textFieldStyle2(
+      {String labelText = "", Icon? prefixIcon}) {
+    return InputDecoration(
+      prefixIcon: prefixIcon,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+      labelText: labelText,
+      labelStyle: const TextStyle(color: Colors.grey),
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50.0),
+          borderSide: const BorderSide(color: Colors.cyan, width: 2.0)),
+      enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(50.0),
+          borderSide: const BorderSide(color: Colors.cyan, width: 2.0)),
+      filled: true,
+    );
+  }
 }
 
 extension ExtString on String {
