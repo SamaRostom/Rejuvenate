@@ -39,7 +39,9 @@ class SideMenu1 extends StatelessWidget {
           DrawerListTile(
             icon: TernavIcons.lightOutline.folder,
             title: "Choose problem",
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed('/choosingproblem');
+            },
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.chat,
@@ -103,7 +105,9 @@ class SideMenu2 extends StatelessWidget {
           DrawerListTile(
             icon: TernavIcons.lightOutline.folder,
             title: "Choose problem",
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed('/choosingproblem');
+            },
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.chat,
