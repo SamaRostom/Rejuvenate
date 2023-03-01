@@ -25,7 +25,7 @@ class CommonStyle {
   }
 
   static InputDecoration textFieldStyle2(
-      {String labelText = "", Icon? prefixIcon}) {
+      {String labelText = "", Icon? prefixIcon, IconButton? suffixIcon}) {
     return InputDecoration(
       prefixIcon: prefixIcon,
       contentPadding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
@@ -38,6 +38,7 @@ class CommonStyle {
           borderRadius: BorderRadius.circular(50.0),
           borderSide: const BorderSide(color: Colors.cyan, width: 2.0)),
       filled: true,
+      suffixIcon: suffixIcon
     );
   }
 }
