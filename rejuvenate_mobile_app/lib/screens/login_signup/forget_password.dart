@@ -63,8 +63,9 @@ class _ForgetPasswordState extends ConsumerState<ForgetPassword> {
                     child: TextFormField(
                       controller: _emailController,
                       obscureText: false,
-                      decoration: CommonStyle.textFieldStyle(
-                          labelText: ("Enter your Email"), hintText: ("Email")),
+                      decoration: CommonStyle.textFieldStyle2(
+                        labelText: ("Email"),
+                        prefixIcon: const Icon(Icons.email_outlined)),
                       validator: (value) {
                         if (!value!.isValidEmail) {
                           return 'Enter valid email';
