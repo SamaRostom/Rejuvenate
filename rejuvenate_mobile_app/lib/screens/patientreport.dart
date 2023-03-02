@@ -23,6 +23,21 @@ class _PatientReportState extends State<PatientReport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar: AppBar(
+        backgroundColor: Colors.cyan,
+        title: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 50.0),
+            child: Text(
+              "Fill the Form",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(fontSize: 28, color: Colors.white),
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -38,8 +53,8 @@ class _PatientReportState extends State<PatientReport> {
                           color: Colors.cyan,
                         ),
                       ],
-                      text: 'Fill the Form',
-                      fontSize: 60,
+                      text: 'Please Enter Your Data',
+                      fontSize: 30,
                     ),
                     const SizedBox(height: 10.0),
                     TextFormField(

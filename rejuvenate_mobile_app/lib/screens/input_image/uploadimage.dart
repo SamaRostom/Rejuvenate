@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:ffi';
 import 'dart:io';
 
@@ -20,6 +22,21 @@ class _UploadImageState extends State<UploadImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.cyan,
+        title: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 50.0),
+            child: Text(
+              "Upload Image",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(fontSize: 28, color: Colors.white),
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -48,7 +65,10 @@ class _UploadImageState extends State<UploadImage> {
                   XFile? xFile = await ImagePicker()
                       .pickImage(source: ImageSource.gallery);
                   myfile = File(xFile!.path);
-                  setState(() {});
+                   Navigator.push(context, MaterialPageRoute(
+                   builder: (context) => PreviewPage(
+                         myfile: xFile,
+                       )));
                 },
                 child: Column(
                   children: const [
@@ -69,12 +89,11 @@ class _UploadImageState extends State<UploadImage> {
                     textStyle: MaterialStateProperty.all(
                         const TextStyle(fontSize: 14, color: Colors.white))),
                 onPressed: () async {
-                   
                   XFile? xFile =
                       await ImagePicker().pickImage(source: ImageSource.camera);
-                  myfile = File(xFile!.path);
-                 
-                  Navigator.push(context, MaterialPageRoute(
+                   myfile = File(xFile!.path);
+                  
+                   Navigator.push(context, MaterialPageRoute(
                    builder: (context) => PreviewPage(
                          myfile: xFile,
                        )));
