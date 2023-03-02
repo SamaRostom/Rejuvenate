@@ -3,8 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rejuvenate_mobile_app/screens/input_image/preview_page.dart';
 
-import '../widgets/custom_text.dart';
+import '../../widgets/custom_text.dart';
 
 class UploadImage extends StatefulWidget {
   const UploadImage({super.key});
@@ -15,6 +16,7 @@ class UploadImage extends StatefulWidget {
 
 class _UploadImageState extends State<UploadImage> {
   File? myfile;
+  late final XFile picture;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,10 +69,15 @@ class _UploadImageState extends State<UploadImage> {
                     textStyle: MaterialStateProperty.all(
                         const TextStyle(fontSize: 14, color: Colors.white))),
                 onPressed: () async {
-                   Navigator.pushNamed(context, '/uploadimage');
+                   
                   XFile? xFile =
                       await ImagePicker().pickImage(source: ImageSource.camera);
                   myfile = File(xFile!.path);
+                 
+                  Navigator.push(context, MaterialPageRoute(
+                   builder: (context) => PreviewPage(
+                         myfile: xFile,
+                       )));
                 },
                 child: Column(
                   children: const [
