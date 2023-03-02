@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(246, 86, 203, 209),
+                      backgroundColor: Colors.cyan,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 70, vertical: 20),
                       shape: RoundedRectangleBorder(
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: GoogleFonts.notoSansAdlam(
                         fontSize: 20,
                         decoration: TextDecoration.underline,
-                        color: const Color.fromARGB(246, 86, 203, 209)),
+                        color: Colors.cyan),
                   ),
                   onPressed: () {
                     Navigator.of(context).pushNamed('/login');
