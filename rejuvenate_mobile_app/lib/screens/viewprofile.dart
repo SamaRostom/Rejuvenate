@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/user_provider.dart';
 import '../utils/constants.dart';
 import '../utils/side_menu.dart';
+// import '../screens/login_signup/login.dart';
 
-class ViewProfile extends StatefulWidget {
+class ViewProfile extends ConsumerStatefulWidget {
   const ViewProfile({super.key});
   @override
-  State<ViewProfile> createState() => _ViewProfileState();
+  ConsumerState<ViewProfile> createState() => _ViewProfileState();
 }
 
-class _ViewProfileState extends State<ViewProfile> {
+class _ViewProfileState extends ConsumerState<ViewProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +60,9 @@ class _ViewProfileState extends State<ViewProfile> {
                 height: 30,
               ),
               Text(
-                "Salma Salah",
+                // ${ref.watch(nickname1Proivder)}
+                ref.watch(newUserDataProivder)!.fname,
+                // "Salma Salah",
                 style: Theme.of(context)
                     .textTheme
                     .headline6!
