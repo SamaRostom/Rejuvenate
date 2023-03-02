@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../providers/user_provider.dart';
 import '../utils/constants.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../utils/side_menu.dart';
 
-class ChoosingProblem extends StatefulWidget {
+class ChoosingProblem extends ConsumerStatefulWidget {
   static const routeName = "/choosingproblem-screen";
 
   const ChoosingProblem({super.key});
   @override
-  State<ChoosingProblem> createState() => _ChoosingProblemState();
+  ConsumerState<ChoosingProblem> createState() => _ChoosingProblemState();
 }
 
-class _ChoosingProblemState extends State<ChoosingProblem> {
+class _ChoosingProblemState extends ConsumerState<ChoosingProblem> {
   _ChoosingProblemState() {
     _selectedVal = _problemList[0];
   }
@@ -47,9 +49,11 @@ class _ChoosingProblemState extends State<ChoosingProblem> {
                 // ignore: prefer_const_literals_to_create_immutables
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 100.0, bottom: 20.0),
+                    padding: const EdgeInsets.only(right: 90.0, bottom: 20.0),
                     child: Text(
-                      ' Hello,\n Dr. Reema',
+                      // ' Hello,\n Dr. Reema',
+                      ' Welcome \n  Dr. ${ref.watch(newUserDataProivder)!.fname}',
+
                       style:
                           GoogleFonts.lato(fontSize: 25, color: Colors.white),
                     ),
@@ -108,6 +112,29 @@ class _ChoosingProblemState extends State<ChoosingProblem> {
                         borderSide:
                             const BorderSide(color: Colors.cyan, width: 2.0))),
               ),
+            ),
+            const SizedBox(
+              height: 70.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(246, 86, 203, 209),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 70, vertical: 20),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40))),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/uploadimage');
+                  },
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
