@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rejuvenate_mobile_app/screens/dashboard/dashboard.dart';
 import 'package:rejuvenate_mobile_app/screens/home.dart';
+import 'package:rejuvenate_mobile_app/screens/input_image/preview_page.dart';
 
 import 'screens/choosingproblem.dart';
 import 'screens/editprofile.dart';
@@ -13,7 +15,7 @@ import 'screens/login_signup/verify_email.dart';
 import 'screens/patientreport.dart';
 import 'screens/savingprofileupdates.dart';
 import 'screens/login_signup/signup.dart';
-import 'screens/uploadimage.dart';
+import 'screens/input_image/uploadimage.dart';
 import 'screens/viewprofile.dart';
 
 void main() async {
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
-      initialRoute: '/dashboard',
+      initialRoute: '/patientreport',
       routes: {
         '/': (context) => const HomeScreen(),
         '/login': (context) => const LoginScreen(),
@@ -48,6 +50,8 @@ class MyApp extends StatelessWidget {
         '/uploadimage': (context) => const UploadImage(),
         '/savingprofileupdates': (context) => const SavingProfileUpdates(),
         '/choosingproblem': (context) => const ChoosingProblem(),
+        // '/PreviewPage': (context) => const PreviewPage(),
+        
       },
     );
   }
