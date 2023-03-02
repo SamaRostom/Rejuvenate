@@ -36,6 +36,13 @@ class SideMenu1 extends StatelessWidget {
               Navigator.of(context).pushNamed('/profile');
             },
           ),
+           DrawerListTile(
+            icon: TernavIcons.lightOutline.document,
+            title: "Patient Report",
+            onTap: () {
+              Navigator.of(context).pushNamed('/patientreport');
+            },
+          ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.folder,
             title: "Choose problem",
