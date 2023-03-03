@@ -7,8 +7,10 @@ import 'package:rejuvenate_mobile_app/screens/home.dart';
 import 'package:rejuvenate_mobile_app/screens/input_image/preview_page.dart';
 
 import 'screens/choosingproblem.dart';
+import 'screens/dashboard/addpatient.dart';
 import 'screens/editprofile.dart';
 import 'screens/finalresult.dart';
+import 'screens/inpaint.dart';
 import 'screens/login_signup/forget_password.dart';
 import 'screens/login_signup/login.dart';
 import 'screens/login_signup/verify_email.dart';
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
-      initialRoute: '/patientreport',
+      initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
         '/login': (context) => const LoginScreen(),
@@ -50,6 +52,8 @@ class MyApp extends StatelessWidget {
         '/uploadimage': (context) => const UploadImage(),
         '/savingprofileupdates': (context) => const SavingProfileUpdates(),
         '/choosingproblem': (context) => const ChoosingProblem(),
+        '/inpaintingpage': (context) =>  InpaintingPage(),
+        '/addpatient': (context) =>  const AddPatient(),
         // '/PreviewPage': (context) => const PreviewPage(),
         
       },
