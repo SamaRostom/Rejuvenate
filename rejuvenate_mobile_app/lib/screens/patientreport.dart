@@ -365,10 +365,10 @@ class _PatientReportState extends State<PatientReport> {
                                 MaterialStateProperty.all(Colors.cyan.shade300),
                             padding: MaterialStateProperty.all(
                                 const EdgeInsets.fromLTRB(40, 10, 40, 10)),
-                            textStyle:
-                                MaterialStateProperty.all(const TextStyle(
-                              fontSize: 14,
-                            ))),
+                            textStyle: MaterialStateProperty.all(
+                                const TextStyle(
+                                    fontSize: 14,
+                                    ))),
                         onPressed: () async {
                           //   if (_formKey.currentState!.validate()) {
                           //   // signUp();
@@ -381,8 +381,8 @@ class _PatientReportState extends State<PatientReport> {
                         },
                         child: Column(
                           children: const [
-                            Icon(Icons.done_outlined,
-                                color: Color.fromARGB(255, 23, 75, 82)),
+                            Icon(Icons.done_outlined,color: Color.fromARGB(255, 23, 75, 82)),
+                            
                             Text(
                               'Submit',
                               style: TextStyle(
@@ -400,15 +400,14 @@ class _PatientReportState extends State<PatientReport> {
                                 MaterialStateProperty.all(Colors.cyan.shade300),
                             padding: MaterialStateProperty.all(
                                 const EdgeInsets.fromLTRB(40, 10, 40, 10)),
-                            textStyle:
-                                MaterialStateProperty.all(const TextStyle(
-                              fontSize: 14,
-                            ))),
+                            textStyle: MaterialStateProperty.all(
+                                const TextStyle(
+                                    fontSize: 14,
+                                   ))),
                         onPressed: () async {},
                         child: Column(
                           children: const [
-                            Icon(Icons.remove_circle_outline,
-                                color: Color.fromARGB(255, 23, 75, 82)),
+                            Icon(Icons.remove_circle_outline,color: Color.fromARGB(255, 23, 75, 82)),
                             Text(
                               'Cancel',
                               style: TextStyle(
