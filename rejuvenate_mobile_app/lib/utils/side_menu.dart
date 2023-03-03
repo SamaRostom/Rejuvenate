@@ -33,10 +33,10 @@ class SideMenu1 extends StatelessWidget {
             icon: TernavIcons.lightOutline.profile,
             title: "Profile",
             onTap: () {
-              Navigator.of(context).pushNamed('/profile');
+              Navigator.of(context).pushNamed('/viewprofile');
             },
           ),
-           DrawerListTile(
+          DrawerListTile(
             icon: TernavIcons.lightOutline.document,
             title: "Patient Report",
             onTap: () {
@@ -102,32 +102,32 @@ class SideMenu2 extends StatelessWidget {
               Navigator.of(context).pushNamed('/');
             },
           ),
-          DrawerListTile(
-            icon: TernavIcons.lightOutline.profile,
-            title: "Profile",
-            onTap: () {
-              Navigator.of(context).pushNamed('/profile');
-            },
-          ),
-          DrawerListTile(
-            icon: TernavIcons.lightOutline.folder,
-            title: "Choose problem",
-            onTap: () {
-              Navigator.of(context).pushNamed('/choosingproblem');
-            },
-          ),
-          DrawerListTile(
-            icon: TernavIcons.lightOutline.chat,
-            title: "Message",
-            onTap: () {},
-          ),
-          DrawerListTile(
-            icon: TernavIcons.lightOutline.menu,
-            title: "Dashboard",
-            onTap: () {
-              Navigator.of(context).pushNamed('/dashboard');
-            },
-          ),
+          // DrawerListTile(
+          //   icon: TernavIcons.lightOutline.profile,
+          //   title: "Profile",
+          //   onTap: () {
+          //     Navigator.of(context).pushNamed('/profile');
+          //   },
+          // ),
+          // DrawerListTile(
+          //   icon: TernavIcons.lightOutline.folder,
+          //   title: "Choose problem",
+          //   onTap: () {
+          //     Navigator.of(context).pushNamed('/choosingproblem');
+          //   },
+          // ),
+          // DrawerListTile(
+          //   icon: TernavIcons.lightOutline.chat,
+          //   title: "Message",
+          //   onTap: () {},
+          // ),
+          // DrawerListTile(
+          //   icon: TernavIcons.lightOutline.menu,
+          //   title: "Dashboard",
+          //   onTap: () {
+          //     Navigator.of(context).pushNamed('/dashboard');
+          //   },
+          // ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.arrow_right_1,
             title: "Sign up",
@@ -176,4 +176,3 @@ class DrawerListTile extends StatelessWidget {
     );
   }
 }
-
