@@ -28,6 +28,34 @@ class DashboardDetail extends StatelessWidget {
                         //       'People-Chart',
                         //       style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                         //     )),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.cyan,
+                                //onPrimary: Colors.black,
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/addpatient');
+                              },
+                              child: Wrap(
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.person_add_alt_1_outlined,
+                                    color: Colors.white,
+                                    size: 25.0,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text("Patient",
+                                      style: TextStyle(fontSize: 24)),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                         SizedBox(
                           height: 230,
                           child: Stack(
