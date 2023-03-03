@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rejuvenate_mobile_app/screens/patientreport.dart';
 import 'package:rejuvenate_mobile_app/widgets/answer_type.dart';
+import '../services/user_services.dart';
 import '../widgets/custom_text.dart';
+import '../../utils/validations.dart';
 
 enum GenderTypeEnum { Male, Female }
 
@@ -41,6 +44,9 @@ class PatientReport extends StatefulWidget {
 }
 
 class _PatientReportState extends State<PatientReport> {
+  final _nameController = TextEditingController();
+  final _fController = TextEditingController();
+  final _ffController = TextEditingController();
   DateTime dateTime = DateTime(2000, 2, 1, 10, 20);
   _PatientReportState() {
     _selectedVal = _sugarTypeList[0];
@@ -48,6 +54,15 @@ class _PatientReportState extends State<PatientReport> {
   GenderTypeEnum? _genderTypeEnum;
   final _sugarTypeList = ["Sugar Type 1", "Sugar Type 2", "NONE"];
   String? _selectedVal = "Sugar Type 1";
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _fController.dispose();
+    _ffController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +102,7 @@ class _PatientReportState extends State<PatientReport> {
                   ),
                   const SizedBox(height: 10.0),
                   TextFormField(
+                    controller: _nameController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
@@ -94,6 +110,12 @@ class _PatientReportState extends State<PatientReport> {
                               const BorderSide(color: Colors.cyan, width: 2.0)),
                       labelText: 'Name',
                     ),
+                    validator: (value) {
+                      if (!value!.isNotEmpty && !value.isValidName) {
+                        return 'Please enter your first name';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 10.0),
                   const Text(
@@ -148,7 +170,7 @@ class _PatientReportState extends State<PatientReport> {
                     ],
                   ),
                   const SizedBox(
-                    height: 10.0,
+                    height: 15,
                   ),
                   DropdownButtonFormField(
                     value: _selectedVal,
@@ -178,7 +200,7 @@ class _PatientReportState extends State<PatientReport> {
                             borderSide: const BorderSide(
                                 color: Colors.cyan, width: 2.0))),
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 15),
                   //BLOOD
                   const Text(
                     'Do you have Blood Pressure?',
@@ -189,7 +211,7 @@ class _PatientReportState extends State<PatientReport> {
                   ),
                   const AnswerType(),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   //Problems
                   const Text(
@@ -202,7 +224,7 @@ class _PatientReportState extends State<PatientReport> {
                   ),
                   const AnswerType(),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   //cholesterol
                   const Text(
@@ -215,7 +237,7 @@ class _PatientReportState extends State<PatientReport> {
                   ),
                   const AnswerType(),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   //injuries
                   const Text(
@@ -228,7 +250,7 @@ class _PatientReportState extends State<PatientReport> {
                   ),
                   const AnswerType(),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   //joints
                   const Text(
@@ -241,7 +263,7 @@ class _PatientReportState extends State<PatientReport> {
                   ),
                   const AnswerType(),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   //medicine
                   const Text(
@@ -254,7 +276,7 @@ class _PatientReportState extends State<PatientReport> {
                   ),
                   const AnswerType(),
                   const SizedBox(
-                    height: 5,
+                    height: 15,
                   ),
                   const Text(
                     "If yes enter the name of the medicine",
@@ -265,6 +287,7 @@ class _PatientReportState extends State<PatientReport> {
                     textAlign: TextAlign.center,
                   ),
                   TextFormField(
+                    controller: _fController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
@@ -272,9 +295,15 @@ class _PatientReportState extends State<PatientReport> {
                               const BorderSide(color: Colors.cyan, width: 2.0)),
                       labelText: 'Medicine name',
                     ),
+                    validator: (value) {
+                      if (!value!.isNotEmpty) {
+                        return 'Please enter your medicine name';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   //soreness وجع
                   const Text(
@@ -287,7 +316,7 @@ class _PatientReportState extends State<PatientReport> {
                   ),
                   const AnswerType(),
                   const SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
                   const Text(
                     "Do you have any other medical condition, injury or anything else we should be aware of that we have not mentioned?",
@@ -299,7 +328,7 @@ class _PatientReportState extends State<PatientReport> {
                   ),
                   const AnswerType(),
                   const SizedBox(
-                    height: 5,
+                    height: 15,
                   ),
                   const Text(
                     "If yes enter the condition",
@@ -310,12 +339,19 @@ class _PatientReportState extends State<PatientReport> {
                     textAlign: TextAlign.center,
                   ),
                   TextFormField(
+                    controller: _ffController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
                           borderSide:
                               const BorderSide(color: Colors.cyan, width: 2.0)),
                     ),
+                    validator: (value) {
+                      if (!value!.isNotEmpty) {
+                        return 'Please enter your condition';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 20,
@@ -326,19 +362,31 @@ class _PatientReportState extends State<PatientReport> {
                       ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.cyan),
+                                MaterialStateProperty.all(Colors.cyan.shade300),
                             padding: MaterialStateProperty.all(
-                                const EdgeInsets.fromLTRB(30, 20, 30, 20)),
-                            textStyle: MaterialStateProperty.all(
-                                const TextStyle(
-                                    fontSize: 14, color: Colors.white))),
-                        onPressed: () async {},
+                                const EdgeInsets.fromLTRB(40, 10, 40, 10)),
+                            textStyle:
+                                MaterialStateProperty.all(const TextStyle(
+                              fontSize: 14,
+                            ))),
+                        onPressed: () async {
+                          //   if (_formKey.currentState!.validate()) {
+                          //   // signUp();
+                          //   UserService().PatientR(
+                          //       _nameController,
+                          //       _fController,
+                          //       _ffController,
+                          //       );
+                          // }
+                        },
                         child: Column(
                           children: const [
-                            Icon(Icons.image_outlined),
+                            Icon(Icons.done_outlined,
+                                color: Color.fromARGB(255, 23, 75, 82)),
                             Text(
                               'Submit',
-                              style: TextStyle(),
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 23, 75, 82)),
                             ),
                           ],
                         ),
@@ -349,19 +397,22 @@ class _PatientReportState extends State<PatientReport> {
                       ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.cyan),
+                                MaterialStateProperty.all(Colors.cyan.shade300),
                             padding: MaterialStateProperty.all(
-                                const EdgeInsets.fromLTRB(30, 20, 30, 20)),
-                            textStyle: MaterialStateProperty.all(
-                                const TextStyle(
-                                    fontSize: 14, color: Colors.white))),
+                                const EdgeInsets.fromLTRB(40, 10, 40, 10)),
+                            textStyle:
+                                MaterialStateProperty.all(const TextStyle(
+                              fontSize: 14,
+                            ))),
                         onPressed: () async {},
                         child: Column(
                           children: const [
-                            Icon(Icons.image_outlined),
+                            Icon(Icons.remove_circle_outline,
+                                color: Color.fromARGB(255, 23, 75, 82)),
                             Text(
                               'Cancel',
-                              style: TextStyle(),
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 23, 75, 82)),
                             ),
                           ],
                         ),
