@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../providers/user_provider.dart';
-import '../utils/constants.dart';
-import '../utils/side_menu.dart';
+import '../../providers/user_provider.dart';
+import '../../utils/constants.dart';
+import '../../utils/side_menu.dart';
 
 class ViewProfile extends ConsumerStatefulWidget {
   const ViewProfile({super.key});
@@ -15,35 +15,24 @@ class _ViewProfileState extends ConsumerState<ViewProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       drawer: loggedin == true ? const SideMenu1() : const SideMenu2(),
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(right: 40.0),
-          child: Center(
-              child: Text('Your Account',
-                  style: GoogleFonts.notoSansAdlam(fontSize: 35))),
-        ),
-        toolbarHeight: 80,
-        backgroundColor: Colors.cyan,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(30),
-          ),
-        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        foregroundColor: const Color.fromARGB(255, 1, 6, 29),
+        shadowColor: Colors.white,
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: Column(
             children: [
-              const SizedBox(
-                height: 50,
-              ),
               Stack(
                 children: [
                   SizedBox(
-                      width: 150,
-                      height: 150,
+                      width: 200,
+                      height: 200,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: Image.asset('assets/Profile.png',
@@ -52,21 +41,24 @@ class _ViewProfileState extends ConsumerState<ViewProfile> {
                 ],
               ),
               const SizedBox(
-                height: 50,
+                height: 80,
               ),
               Row(
                 children: <Widget>[
                   const Padding(
                     padding: EdgeInsets.only(left: 20.0),
-                    child: Icon(Icons.person),
+                    child: Icon(
+                      Icons.people,
+                      color: Colors.blueAccent,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 70.0),
                     child: Text(
                       ref.watch(newUserDataProivder)!.fname,
-                      style: GoogleFonts.lato(
-                        fontSize: 25,
-                        color: const Color.fromARGB(255, 23, 75, 82),
+                      style: GoogleFonts.nunitoSans(
+                        fontSize: 20,
+                        color: const Color.fromARGB(255, 1, 6, 29),
                       ),
                     ),
                   ),
@@ -75,9 +67,9 @@ class _ViewProfileState extends ConsumerState<ViewProfile> {
                   ),
                   Text(
                     ref.watch(newUserDataProivder)!.lname,
-                    style: GoogleFonts.lato(
-                      fontSize: 25,
-                      color: const Color.fromARGB(255, 23, 75, 82),
+                    style: GoogleFonts.nunitoSans(
+                      fontSize: 20,
+                      color: const Color.fromARGB(255, 1, 6, 29),
                     ),
                   ),
                 ],
@@ -86,22 +78,24 @@ class _ViewProfileState extends ConsumerState<ViewProfile> {
                 height: 10,
               ),
               const Divider(
-                color: Colors.black38,
+                color: Color.fromARGB(96, 255, 255, 255),
               ),
               Row(
                 children: <Widget>[
                   const Padding(
                     padding: EdgeInsets.only(left: 20.0),
-                    child: Icon(Icons.email),
+                    child: Icon(
+                      Icons.email,
+                      color: Colors.blueAccent,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 60.0),
                     child: Text(
                       ref.watch(newUserDataProivder)!.email,
-                      style: GoogleFonts.lato(
-                        fontSize: 25,
-                        color: const Color.fromARGB(255, 23, 75, 82),
-                      ),
+                      style: GoogleFonts.nunitoSans(
+                          fontSize: 20,
+                          color: const Color.fromARGB(255, 1, 6, 29)),
                     ),
                   ),
                 ],
@@ -110,22 +104,24 @@ class _ViewProfileState extends ConsumerState<ViewProfile> {
                 height: 10,
               ),
               const Divider(
-                color: Colors.black38,
+                color: Color.fromARGB(96, 255, 255, 255),
               ),
               Row(
                 children: <Widget>[
                   const Padding(
                     padding: EdgeInsets.only(left: 20.0),
-                    child: Icon(Icons.phone),
+                    child: Icon(
+                      Icons.phone,
+                      color: Colors.blueAccent,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 60.0),
                     child: Text(
-                      ref.watch(newUserDataProivder)!.gender,
-                      style: GoogleFonts.lato(
-                        fontSize: 25,
-                        color: const Color.fromARGB(255, 23, 75, 82),
-                      ),
+                      ref.watch(newUserDataProivder)!.phone,
+                      style: GoogleFonts.nunitoSans(
+                          fontSize: 20,
+                          color: const Color.fromARGB(255, 1, 6, 29)),
                     ),
                   ),
                 ],
@@ -138,7 +134,7 @@ class _ViewProfileState extends ConsumerState<ViewProfile> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.cyan,
+                        backgroundColor: Colors.blue[900],
                         padding: const EdgeInsets.symmetric(
                             horizontal: 70, vertical: 20),
                         shape: RoundedRectangleBorder(
@@ -157,14 +153,6 @@ class _ViewProfileState extends ConsumerState<ViewProfile> {
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.cyan,
-      //   onPressed: () => Navigator.of(context).pushNamed('/editprofile'),
-      //   // tooltip: 'Increment',
-      //   child: const Icon(
-      //     Icons.edit,
-      //   ),
-      // ),
     );
   }
 }
