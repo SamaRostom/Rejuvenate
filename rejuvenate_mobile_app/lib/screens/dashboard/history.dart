@@ -13,11 +13,6 @@ class History extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // if (Responsive.isDesktop(context))
-            //   const Expanded(
-            //     flex: 1,
-            //     child: SideMenu(),
-            //   ),
             Expanded(
                 flex: 10,
                 child: SafeArea(
@@ -28,103 +23,45 @@ class History extends StatelessWidget {
                         DataTable(
                           columnSpacing: 30,
                           columns: const [
-                            DataColumn(
+                              DataColumn(
                                 label: Text('Name',
                                     style: TextStyle(
                                         fontSize: 18,
-                                        color: Colors.cyan,
+                                        color: Color.fromRGBO(13, 71, 161, 1),
                                         fontWeight: FontWeight.bold))),
                             DataColumn(
-                                label: Text('Code',
+                                label: Text('Age',
                                     style: TextStyle(
                                         fontSize: 18,
-                                        color: Colors.cyan,
+                                        color: Color.fromRGBO(13, 71, 161, 1),
                                         fontWeight: FontWeight.bold))),
                             DataColumn(
-                                label: Text('Password',
+                                label: Text('Gender',
                                     style: TextStyle(
                                         fontSize: 18,
-                                        color: Colors.cyan,
-                                        fontWeight: FontWeight.bold))),
-                            DataColumn(
-                                label: Text('View',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.cyan,
+                                        color: Color.fromRGBO(13, 71, 161, 1),
                                         fontWeight: FontWeight.bold))),
                           ],
                           rows: const [
                             DataRow(cells: [
                               DataCell(Text('1')),
                               DataCell(Text('Stephen')),
-                              DataCell(Text('Actor')),
-                              DataCell(Text('Actor')),
+                              DataCell(Text('1')),
                             ]),
                             DataRow(cells: [
                               DataCell(Text('5')),
                               DataCell(Text('John')),
-                              DataCell(Text('Student')),
-                              DataCell(Text('Actor')),
+                              DataCell(Text('3')),
                             ]),
                             DataRow(cells: [
                               DataCell(Text('10')),
                               DataCell(Text('Harry')),
-                              DataCell(Text('Leader')),
-                              DataCell(Text('Actor')),
+                              DataCell(Text('3')),
                             ]),
                             DataRow(cells: [
                               DataCell(Text('15')),
                               DataCell(Text('Peter')),
-                              DataCell(Text('Scientist')),
-                              DataCell(Text('Actor')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('15')),
-                              DataCell(Text('Peter')),
-                              DataCell(Text('Scientist')),
-                              DataCell(Text('Actor')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('15')),
-                              DataCell(Text('Peter')),
-                              DataCell(Text('Scientist')),
-                              DataCell(Text('Actor')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('15')),
-                              DataCell(Text('Peter')),
-                              DataCell(Text('Scientist')),
-                              DataCell(Text('Actor')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('15')),
-                              DataCell(Text('Peter')),
-                              DataCell(Text('Scientist')),
-                              DataCell(Text('Actor')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('15')),
-                              DataCell(Text('Peter')),
-                              DataCell(Text('Scientist')),
-                              DataCell(Text('Actor')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('15')),
-                              DataCell(Text('Peter')),
-                              DataCell(Text('Scientist')),
-                              DataCell(Text('Actor')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('15')),
-                              DataCell(Text('Peter')),
-                              DataCell(Text('Scientist')),
-                              DataCell(Text('Actor')),
-                            ]),
-                            DataRow(cells: [
-                              DataCell(Text('15')),
-                              DataCell(Text('Peter')),
-                              DataCell(Text('Scientist')),
-                              DataCell(Text('Actor')),
+                              DataCell(Text('1')),
                             ]),
                           ],
                         ),
