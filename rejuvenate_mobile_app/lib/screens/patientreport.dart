@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rejuvenate_mobile_app/screens/patientreport.dart';
 import 'package:rejuvenate_mobile_app/widgets/answer_type.dart';
 import '../services/user_services.dart';
@@ -20,27 +21,6 @@ class PatientReport extends StatefulWidget {
   @override
   State<PatientReport> createState() => _PatientReportState();
 
-  // static saveScore(WidgetRef ref) async {
-  //   final FirebaseFirestore db = FirebaseFirestore.instance;
-  //   final score = FirebaseAuth.instance.currentUser!;
-  //   final tog = ref.watch(typeofgameProivder);
-  //   final scoreProvider = ref.watch(scoreProivder);
-  //   final  finalScoreUserRef = await db.collection("PatientReport").where("email", isEqualTo: score.email).where("typeofgame", isEqualTo: tog).get();
-  //   final scoreCollection = db.collection("Scores").doc();
-  //   Map<String, dynamic> userData = {
-  //     "email": score.email,
-  //     "score": scoreProvider,
-  //     "date": DateTime.now(),
-  //     "typeofgame": tog,
-  //   };
-  //   if (finalScoreUserRef.docs.isEmpty) {
-  //     await scoreCollection.set(userData);
-  //   } else {
-  //     if(finalScoreUserRef.docs.first.get('score') < scoreProvider){
-  //       finalScoreUserRef.docs.first.reference.update(userData);
-  //     }
-  //   }
-  // }
 }
 
 class _PatientReportState extends State<PatientReport> {
@@ -67,21 +47,21 @@ class _PatientReportState extends State<PatientReport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        title: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(right: 50.0),
-            child: Text(
-              "Fill the Form",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(fontSize: 28, color: Colors.white),
-            ),
-          ),
+        title: Padding(
+          padding: const EdgeInsets.only(right: 40.0),
+          child: Center(
+              child: Text('Patient Report',
+                  style: GoogleFonts.robotoSlab(
+                      fontSize: 30, fontWeight: FontWeight.bold))),
         ),
-      ),
+        toolbarHeight: 100,
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        foregroundColor: const Color.fromARGB(255, 1, 6, 29),
+        shadowColor: Colors.white,
+        ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -228,7 +208,7 @@ class _PatientReportState extends State<PatientReport> {
                   ),
                   //cholesterol
                   const Text(
-                    'Has your doctor ever told you that your cholesterol was too high?',
+                    'Do you have high cholesterol?',
                     style: TextStyle(
                         color: Color.fromARGB(255, 23, 75, 82),
                         fontSize: 18,
@@ -242,19 +222,6 @@ class _PatientReportState extends State<PatientReport> {
                   //injuries
                   const Text(
                     'Do you have any injuries (leg, knees, etc)?',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 23, 75, 82),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  const AnswerType(),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  //joints
-                  const Text(
-                    'Do you have stiff or swollen joints?',
                     style: TextStyle(
                         color: Color.fromARGB(255, 23, 75, 82),
                         fontSize: 18,
@@ -303,90 +270,31 @@ class _PatientReportState extends State<PatientReport> {
                     },
                   ),
                   const SizedBox(
-                    height: 15,
-                  ),
-                  //soreness وجع
-                  const Text(
-                    'Do you have soreness in any area?',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 23, 75, 82),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  const AnswerType(),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "Do you have any other medical condition, injury or anything else we should be aware of that we have not mentioned?",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 23, 75, 82),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  const AnswerType(),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    "If yes enter the condition",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 23, 75, 82),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  TextFormField(
-                    controller: _ffController,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide:
-                              const BorderSide(color: Colors.cyan, width: 2.0)),
-                    ),
-                    validator: (value) {
-                      if (!value!.isNotEmpty) {
-                        return 'Please enter your condition';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
                     height: 20,
                   ),
+                  
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.cyan.shade300),
+                                MaterialStateProperty.all(Colors.blue[900]),
                             padding: MaterialStateProperty.all(
                                 const EdgeInsets.fromLTRB(40, 10, 40, 10)),
                             textStyle: MaterialStateProperty.all(
                                 const TextStyle(
                                     fontSize: 14,
                                     ))),
-                        onPressed: () async {
-                          //   if (_formKey.currentState!.validate()) {
-                          //   // signUp();
-                          //   UserService().PatientR(
-                          //       _nameController,
-                          //       _fController,
-                          //       _ffController,
-                          //       );
-                          // }
-                        },
+                        onPressed: () async {},
                         child: Column(
                           children: const [
-                            Icon(Icons.done_outlined,color: Color.fromARGB(255, 23, 75, 82)),
+                            Icon(Icons.done_outlined,color: Colors.white,),
                             
                             Text(
                               'Submit',
                               style: TextStyle(
-                                  color: Color.fromARGB(255, 23, 75, 82)),
+                                  color: Colors.white),
                             ),
                           ],
                         ),
@@ -397,21 +305,21 @@ class _PatientReportState extends State<PatientReport> {
                       ElevatedButton(
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.cyan.shade300),
+                                MaterialStateProperty.all(Colors.blue[900]),
                             padding: MaterialStateProperty.all(
                                 const EdgeInsets.fromLTRB(40, 10, 40, 10)),
                             textStyle: MaterialStateProperty.all(
                                 const TextStyle(
                                     fontSize: 14,
                                    ))),
-                        onPressed: () async {},
+                        onPressed: () async {Navigator.pushNamed(context, '/dashboard');},
                         child: Column(
                           children: const [
-                            Icon(Icons.remove_circle_outline,color: Color.fromARGB(255, 23, 75, 82)),
+                            Icon(Icons.remove_circle_outline,color: Colors.white),
                             Text(
                               'Cancel',
                               style: TextStyle(
-                                  color: Color.fromARGB(255, 23, 75, 82)),
+                                  color: Colors.white),
                             ),
                           ],
                         ),
