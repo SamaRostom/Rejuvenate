@@ -1,24 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:rejuvenate_mobile_app/screens/dashboard/dashboard.dart';
 import 'package:rejuvenate_mobile_app/screens/home.dart';
-import 'package:rejuvenate_mobile_app/screens/input_image/preview_page.dart';
-
 import 'screens/choosingproblem.dart';
 import 'screens/dashboard/addpatient.dart';
-import 'screens/editprofile.dart';
-import 'screens/finalresult.dart';
-import 'screens/inpaint.dart';
+import 'screens/inpaint/finalresult.dart';
+import 'screens/inpaint/uploadimage.dart';
 import 'screens/login_signup/forget_password.dart';
 import 'screens/login_signup/login.dart';
 import 'screens/login_signup/verify_email.dart';
 import 'screens/patientreport.dart';
-import 'screens/savingprofileupdates.dart';
 import 'screens/login_signup/signup.dart';
-import 'screens/input_image/uploadimage.dart';
-import 'screens/viewprofile.dart';
+import 'screens/userprofile/editprofile.dart';
+import 'screens/userprofile/savingprofileupdates.dart';
+import 'screens/userprofile/viewprofile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,10 +48,7 @@ class MyApp extends StatelessWidget {
         '/uploadimage': (context) => const UploadImage(),
         '/savingprofileupdates': (context) => const SavingProfileUpdates(),
         '/choosingproblem': (context) => const ChoosingProblem(),
-        '/inpaintingpage': (context) =>  InpaintingPage(),
-        '/addpatient': (context) =>  const AddPatient(),
-        // '/PreviewPage': (context) => const PreviewPage(),
-        
+        '/addpatient': (context) => const AddPatient(),
       },
     );
   }

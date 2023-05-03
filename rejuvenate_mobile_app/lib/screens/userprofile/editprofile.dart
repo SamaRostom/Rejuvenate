@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../providers/user_provider.dart';
-import '../utils/validations.dart';
+import '../../providers/user_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../utils/validations.dart';
 
 class EditProfile extends ConsumerStatefulWidget {
   const EditProfile({super.key});

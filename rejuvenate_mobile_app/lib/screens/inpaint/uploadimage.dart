@@ -1,13 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rejuvenate_mobile_app/screens/input_image/preview_page.dart';
+import 'package:rejuvenate_mobile_app/screens/inpaint/preview_page.dart';
 
-import '../../widgets/custom_text.dart';
 
 class UploadImage extends StatefulWidget {
   const UploadImage({super.key});

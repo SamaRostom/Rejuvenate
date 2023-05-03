@@ -32,9 +32,6 @@ class _FinalResultState extends State<FinalResult> {
         child: Center(
           child: Column(
             children: [
-              // const SizedBox(
-              //   height: 50,
-              // ),
               Container(
                 height: 600.0,
                 width: 450.0,
