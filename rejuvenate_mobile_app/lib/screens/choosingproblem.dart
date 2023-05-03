@@ -18,32 +18,43 @@ class _ChoosingProblemState extends ConsumerState<ChoosingProblem> {
     _selectedVal = _problemList[0];
   }
 
-  final _problemList = ["Cleft Lip", "Burn", "Bow"];
+  final _problemList = ["Cleft Lip"];
   String? _selectedVal = "Choose a problem";
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
-            title: Padding(
-              padding: const EdgeInsets.only(left: 280.0),
-              child: IconButton(
-                icon: const Icon(Icons.person_outline_rounded),
-                color: Colors.white,
-                onPressed: () {
-                  Navigator.pushNamed(context, '/viewprofile');
-                },
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          foregroundColor: const Color.fromARGB(255, 1, 6, 29),
+          shadowColor: Colors.white,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 280.0),
+            child: IconButton(
+              icon: const Icon(
+                Icons.person_outline_rounded,
+                color: Colors.blue,
               ),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.pushNamed(context, '/viewprofile');
+              },
             ),
-            backgroundColor: Colors.cyan),
+          ),
+        ),
         drawer: loggedin == true ? const SideMenu1() : const SideMenu2(),
         body: Column(
           children: [
+            const SizedBox(
+              height: 40,
+            ),
             Container(
               height: 220, //height of button
               width: 500, //width of button
-              color: Colors.cyan,
+              color: Colors.white,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 // ignore: prefer_const_literals_to_create_immutables
@@ -51,11 +62,10 @@ class _ChoosingProblemState extends ConsumerState<ChoosingProblem> {
                   Padding(
                     padding: const EdgeInsets.only(right: 90.0, bottom: 20.0),
                     child: Text(
-                      // ' Hello,\n Dr. Reema',
-                      ' Welcome \n  Dr. ${ref.watch(newUserDataProivder)!.fname}',
-
-                      style:
-                          GoogleFonts.lato(fontSize: 25, color: Colors.white),
+                      ' Welcome, \n ${ref.watch(newUserDataProivder)!.fname}',
+                      style: GoogleFonts.nunitoSans(
+                          fontSize: 25,
+                          color: const Color.fromARGB(255, 1, 6, 29)),
                     ),
                   ),
                   SizedBox(
@@ -70,16 +80,15 @@ class _ChoosingProblemState extends ConsumerState<ChoosingProblem> {
               ),
             ),
             const SizedBox(
-              height: 40,
+              height: 80,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Choosing problem of patient',
-                  style: GoogleFonts.lato(
-                      fontSize: 30,
-                      color: const Color.fromARGB(255, 0, 185, 209)),
+                  style: GoogleFonts.nunitoSans(
+                      fontSize: 30, color: const Color.fromARGB(255, 1, 6, 29)),
                 ),
               ],
             ),
@@ -103,14 +112,11 @@ class _ChoosingProblemState extends ConsumerState<ChoosingProblem> {
                 },
                 icon: const Icon(
                   Icons.arrow_drop_down_circle,
-                  color: Colors.cyan,
+                  color: Colors.blueAccent,
                 ),
-                decoration: InputDecoration(
-                    labelText: "Problems",
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50.0),
-                        borderSide:
-                            const BorderSide(color: Colors.cyan, width: 2.0))),
+                decoration: const InputDecoration(
+                  labelText: "Problems",
+                ),
               ),
             ),
             const SizedBox(
@@ -121,7 +127,7 @@ class _ChoosingProblemState extends ConsumerState<ChoosingProblem> {
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(246, 86, 203, 209),
+                      backgroundColor: Colors.blue[900],
                       padding: const EdgeInsets.symmetric(
                           horizontal: 70, vertical: 20),
                       shape: RoundedRectangleBorder(
