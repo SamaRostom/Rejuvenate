@@ -1,13 +1,13 @@
+
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rejuvenate_mobile_app/screens/inpaint/preview_page.dart';
 
+import 'preview_page.dart';
 
 class UploadImage extends StatefulWidget {
   const UploadImage({super.key});
-
   @override
   State<UploadImage> createState() => _UploadImageState();
 }
@@ -19,38 +19,44 @@ class _UploadImageState extends State<UploadImage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        title: const Center(
-          child: Padding(
-            padding: EdgeInsets.only(right: 50.0),
-          ),
-        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        foregroundColor: const Color.fromARGB(255, 1, 6, 29),
+        shadowColor: Colors.white,
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(left: 20, bottom: 50),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Upload Image",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(fontSize: 30, color: Colors.cyan),
-                textAlign: TextAlign.center,
+              Image.asset(
+                'assets/upload.jpg',
+                height: 250,
+                width: 300,
               ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5, left: 20),
+                child: Text(
+                  "Upload the image you want \t \t \t \t \tto see the results for",
+                  style: GoogleFonts.nunitoSans(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: const Color.fromARGB(255, 1, 6, 29)),
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Column(
                 children: [
                   ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.cyan),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.blue[900]),
                         padding: MaterialStateProperty.all(
-                            const EdgeInsets.fromLTRB(40, 10, 40, 10)),
+                            const EdgeInsets.fromLTRB(50, 20, 70, 20)),
                         textStyle: MaterialStateProperty.all(const TextStyle(
-                            fontSize: 14, color: Colors.white))),
+                            fontSize: 20, color: Colors.white))),
                     onPressed: () async {
                       XFile? xFile = await ImagePicker()
                           .pickImage(source: ImageSource.gallery);
@@ -64,22 +70,25 @@ class _UploadImageState extends State<UploadImage> {
                     },
                     child: Column(
                       children: const [
-                        Icon(Icons.image_outlined),
+                        Icon(
+                          Icons.image_outlined,
+                          color: Colors.white,
+                        ),
                         Text(
                           'Pick Gallery',
-                          style: TextStyle(),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(width: 10.0),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.cyan),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.blue[900]),
                         padding: MaterialStateProperty.all(
-                            const EdgeInsets.fromLTRB(40, 10, 40, 10)),
+                            const EdgeInsets.fromLTRB(50, 20, 70, 20)),
                         textStyle: MaterialStateProperty.all(const TextStyle(
-                            fontSize: 14, color: Colors.white))),
+                            fontSize: 20, color: Colors.white))),
                     onPressed: () async {
                       XFile? xFile = await ImagePicker()
                           .pickImage(source: ImageSource.camera);
@@ -94,10 +103,12 @@ class _UploadImageState extends State<UploadImage> {
                     },
                     child: Column(
                       children: const [
-                        Icon(Icons.camera_alt_outlined),
+                        Icon(
+                          Icons.camera_alt_outlined,
+                          color: Colors.white,
+                        ),
                         Text(
                           'Pick Camera',
-                          style: TextStyle(),
                         ),
                       ],
                     ),

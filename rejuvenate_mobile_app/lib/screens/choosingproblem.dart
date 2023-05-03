@@ -133,7 +133,7 @@ class _ChoosingProblemState extends ConsumerState<ChoosingProblem> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(40))),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/uploadimage');
+                    Navigator.pushNamed(context, '/inpaint');
                   },
                   child: const Text(
                     'Submit',

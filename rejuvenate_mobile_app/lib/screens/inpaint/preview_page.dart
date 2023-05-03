@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-
-
+import 'package:google_fonts/google_fonts.dart';
 
 class PreviewPage extends StatelessWidget {
   const PreviewPage({Key? key, required this.myfile}) : super(key: key);
@@ -14,55 +12,37 @@ class PreviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        title: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(right: 50.0),
-            child: Text(
-              "Preview Page",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(fontSize: 28, color: Colors.white),
-            ),
-          ),
-        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        foregroundColor: const Color.fromARGB(255, 1, 6, 29),
+        shadowColor: Colors.white,
       ),
       body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Image.file(File(myfile.path), fit: BoxFit.cover, width:350,height:350 ,alignment:Alignment.center),
+              Image.file(File(myfile.path), fit: BoxFit.cover, width: 250),
               const SizedBox(height: 24),
               Text(myfile.name),
-
-              const SizedBox(height: 20),
-
+              const SizedBox(height: 30),
               ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.cyan),
-                    padding:
-                        MaterialStateProperty.all(const EdgeInsets.all(20)),
-                    textStyle: MaterialStateProperty.all(
-                        const TextStyle(fontSize: 14, color: Colors.white))),
-                onPressed: () async {
-                  Navigator.of(context).pushNamed('/finalresult');
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue[900],
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 70, vertical: 20),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40))),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/finalresult');
                 },
-                
-                child: Column(
-                  children: const [
-                    Icon(Icons.check_outlined),
-                    Text(
-                      'Final Result',
-                      style: TextStyle(),
-                    ),
-                  ],
+                child: const Text(
+                  'Final Results',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ],
-            
-            ),
           ),
+        ),
       ),
     );
   }
