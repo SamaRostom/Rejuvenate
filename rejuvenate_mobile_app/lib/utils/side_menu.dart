@@ -19,15 +19,8 @@ class SideMenu1 extends StatelessWidget {
             height: 150,
             child: DrawerHeader(
                 child: Image.asset(
-              'assets/Logo.jpg',
+              'assets/Logo.png',
             )),
-          ),
-          DrawerListTile(
-            icon: TernavIcons.lightOutline.home_2,
-            title: "Home",
-            onTap: () {
-              Navigator.of(context).pushNamed('/');
-            },
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.profile,
@@ -49,11 +42,6 @@ class SideMenu1 extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushNamed('/choosingproblem');
             },
-          ),
-          DrawerListTile(
-            icon: TernavIcons.lightOutline.chat,
-            title: "Message",
-            onTap: () {},
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.menu,
@@ -92,7 +80,7 @@ class SideMenu2 extends StatelessWidget {
             height: 150,
             child: DrawerHeader(
                 child: Image.asset(
-              'assets/Logo.jpg',
+              'assets/Logo.png',
             )),
           ),
           DrawerListTile(
@@ -102,32 +90,6 @@ class SideMenu2 extends StatelessWidget {
               Navigator.of(context).pushNamed('/');
             },
           ),
-          // DrawerListTile(
-          //   icon: TernavIcons.lightOutline.profile,
-          //   title: "Profile",
-          //   onTap: () {
-          //     Navigator.of(context).pushNamed('/profile');
-          //   },
-          // ),
-          // DrawerListTile(
-          //   icon: TernavIcons.lightOutline.folder,
-          //   title: "Choose problem",
-          //   onTap: () {
-          //     Navigator.of(context).pushNamed('/choosingproblem');
-          //   },
-          // ),
-          // DrawerListTile(
-          //   icon: TernavIcons.lightOutline.chat,
-          //   title: "Message",
-          //   onTap: () {},
-          // ),
-          // DrawerListTile(
-          //   icon: TernavIcons.lightOutline.menu,
-          //   title: "Dashboard",
-          //   onTap: () {
-          //     Navigator.of(context).pushNamed('/dashboard');
-          //   },
-          // ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.arrow_right_1,
             title: "Sign up",
@@ -166,12 +128,13 @@ class DrawerListTile extends StatelessWidget {
       horizontalTitleGap: 0,
       leading: Icon(
         icon,
-        color: Colors.cyan,
+        color: Colors.blue,
         size: 25,
       ),
       title: Text(
         title,
-        style: const TextStyle(color: Colors.grey, fontSize: 20),
+        style:
+            const TextStyle(color: Color.fromARGB(255, 1, 6, 29), fontSize: 20),
       ),
     );
   }
