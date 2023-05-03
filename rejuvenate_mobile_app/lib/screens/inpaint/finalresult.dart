@@ -41,8 +41,8 @@ class _FinalResultState extends State<FinalResult> {
                 ),
                 child: BeforeAfter(
                   isVertical: false,
-                  beforeImage: Image.asset('assets/baby2.jpg'),
-                  afterImage: Image.asset('assets/baby2.png'),
+                  beforeImage: Image.asset('assets/baby2.jpg',width:350 ,height:350 ,fit: BoxFit.fill,),
+                  afterImage: Image.asset('assets/baby2.png',width:350 ,height:350 ,fit: BoxFit.fill,),
                   thumbColor: Colors.cyan,
                   thumbRadius: 15.0,
                   overlayColor: Colors.grey,

@@ -32,7 +32,7 @@ class PreviewPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Image.file(File(myfile.path), fit: BoxFit.cover, width: 250),
+              Image.file(File(myfile.path), fit: BoxFit.cover, width:350,height:350 ,alignment:Alignment.center),
               const SizedBox(height: 24),
               Text(myfile.name),
 
