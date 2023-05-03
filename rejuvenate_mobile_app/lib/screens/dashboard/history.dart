@@ -26,42 +26,42 @@ class History extends StatelessWidget {
                               DataColumn(
                                 label: Text('Name',
                                     style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 20,
                                         color: Color.fromRGBO(13, 71, 161, 1),
                                         fontWeight: FontWeight.bold))),
                             DataColumn(
-                                label: Text('Age',
+                                label: Text('Problem Type',
                                     style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 20,
                                         color: Color.fromRGBO(13, 71, 161, 1),
                                         fontWeight: FontWeight.bold))),
                             DataColumn(
-                                label: Text('Gender',
+                                label: Text('Surgery',
                                     style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 20,
                                         color: Color.fromRGBO(13, 71, 161, 1),
                                         fontWeight: FontWeight.bold))),
                           ],
                           rows: const [
                             DataRow(cells: [
-                              DataCell(Text('1')),
-                              DataCell(Text('Stephen')),
-                              DataCell(Text('1')),
+                              DataCell(Text('Mostafa', style: TextStyle(fontSize: 16.0))),
+                              DataCell(Text('Clift Lip', style: TextStyle(fontSize: 16.0))),
+                              DataCell(Text('Done', style: TextStyle(fontSize: 16.0))),
                             ]),
                             DataRow(cells: [
-                              DataCell(Text('5')),
-                              DataCell(Text('John')),
-                              DataCell(Text('3')),
+                              DataCell(Text('Ahmed', style: TextStyle(fontSize: 16.0))),
+                              DataCell(Text('Clift Lip', style: TextStyle(fontSize: 16.0))),
+                              DataCell(Text('In Progress', style: TextStyle(fontSize: 16.0))),
                             ]),
                             DataRow(cells: [
-                              DataCell(Text('10')),
-                              DataCell(Text('Harry')),
-                              DataCell(Text('3')),
+                              DataCell(Text('Kareem', style: TextStyle(fontSize: 16.0))),
+                              DataCell(Text('Clift Lip', style: TextStyle(fontSize: 16.0))),
+                              DataCell(Text('In Progress', style: TextStyle(fontSize: 16.0))),
                             ]),
                             DataRow(cells: [
-                              DataCell(Text('15')),
-                              DataCell(Text('Peter')),
-                              DataCell(Text('1')),
+                              DataCell(Text('Laila', style: TextStyle(fontSize: 16.0))),
+                              DataCell(Text('Clift Lip', style: TextStyle(fontSize: 16.0))),
+                              DataCell(Text('Done', style: TextStyle(fontSize: 16.0))),
                             ]),
                           ],
                         ),

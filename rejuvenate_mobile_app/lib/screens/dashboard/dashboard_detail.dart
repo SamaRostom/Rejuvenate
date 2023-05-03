@@ -14,7 +14,7 @@ class DashboardDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-                flex: 10,
+                flex: 30,
                 child: SafeArea(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(
@@ -27,8 +27,7 @@ class DashboardDetail extends StatelessWidget {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[900],
-                                //onPrimary: Colors.black,
+                                backgroundColor: Colors.blue[900]
                               ),
                               onPressed: () {
                                 Navigator.pushNamed(context, '/addpatient');
@@ -65,15 +64,7 @@ class DashboardDetail extends StatelessWidget {
                                           color: Colors.white,
                                           borderRadius:
                                               BorderRadius.circular(10.0),
-                                          // boxShadow: [
-                                          //   BoxShadow(
-                                          //     color:
-                                          //         Colors.grey.withOpacity(0.3),
-                                          //     offset: const Offset(-10.0, 10.0),
-                                          //     blurRadius: 20.0,
-                                          //     spreadRadius: 4.0,
-                                          //   ),
-                                          // ]
+                                         
                                           ),
                                     ),
                                   )),
@@ -91,11 +82,11 @@ class DashboardDetail extends StatelessWidget {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10.0),
-                                          // image: const DecorationImage(
-                                          //   // fit:BoxFit.fill,
-                                          //   image: AssetImage(
-                                          //       "assets/patient.png"),
-                                          // )
+                                          image: const DecorationImage(
+                                            // fit:BoxFit.fill,
+                                            image: AssetImage(
+                                                "assets/patient.png"),
+                                          )
                                           ),
                                     ),
                                   )),
@@ -113,8 +104,7 @@ class DashboardDetail extends StatelessWidget {
                                             "Patients Count",
                                             style: GoogleFonts.nunitoSans(
                                                 fontSize: 20,
-                                                color: const Color.fromARGB(
-                                                    255, 1, 6, 29),
+                                                color: Colors.blue[900],
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           const Divider(
@@ -135,12 +125,105 @@ class DashboardDetail extends StatelessWidget {
                                   child: const Text(
                                     "See all",
                                     style: TextStyle(
-                                        fontSize: 14, color: Colors.blue),
+                                        fontSize: 14, color: Color.fromARGB(255, 2, 68, 122)),
                                   ),
                                   onPressed: () => Navigator.of(context)
                                       .pushNamed('/viewprofile'),
                                 ),
                               ),
+
+                              
+                              
+                            ],
+                          ),
+                        ),
+                        ///new 
+                        
+                          SizedBox(
+                          height: 230,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                  top: 25,
+                                  left: 50,
+                                  child: Material(
+                                    child: Container(
+                                      height: 180.0,
+                                      width: 500.0,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                         
+                                          ),
+                                    ),
+                                  )),
+                              Positioned(
+                                  top: 22,
+                                  child: Card(
+                                    elevation: 10.0,
+                                    shadowColor: Colors.grey,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    child: Container(
+                                      height: 180,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          image: const DecorationImage(
+                                            // fit:BoxFit.fill,
+                                            image: AssetImage(
+                                                "assets/imageresult.png"),
+                                          )
+                                          ),
+                                    ),
+                                  )),
+                              Positioned(
+                                  top: 70,
+                                  left: 170,
+                                  child: SizedBox(
+                                    height: 150.0,
+                                    width: 160.0,
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Number Of Image Result",
+                                            style: GoogleFonts.nunitoSans(
+                                                fontSize: 20,
+                                                color: Colors.blue[900],
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const Divider(
+                                            color: Colors.black,
+                                          ),
+                                          Text(
+                                            "98",
+                                            style: GoogleFonts.nunitoSans(
+                                                fontSize: 18,
+                                                color: Colors.grey),
+                                          ),
+                                        ]),
+                                  )),
+                              Positioned(
+                                top: 150,
+                                left: 270,
+                                child: TextButton(
+                                  child: const Text(
+                                    "See all",
+                                    style: TextStyle(
+                                        fontSize: 14, color: Color.fromARGB(255, 2, 68, 122)),
+                                  ),
+                                  onPressed: () => Navigator.of(context)
+                                      .pushNamed('/viewprofile'),
+                                ),
+                              ),
+
+                              
+                              
                             ],
                           ),
                         ),
