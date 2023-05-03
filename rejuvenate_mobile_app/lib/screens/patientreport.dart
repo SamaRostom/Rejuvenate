@@ -1,12 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rejuvenate_mobile_app/screens/patientreport.dart';
 import 'package:rejuvenate_mobile_app/widgets/answer_type.dart';
-import '../services/user_services.dart';
-import '../widgets/custom_text.dart';
 import '../../utils/validations.dart';
 
 enum GenderTypeEnum { Male, Female }
@@ -20,7 +16,6 @@ class PatientReport extends StatefulWidget {
 
   @override
   State<PatientReport> createState() => _PatientReportState();
-
 }
 
 class _PatientReportState extends State<PatientReport> {
@@ -47,7 +42,7 @@ class _PatientReportState extends State<PatientReport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(right: 40.0),
@@ -61,7 +56,7 @@ class _PatientReportState extends State<PatientReport> {
         elevation: 0.0,
         foregroundColor: const Color.fromARGB(255, 1, 6, 29),
         shadowColor: Colors.white,
-        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -70,24 +65,10 @@ class _PatientReportState extends State<PatientReport> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CustomText(
-                    shadows: [
-                      Shadow(
-                        blurRadius: 10,
-                        color: Colors.cyan,
-                      ),
-                    ],
-                    text: 'Please Enter Your Data',
-                    fontSize: 30,
-                  ),
                   const SizedBox(height: 10.0),
                   TextFormField(
                     controller: _nameController,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide:
-                              const BorderSide(color: Colors.cyan, width: 2.0)),
+                    decoration: const InputDecoration(
                       labelText: 'Name',
                     ),
                     validator: (value) {
@@ -101,19 +82,19 @@ class _PatientReportState extends State<PatientReport> {
                   const Text(
                     'Choose the Gender',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 23, 75, 82),
+                        color: Color.fromARGB(255, 1, 6, 29),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
+                  const SizedBox(height: 10.0),
                   Row(
                     children: [
                       Expanded(
                         child: RadioListTile<GenderTypeEnum>(
                           value: GenderTypeEnum.Male,
                           groupValue: _genderTypeEnum,
-                          tileColor: Colors.cyan.shade200,
                           shape: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(30.0),
                               borderSide: const BorderSide(
                                   color: Colors.white, width: 2.0)),
                           title: Text(GenderTypeEnum.Male.name),
@@ -125,15 +106,14 @@ class _PatientReportState extends State<PatientReport> {
                         ),
                       ),
                       const SizedBox(
-                        width: 5.0,
+                        width: 10.0,
                       ),
                       Expanded(
                         child: RadioListTile<GenderTypeEnum>(
                           value: GenderTypeEnum.Female,
                           groupValue: _genderTypeEnum,
-                          tileColor: Colors.cyan.shade200,
                           shape: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
+                            borderRadius: BorderRadius.circular(30.0),
                             borderSide: const BorderSide(
                                 color: Colors.white, width: 2.0),
                           ),
@@ -150,7 +130,7 @@ class _PatientReportState extends State<PatientReport> {
                     ],
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 20,
                   ),
                   DropdownButtonFormField(
                     value: _selectedVal,
@@ -167,99 +147,70 @@ class _PatientReportState extends State<PatientReport> {
                     },
                     icon: const Icon(
                       Icons.arrow_drop_down_circle,
-                      color: Colors.cyan,
+                      color: Colors.blueAccent,
                     ),
-                    decoration: InputDecoration(
-                        labelText: "Sugar Types",
-                        prefixIcon: const Icon(
-                          Icons.accessibility_new_rounded,
-                          color: Colors.cyan,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: const BorderSide(
-                                color: Colors.cyan, width: 2.0))),
+                    decoration: const InputDecoration(
+                      labelText: "Sugar Types",
+                      prefixIcon: Icon(
+                        Icons.accessibility_new_rounded,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 20),
                   //BLOOD
                   const Text(
                     'Do you have Blood Pressure?',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 23, 75, 82),
+                        color: Color.fromARGB(255, 1, 6, 29),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
+                  const SizedBox(height: 10.0),
                   const AnswerType(),
                   const SizedBox(
-                    height: 15,
+                    height: 20,
                   ),
                   //Problems
                   const Text(
                     'Do you have any known cardiovascular problems (abnormal ECG, previous heart attack, etc)?',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 23, 75, 82),
+                        color: Color.fromARGB(255, 1, 6, 29),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
+                  const SizedBox(height: 10.0),
                   const AnswerType(),
                   const SizedBox(
-                    height: 15,
+                    height: 20,
                   ),
-                  //cholesterol
-                  const Text(
-                    'Do you have high cholesterol?',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 23, 75, 82),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  const AnswerType(),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  //injuries
-                  const Text(
-                    'Do you have any injuries (leg, knees, etc)?',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 23, 75, 82),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  const AnswerType(),
-                  const SizedBox(
-                    height: 15,
-                  ),
+
                   //medicine
                   const Text(
                     'Are you taking any prescribed medications or dietary supplementation?',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 23, 75, 82),
+                        color: Color.fromARGB(255, 1, 6, 29),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
+                  const SizedBox(height: 10.0),
                   const AnswerType(),
                   const SizedBox(
-                    height: 15,
+                    height: 20,
                   ),
                   const Text(
                     "If yes enter the name of the medicine",
                     style: TextStyle(
-                        color: Color.fromARGB(255, 23, 75, 82),
+                        color: Color.fromARGB(255, 1, 6, 29),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   TextFormField(
                     controller: _fController,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide:
-                              const BorderSide(color: Colors.cyan, width: 2.0)),
+                    decoration: const InputDecoration(
                       labelText: 'Medicine name',
                     ),
                     validator: (value) {
@@ -272,7 +223,10 @@ class _PatientReportState extends State<PatientReport> {
                   const SizedBox(
                     height: 20,
                   ),
-                  
+
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -282,19 +236,22 @@ class _PatientReportState extends State<PatientReport> {
                                 MaterialStateProperty.all(Colors.blue[900]),
                             padding: MaterialStateProperty.all(
                                 const EdgeInsets.fromLTRB(40, 10, 40, 10)),
-                            textStyle: MaterialStateProperty.all(
-                                const TextStyle(
-                                    fontSize: 14,
-                                    ))),
+                            textStyle:
+                                MaterialStateProperty.all(const TextStyle(
+                              fontSize: 14,
+                            ))),
                         onPressed: () async {},
                         child: Column(
                           children: const [
-                            Icon(Icons.done_outlined,color: Colors.white,),
-                            
+                            Icon(
+                              Icons.done_outlined,
+                              color: Colors.white,
+                            ),
                             Text(
                               'Submit',
                               style: TextStyle(
-                                  color: Colors.white),
+                                color: Colors.white,
+                              ),
                             ),
                           ],
                         ),
@@ -308,18 +265,20 @@ class _PatientReportState extends State<PatientReport> {
                                 MaterialStateProperty.all(Colors.blue[900]),
                             padding: MaterialStateProperty.all(
                                 const EdgeInsets.fromLTRB(40, 10, 40, 10)),
-                            textStyle: MaterialStateProperty.all(
-                                const TextStyle(
-                                    fontSize: 14,
-                                   ))),
-                        onPressed: () async {Navigator.pushNamed(context, '/dashboard');},
+                            textStyle:
+                                MaterialStateProperty.all(const TextStyle(
+                              fontSize: 14,
+                            ))),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/dashboard');
+                        },
                         child: Column(
                           children: const [
-                            Icon(Icons.remove_circle_outline,color: Colors.white),
+                            Icon(Icons.remove_circle_outline,
+                                color: Colors.white),
                             Text(
                               'Cancel',
-                              style: TextStyle(
-                                  color: Colors.white),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ],
                         ),
