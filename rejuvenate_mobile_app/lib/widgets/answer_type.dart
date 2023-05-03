@@ -20,9 +20,8 @@ class _AnswerTypeState extends State<AnswerType> {
           child: RadioListTile<AnswerTypeEnum>(
             value: AnswerTypeEnum.Yes,
             groupValue: _answerTypeEnum,
-            tileColor: Colors.cyan.shade200,
             shape: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
+                borderRadius: BorderRadius.circular(30.0),
                 borderSide: const BorderSide(color: Colors.white, width: 2.0)),
             title: Text(AnswerTypeEnum.Yes.name),
             onChanged: (val) {
@@ -33,15 +32,14 @@ class _AnswerTypeState extends State<AnswerType> {
           ),
         ),
         const SizedBox(
-          width: 5.0,
+          width: 10,
         ),
         Expanded(
           child: RadioListTile<AnswerTypeEnum>(
             value: AnswerTypeEnum.NO,
             groupValue: _answerTypeEnum,
-            tileColor: Colors.cyan.shade200,
             shape: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(30.0),
               borderSide: const BorderSide(color: Colors.white, width: 2.0),
             ),
             title: Text(AnswerTypeEnum.NO.name),
