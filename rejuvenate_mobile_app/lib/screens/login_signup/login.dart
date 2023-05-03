@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rejuvenate_mobile_app/services/user_services.dart';
-
 import '../../config/size_config.dart';
 import '../../utils/validations.dart';
 
@@ -33,21 +32,13 @@ class _LoginState extends ConsumerState<LoginScreen> {
     SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         key: scaffoldKey,
         appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.only(right: 40.0),
-            child: Center(
-                child: Text('Log in',
-                    style: GoogleFonts.notoSansAdlam(fontSize: 45))),
-          ),
-          toolbarHeight: 80,
-          backgroundColor: Colors.cyan,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(30),
-            ),
-          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          foregroundColor: const Color.fromARGB(255, 1, 6, 29),
+          shadowColor: Colors.white,
         ),
         body: Form(
           key: _formKey,
@@ -56,7 +47,18 @@ class _LoginState extends ConsumerState<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 50),
+                Image.asset('assets/login.png', fit: BoxFit.cover),
+                Padding(
+                  padding: const EdgeInsets.only(right: 300),
+                  child: Text(
+                    'Login',
+                    style: GoogleFonts.nunitoSans(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        color: const Color.fromARGB(255, 1, 6, 29)),
+                  ),
+                ),
+                // const SizedBox(height: 50),
                 //email
                 Padding(
                   padding: const EdgeInsets.only(
@@ -64,7 +66,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                   child: TextFormField(
                     controller: _emailController,
                     obscureText: false,
-                    decoration: CommonStyle.textFieldStyle2(
+                    decoration: CommonStyle.textFieldStyle3(
                         labelText: ("Email"),
                         prefixIcon: const Icon(Icons.email_outlined)),
                     validator: (value) {
@@ -88,13 +90,13 @@ class _LoginState extends ConsumerState<LoginScreen> {
                     obscureText: passwordVisible,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.done,
-                    decoration: CommonStyle.textFieldStyle2(
+                    decoration: CommonStyle.textFieldStyle3(
                       labelText: ("Password"),
                       prefixIcon: const Icon(Icons.lock_outline_rounded),
                       suffixIcon: IconButton(
                           icon: Icon(passwordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off),
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined),
                           onPressed: () {
                             setState(
                               () {
@@ -105,13 +107,33 @@ class _LoginState extends ConsumerState<LoginScreen> {
                     ),
                     validator: (value) {
                       if (!value!.isValidPassword) {
-                        return 'enter At Least 8 characters one letter and one number';
+                        return 'Enter At Least 8 characters one letter and one number';
                       }
                       return null;
                     },
                   ),
                 ),
-                const SizedBox(height: 60),
+                Padding(
+                  padding: const EdgeInsets.only(left: 250, bottom: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      TextButton(
+                        child: Text(
+                          'Forget Password?',
+                          style: GoogleFonts.nunitoSans(
+                              fontSize: 15,
+                              // decoration: TextDecoration.underline,
+                              color: Colors.grey),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/forgetpassword');
+                        },
+                      )
+                    ],
+                  ),
+                ),
+                // const SizedBox(height: 150),
                 //sign in button
                 Padding(
                   padding: const EdgeInsets.only(
@@ -120,7 +142,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                     padding: const EdgeInsets.only(
                         top: 5, left: 15, right: 15, bottom: 5),
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: Colors.blue[900],
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: ElevatedButton(
@@ -136,7 +158,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                         backgroundColor: Colors.red.withOpacity(0),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(2),
+                            Radius.circular(10),
                           ),
                         ),
                       ),
@@ -146,7 +168,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            fontSize: 20,
                           ),
                         ),
                       ),
@@ -156,35 +178,18 @@ class _LoginState extends ConsumerState<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    TextButton(
-                      child: Text(
-                        'Forget Password?',
-                        style: GoogleFonts.notoSansAdlam(
-                            fontSize: 20,
-                            decoration: TextDecoration.underline,
-                            color: Colors.cyan),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/forgetpassword');
-                      },
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
                     Text(
-                      'Create a new account',
-                      style: GoogleFonts.notoSansAdlam(
+                      'Joined us before?',
+                      style: GoogleFonts.nunitoSans(
                           fontSize: 23, color: Colors.grey),
                     ),
                     TextButton(
                       child: Text(
                         'Signup',
-                        style: GoogleFonts.notoSansAdlam(
-                            fontSize: 20,
-                            decoration: TextDecoration.underline,
-                            color: Colors.cyan),
+                        style: GoogleFonts.nunitoSans(
+                            fontSize: 25,
+                            // decoration: TextDecoration.underline,
+                            color: Colors.blue[700]),
                       ),
                       onPressed: () {
                         Navigator.of(context).pushNamed('/signup');
