@@ -8,7 +8,8 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: LoadingAnimationWidget.threeArchedCircle(
-      color: Colors.cyan, size: 60,
+      color: const Color.fromRGBO(13, 71, 161, 1),
+      size: 60,
     ));
   }
 }
