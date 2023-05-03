@@ -14,31 +14,34 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return DefaultTabController(
-      length: 2,
+      length: 10,
       child: Scaffold(
         drawer: loggedin == true ? const SideMenu1(): const SideMenu2(),
         appBar: AppBar(
-            title: Center(
-                child: Padding(
-              padding: const EdgeInsets.only(right: 50.0),
-              child:
-                  Text('Dashboard', style: GoogleFonts.notoSansAdlam(fontSize: 40)),
-            )),
-            toolbarHeight: 80,
-            backgroundColor: Colors.cyan,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(30),
-              ),
-            ),
-            bottom: TabBar(
-              indicatorColor: Colors.transparent,
-              tabs: [
-                Tab(icon: const Icon(Icons.dashboard_outlined),child: Text('Dashboard', style: GoogleFonts.notoSansAdlam(fontSize: 20))),
-                Tab(icon: const Icon(Icons.history_edu_outlined),child: Text('History', style: GoogleFonts.notoSansAdlam(fontSize: 20))),
-              ],
-            ), 
+           backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          foregroundColor: const Color.fromARGB(255, 1, 6, 29),
+          shadowColor: Colors.white,
+          bottom: TabBar(
+            indicatorColor: Colors.transparent,
+            tabs: [
+              Tab(
+                  icon: const Icon(
+                    Icons.dashboard_outlined,
+                    color: Color.fromRGBO(13, 71, 161, 1),
+                  ),
+                  child: Text('Dashboard',
+                      style: GoogleFonts.nunitoSans(
+                          fontSize: 20, color: Colors.blue[900]))),
+              Tab(
+                  icon: const Icon(Icons.history_edu_outlined,
+                      color: Color.fromRGBO(13, 71, 161, 1)),
+                  child: Text('History',
+                      style: GoogleFonts.nunitoSans(
+                          fontSize: 20, color: Colors.blue[900]))),
+            ],
           ),
+        ),
         body: const TabBarView(
           children: [
             DashboardDetail(),

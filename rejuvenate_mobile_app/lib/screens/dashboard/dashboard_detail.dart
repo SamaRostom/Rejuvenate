@@ -22,18 +22,12 @@ class DashboardDetail extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // ListView(children: <Widget>[
-                        // Center(
-                        //     child: Text(
-                        //       'People-Chart',
-                        //       style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                        //     )),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.cyan,
+                                backgroundColor: Colors.blue[900],
                                 //onPrimary: Colors.black,
                               ),
                               onPressed: () {
@@ -49,7 +43,7 @@ class DashboardDetail extends StatelessWidget {
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text("Patient",
+                                  Text("Add Patient",
                                       style: TextStyle(fontSize: 24)),
                                 ],
                               ),
@@ -66,27 +60,28 @@ class DashboardDetail extends StatelessWidget {
                                   child: Material(
                                     child: Container(
                                       height: 180.0,
-                                      width: 320.0,
+                                      width: 500.0,
                                       decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
                                               BorderRadius.circular(10.0),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.grey.withOpacity(0.3),
-                                              offset: const Offset(-10.0, 10.0),
-                                              blurRadius: 20.0,
-                                              spreadRadius: 4.0,
-                                            ),
-                                          ]),
+                                          // boxShadow: [
+                                          //   BoxShadow(
+                                          //     color:
+                                          //         Colors.grey.withOpacity(0.3),
+                                          //     offset: const Offset(-10.0, 10.0),
+                                          //     blurRadius: 20.0,
+                                          //     spreadRadius: 4.0,
+                                          //   ),
+                                          // ]
+                                          ),
                                     ),
                                   )),
                               Positioned(
                                   top: 22,
                                   child: Card(
                                     elevation: 10.0,
-                                    shadowColor: Colors.grey.withOpacity(0.3),
+                                    shadowColor: Colors.grey,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15.0),
                                     ),
@@ -96,11 +91,12 @@ class DashboardDetail extends StatelessWidget {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10.0),
-                                          image: const DecorationImage(
-                                            // fit:BoxFit.fill,
-                                            image: AssetImage(
-                                                "assets/patient.png"),
-                                          )),
+                                          // image: const DecorationImage(
+                                          //   // fit:BoxFit.fill,
+                                          //   image: AssetImage(
+                                          //       "assets/patient.png"),
+                                          // )
+                                          ),
                                     ),
                                   )),
                               Positioned(
@@ -115,9 +111,10 @@ class DashboardDetail extends StatelessWidget {
                                         children: [
                                           Text(
                                             "Patients Count",
-                                            style: GoogleFonts.lato(
+                                            style: GoogleFonts.nunitoSans(
                                                 fontSize: 20,
-                                                color: Colors.cyan,
+                                                color: const Color.fromARGB(
+                                                    255, 1, 6, 29),
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           const Divider(
@@ -125,7 +122,7 @@ class DashboardDetail extends StatelessWidget {
                                           ),
                                           Text(
                                             "142",
-                                            style: GoogleFonts.lato(
+                                            style: GoogleFonts.nunitoSans(
                                                 fontSize: 18,
                                                 color: Colors.grey),
                                           ),
@@ -138,7 +135,7 @@ class DashboardDetail extends StatelessWidget {
                                   child: const Text(
                                     "See all",
                                     style: TextStyle(
-                                        fontSize: 14, color: Colors.cyan),
+                                        fontSize: 14, color: Colors.blue),
                                   ),
                                   onPressed: () => Navigator.of(context)
                                       .pushNamed('/viewprofile'),

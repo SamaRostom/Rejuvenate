@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rejuvenate_mobile_app/services/user_services.dart';
-
-// import '../models/usermodel.dart';
 import '../../utils/validations.dart';
 
-enum GenderTypeEnum { male, female }
+enum GenderTypeEnum { Male, Female }
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
@@ -49,21 +47,13 @@ class _SignupState extends ConsumerState<SignupScreen> {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return SafeArea(
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         key: scaffoldKey,
         appBar: AppBar(
-          title: Center(
-              child: Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child:
-                Text('Sign Up', style: GoogleFonts.notoSansAdlam(fontSize: 45)),
-          )),
-          toolbarHeight: 80,
-          backgroundColor: Colors.cyan,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(30),
-            ),
-          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          foregroundColor: const Color.fromARGB(255, 1, 6, 29),
+          shadowColor: Colors.white,
         ),
         body: Form(
           key: _formKey,
@@ -72,6 +62,17 @@ class _SignupState extends ConsumerState<SignupScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Image.asset('assets/login.png', fit: BoxFit.cover),
+                Padding(
+                  padding: const EdgeInsets.only(right: 250),
+                  child: Text(
+                    'Sign Up',
+                    style: GoogleFonts.nunitoSans(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        color: const Color.fromARGB(255, 1, 6, 29)),
+                  ),
+                ),
                 //first name
                 Padding(
                   padding: const EdgeInsets.only(
@@ -79,9 +80,9 @@ class _SignupState extends ConsumerState<SignupScreen> {
                   child: TextFormField(
                     controller: _fnameController,
                     obscureText: false,
-                    decoration: CommonStyle.textFieldStyle2(
+                    decoration: CommonStyle.textFieldStyle3(
                         labelText: ("First name"),
-                        prefixIcon: const Icon(Icons.person)),
+                        prefixIcon: const Icon(Icons.person_outlined)),
                     validator: (value) {
                       if (!value!.isNotEmpty && !value.isValidName) {
                         return 'Please enter your first name';
@@ -90,7 +91,6 @@ class _SignupState extends ConsumerState<SignupScreen> {
                     },
                   ),
                 ),
-                const SizedBox(height: 10),
                 //last name
                 Padding(
                   padding: const EdgeInsets.only(
@@ -98,9 +98,9 @@ class _SignupState extends ConsumerState<SignupScreen> {
                   child: TextFormField(
                     controller: _lnameController,
                     obscureText: false,
-                    decoration: CommonStyle.textFieldStyle2(
+                    decoration: CommonStyle.textFieldStyle3(
                         labelText: ("Last name"),
-                        prefixIcon: const Icon(Icons.person)),
+                        prefixIcon: const Icon(Icons.person_outlined)),
                     validator: (value) {
                       if (!value!.isNotEmpty && !value.isValidName) {
                         return 'Please enter your last name';
@@ -109,7 +109,6 @@ class _SignupState extends ConsumerState<SignupScreen> {
                     },
                   ),
                 ),
-                const SizedBox(height: 10),
                 //phone
                 Padding(
                   padding: const EdgeInsets.only(
@@ -117,9 +116,9 @@ class _SignupState extends ConsumerState<SignupScreen> {
                   child: TextFormField(
                     controller: _phoneController,
                     obscureText: false,
-                    decoration: CommonStyle.textFieldStyle2(
+                    decoration: CommonStyle.textFieldStyle3(
                         labelText: ("Phone number"),
-                        prefixIcon: const Icon(Icons.phone)),
+                        prefixIcon: const Icon(Icons.phone_outlined)),
                     validator: (value) {
                       if (!value!.isNotEmpty && !value.isValidPhone) {
                         return 'Please enter your phone number';
@@ -128,162 +127,6 @@ class _SignupState extends ConsumerState<SignupScreen> {
                     },
                   ),
                 ),
-                const SizedBox(height: 10),
-                //gender
-                // Row(
-                //   children: [
-                //   const Text("Gender",),
-                //   RadioListTile(
-                //     title: const Text("Male"),
-                //     value: "male",
-                //     groupValue: gender,
-                //     onChanged: (value) {
-                //       // setState(() {
-                //       //   gender = value.toString();
-                //       // });
-                //     },
-                //   ),
-                // RadioListTile(
-                //     title: const Text("Female"),
-                //     value: "female",
-                //     groupValue: gender,
-                //     onChanged: (value) {
-                //       // setState(() {
-                //       //   gender = value.toString();
-                //       // });
-                //     },
-                //   ),
-                //   ],
-                // ),
-
-                //birthday
-                Container(
-                  color: Colors.transparent,
-                  width: 380,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Enter your birthday date",
-                        style: GoogleFonts.notoSansAdlam(
-                            fontSize: 20,
-                            color: const Color.fromARGB(255, 23, 75, 82)),
-                      ),
-                      CupertinoButton(
-                        child: Text(
-                          '${dateTime.day}/${dateTime.month}/${dateTime.year}',
-                          style: GoogleFonts.notoSansAdlam(
-                              fontSize: 23, color: Colors.grey),
-                        ),
-                        onPressed: () {
-                          showCupertinoModalPopup(
-                            context: context,
-                            builder: (BuildContext context) => SizedBox(
-                              height: 230,
-                              child: CupertinoTheme(
-                                data: const CupertinoThemeData(
-                                  textTheme: CupertinoTextThemeData(
-                                    dateTimePickerTextStyle: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 25,
-                                    ),
-                                  ),
-                                ),
-                                child: CupertinoDatePicker(
-                                  backgroundColor:
-                                      const Color.fromARGB(209, 1, 155, 175),
-                                  initialDateTime: dateTime,
-                                  onDateTimeChanged: (DateTime newTime) {
-                                    setState(() => dateTime = newTime);
-                                  },
-                                  use24hFormat: true,
-                                  mode: CupertinoDatePickerMode.date,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                //gender
-                Padding(
-                  padding: const EdgeInsets.only(right: 0),
-                  child: Text(
-                    'Choose the Gender',
-                    style: GoogleFonts.notoSansAdlam(
-                      fontSize: 20,
-                      color: const Color.fromARGB(255, 23, 75, 82),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: RadioListTile<GenderTypeEnum>(
-                        value: GenderTypeEnum.male,
-                        groupValue: _genderTypeEnum,
-                        tileColor: Colors.transparent,
-                        shape: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: const BorderSide(
-                                color: Colors.white, width: 2.0)),
-                        title: Text(GenderTypeEnum.male.name),
-                        onChanged: (val) {
-                          setState(() {
-                            _genderTypeEnum = val;
-                          });
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5.0,
-                    ),
-                    Expanded(
-                      child: RadioListTile<GenderTypeEnum>(
-                        value: GenderTypeEnum.female,
-                        groupValue: _genderTypeEnum,
-                        tileColor: Colors.transparent,
-                        shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 2.0),
-                        ),
-                        title: Text(GenderTypeEnum.female.name),
-                        onChanged: (val) {
-                          setState(
-                            () {
-                              _genderTypeEnum = val;
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                // DropdownButtonFormField(
-                //   value: _selectedVal,
-                //   items: _sugarTypeList
-                //       .map((e) => DropdownMenuItem(
-                //             value: e,
-                //             child: Text(e),
-                //           ))
-                //       .toList(),
-                //   onChanged: (val) {
-                //     setState(() {
-                //       _selectedVal = val;
-                //     });
-                //   },
-                //   icon: const Icon(
-                //     Icons.arrow_drop_down_circle,
-                //     color: Colors.blue,
-                //   ),
-                // ),
-
                 //email
                 Padding(
                   padding: const EdgeInsets.only(
@@ -291,9 +134,9 @@ class _SignupState extends ConsumerState<SignupScreen> {
                   child: TextFormField(
                     controller: _emailController,
                     obscureText: false,
-                    decoration: CommonStyle.textFieldStyle2(
+                    decoration: CommonStyle.textFieldStyle3(
                         labelText: ("Email"),
-                        prefixIcon: const Icon(Icons.email_outlined)),
+                        prefixIcon: const Icon(Icons.alternate_email_outlined)),
                     validator: (value) {
                       if (!value!.isValidEmail) {
                         return 'Enter valid email';
@@ -315,13 +158,13 @@ class _SignupState extends ConsumerState<SignupScreen> {
                     obscureText: passwordVisible,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.done,
-                    decoration: CommonStyle.textFieldStyle2(
+                    decoration: CommonStyle.textFieldStyle3(
                       labelText: ("Password"),
                       prefixIcon: const Icon(Icons.lock_outline_rounded),
                       suffixIcon: IconButton(
                           icon: Icon(passwordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off),
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined),
                           onPressed: () {
                             setState(
                               () {
@@ -332,7 +175,7 @@ class _SignupState extends ConsumerState<SignupScreen> {
                     ),
                     validator: (value) {
                       if (!value!.isValidPassword) {
-                        return 'enter At Least 8 characters one letter and one number';
+                        return 'Enter At Least 8 characters one letter and one number';
                       }
                       return null;
                     },
@@ -345,13 +188,13 @@ class _SignupState extends ConsumerState<SignupScreen> {
                   child: TextFormField(
                     controller: _confirmpasswordController,
                     obscureText: true,
-                    decoration: CommonStyle.textFieldStyle2(
+                    decoration: CommonStyle.textFieldStyle3(
                       labelText: ("Confirm Password"),
                       prefixIcon: const Icon(Icons.lock_outline_rounded),
                       suffixIcon: IconButton(
                           icon: Icon(passwordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off),
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined),
                           onPressed: () {
                             setState(
                               () {
@@ -371,6 +214,108 @@ class _SignupState extends ConsumerState<SignupScreen> {
                     },
                   ),
                 ),
+                //birthday
+                Container(
+                  color: Colors.transparent,
+                  width: 380,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Enter your birthday date",
+                        style: GoogleFonts.nunitoSans(
+                            fontSize: 20,
+                            color: const Color.fromARGB(255, 1, 6, 29)),
+                      ),
+                      CupertinoButton(
+                        child: Text(
+                          '${dateTime.day}/${dateTime.month}/${dateTime.year}',
+                          style: GoogleFonts.nunitoSans(
+                              fontSize: 23, color: Colors.grey),
+                        ),
+                        onPressed: () {
+                          showCupertinoModalPopup(
+                            context: context,
+                            builder: (BuildContext context) => SizedBox(
+                              height: 230,
+                              child: CupertinoTheme(
+                                data: const CupertinoThemeData(
+                                  textTheme: CupertinoTextThemeData(
+                                    dateTimePickerTextStyle: TextStyle(
+                                      color: Color.fromARGB(255, 1, 6, 29),
+                                      fontSize: 25,
+                                    ),
+                                  ),
+                                ),
+                                child: CupertinoDatePicker(
+                                  backgroundColor: Colors.white,
+                                  initialDateTime: dateTime,
+                                  onDateTimeChanged: (DateTime newTime) {
+                                    setState(() => dateTime = newTime);
+                                  },
+                                  use24hFormat: true,
+                                  mode: CupertinoDatePickerMode.date,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                //gender
+                Padding(
+                  padding: const EdgeInsets.only(right: 0),
+                  child: Text(
+                    'Choose Gender',
+                    style: GoogleFonts.nunitoSans(
+                      fontSize: 20,
+                      color: const Color.fromARGB(255, 1, 6, 29),
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile<GenderTypeEnum>(
+                        value: GenderTypeEnum.Male,
+                        groupValue: _genderTypeEnum,
+                        tileColor: Colors.transparent,
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: const BorderSide(
+                                color: Colors.white, width: 2.0)),
+                        title: Text(GenderTypeEnum.Male.name),
+                        onChanged: (val) {
+                          setState(() {
+                            _genderTypeEnum = val;
+                          });
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile<GenderTypeEnum>(
+                        value: GenderTypeEnum.Female,
+                        groupValue: _genderTypeEnum,
+                        tileColor: Colors.transparent,
+                        shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide:
+                              const BorderSide(color: Colors.white, width: 2.0),
+                        ),
+                        title: Text(GenderTypeEnum.Female.name),
+                        onChanged: (val) {
+                          setState(
+                            () {
+                              _genderTypeEnum = val;
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
                 //sign in button
                 Padding(
                   padding: const EdgeInsets.only(
@@ -379,7 +324,7 @@ class _SignupState extends ConsumerState<SignupScreen> {
                     padding: const EdgeInsets.only(
                         top: 5, left: 15, right: 15, bottom: 5),
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: Colors.blue[900],
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: ElevatedButton(
@@ -426,16 +371,16 @@ class _SignupState extends ConsumerState<SignupScreen> {
                   children: <Widget>[
                     Text(
                       'Already have an account?',
-                      style: GoogleFonts.notoSansAdlam(
+                      style: GoogleFonts.nunitoSans(
                           fontSize: 23, color: Colors.grey),
                     ),
                     TextButton(
                       child: Text(
                         'Login',
-                        style: GoogleFonts.notoSansAdlam(
-                            fontSize: 20,
+                        style: GoogleFonts.nunitoSans(
+                            fontSize: 25,
                             decoration: TextDecoration.underline,
-                            color: Colors.cyan),
+                            color: Colors.blue[700]),
                       ),
                       onPressed: () {
                         Navigator.of(context).pushNamed('/login');

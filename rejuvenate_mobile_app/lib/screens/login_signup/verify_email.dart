@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rejuvenate_mobile_app/services/user_services.dart';
-
 import '../../models/user_model.dart';
 import '../../providers/user_provider.dart';
 import '../../widgets/loading_widget.dart';
@@ -42,7 +40,8 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
     if (isEmailVerified) timer?.cancel();
   }
 
-  void redirectToHome(String fname, String lname, String phone, String gender, DateTime birth) async {
+  void redirectToHome(String fname, String lname, String phone, String gender,
+      DateTime birth) async {
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -53,10 +52,12 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
         });
     await UserService.saveUser(fname, lname, phone, gender, birth);
     await UserService().getNewUserData().then((value) {
-      UserModel user = UserModel.fromSnapshot(value);
+      String Id = value[1];
+      dynamic data = value[0];
+      UserModel user = UserModel.fromSnapshot(data, Id);
       ref.read(newUserDataProivder.notifier).state = user;
       Navigator.of(context)
-          .pushNamedAndRemoveUntil('/viewprofile', (route) => false);
+          .pushNamedAndRemoveUntil('/login', (route) => false);
     });
   }
 
@@ -87,21 +88,13 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     return SafeArea(
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         key: scaffoldKey,
         appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.only(right: 40.0),
-            child: Center(
-                child: Text('Verify email',
-                    style: GoogleFonts.notoSansAdlam(fontSize: 25))),
-          ),
-          toolbarHeight: 100,
-          backgroundColor: Colors.cyan,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(30),
-            ),
-          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          foregroundColor: Colors.grey,
+          shadowColor: Colors.white,
         ),
         body: Center(
           child: SafeArea(
@@ -112,12 +105,14 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
                       const Text(
                         'Welcome To Rejuvenate',
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 1, 6, 29)),
                       ),
                       const SizedBox(height: 15),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.cyan,
+                          backgroundColor: Colors.blue[900],
                         ),
                         onPressed: () {
                           redirectToHome(data['fname'], data['lname'],
@@ -129,25 +124,35 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
                   )
                 : Column(
                     children: [
+                      Image.asset(
+                        'assets/verify.png',
+                        height: 400,
+                        width: 400,
+                      ),
                       const SizedBox(
                         height: 40,
                       ),
                       const Text(
                         'Please Verify Your Email',
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 1, 6, 29)),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.cyan,
+                          backgroundColor: Colors.blue[900],
                         ),
                         onPressed: () {
                           sendVerificationEmail();
                         },
-                        child: const Text('Resend Verification Email'),
+                        child: const Text(
+                          'Resend Verification Email',
+                          style: TextStyle(fontSize: 25, color: Colors.white),
+                        ),
                       )
                     ],
                   ),
