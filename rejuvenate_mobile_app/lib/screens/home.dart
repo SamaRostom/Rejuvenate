@@ -22,41 +22,36 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Image.asset(
-                  'assets/Logo.jpg',
-                  width: 300,
-                  height: 110,
+                const SizedBox(
+                  height: 30,
                 ),
-                Text(
-                  'Face and Body Retouching',
-                  style:
-                      GoogleFonts.patrickHand(fontSize: 20, color: Colors.grey),
+                Image.asset(
+                  'assets/Logo.png',
+                  width: 400,
+                  height: 100,
                 ),
               ],
-            ),
-            const SizedBox(
-              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Image.asset(
-                  'assets/Home.png',
-                  height: 300,
+                  'assets/doctor-image.png',
+                  height: 400,
                   width: 400,
                 ),
               ],
             ),
             const SizedBox(
-              height: 80,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.cyan,
+                      backgroundColor: Colors.blue[900],
                       padding: const EdgeInsets.symmetric(
                           horizontal: 70, vertical: 20),
                       shape: RoundedRectangleBorder(
@@ -71,21 +66,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+            const SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   'Already have an account?',
-                  style: GoogleFonts.notoSansAdlam(
-                      fontSize: 20, color: Colors.grey),
+                  style: GoogleFonts.nunitoSans(
+                      fontSize: 20, color: const Color.fromARGB(255, 1, 6, 29)),
                 ),
                 TextButton(
                   child: Text(
                     'Login',
-                    style: GoogleFonts.notoSansAdlam(
+                    style: GoogleFonts.nunitoSans(
+                        fontWeight: FontWeight.bold,
                         fontSize: 20,
                         decoration: TextDecoration.underline,
-                        color: Colors.cyan),
+                        color: Colors.blue[700]),
                   ),
                   onPressed: () {
                     Navigator.of(context).pushNamed('/login');
