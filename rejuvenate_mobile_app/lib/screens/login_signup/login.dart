@@ -47,7 +47,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/login.png', fit: BoxFit.cover),
+                Image.asset('assets/login.png', fit: BoxFit.cover, height: 350,),
                 Padding(
                   padding: const EdgeInsets.only(right: 300),
                   child: Text(
@@ -62,7 +62,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                 //email
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 50, left: 15, right: 15, bottom: 0),
+                      top: 10, left: 15, right: 15, bottom: 0),
                   child: TextFormField(
                     controller: _emailController,
                     obscureText: false,

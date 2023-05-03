@@ -62,7 +62,7 @@ class _SignupState extends ConsumerState<SignupScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/login.png', fit: BoxFit.cover),
+                Image.asset('assets/login.png', fit: BoxFit.cover,height: 350,),
                 Padding(
                   padding: const EdgeInsets.only(right: 250),
                   child: Text(
