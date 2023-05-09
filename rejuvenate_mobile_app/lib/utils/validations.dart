@@ -104,4 +104,9 @@ extension ExtString on String {
     final phoneRegExp = RegExp(r"^[0-9]+$");
     return phoneRegExp.hasMatch(this);
   }
+
+  bool get isValidGender {
+    final genderRegExp = RegExp(r"^[0-9]+$");
+    return genderRegExp.hasMatch(this);
+  }
 }

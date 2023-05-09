@@ -127,7 +127,33 @@ class _ViewProfileState extends ConsumerState<ViewProfile> {
                 ],
               ),
               const SizedBox(
-                height: 100,
+                height: 10,
+              ),
+              const Divider(
+                color: Color.fromARGB(96, 255, 255, 255),
+              ),
+              Row(
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: Icon(
+                      Icons.female,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 60.0),
+                    child: Text(
+                      ref.watch(newUserDataProivder)!.gender,
+                      style: GoogleFonts.nunitoSans(
+                          fontSize: 20,
+                          color: const Color.fromARGB(255, 1, 6, 29)),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 70,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

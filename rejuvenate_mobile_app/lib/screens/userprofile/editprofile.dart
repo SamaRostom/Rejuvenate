@@ -18,6 +18,7 @@ class _EditProfileState extends ConsumerState<EditProfile> {
   final firstnamecontroller = TextEditingController();
   final lastnamecontroller = TextEditingController();
   final emailcontroller = TextEditingController();
+  final gendercontroller = TextEditingController();
   // final passwordcontroller = TextEditingController();
   final phonenumbercontroller = TextEditingController();
 
@@ -31,6 +32,7 @@ class _EditProfileState extends ConsumerState<EditProfile> {
       lastnamecontroller.text = userData.lname;
       emailcontroller.text = userData.email;
       phonenumbercontroller.text = userData.phone;
+      gendercontroller.text = userData.gender;
     }
     print(userData!.ID);
     return Scaffold(
@@ -138,6 +140,24 @@ class _EditProfileState extends ConsumerState<EditProfile> {
             ),
           ),
 
+          Padding(
+            padding:
+                const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 0),
+            child: TextFormField(
+              obscureText: false,
+              decoration: CommonStyle.textFieldStyle3(
+                  labelText: ("Gender"),
+                  // labelText: (ref.watch(newUserDataProivder)!.gender),
+                  prefixIcon: const Icon(Icons.female_outlined)),
+              controller: gendercontroller,
+              validator: (value) {
+                if (!value!.isNotEmpty && !value.isValidName) {
+                  return 'Please enter your gender';
+                }
+                return null;
+              },
+            ),
+          ),
           const SizedBox(
             height: 70,
           ),
@@ -155,25 +175,30 @@ class _EditProfileState extends ConsumerState<EditProfile> {
                   if (firstnamecontroller.text != userData.fname ||
                       lastnamecontroller.text != userData.lname ||
                       emailcontroller.text != userData.email ||
-                      phonenumbercontroller.text != userData.phone) {
+                      phonenumbercontroller.text != userData.phone ||
+                      gendercontroller.text != userData.gender) {
                     //update database
                     userCollection.doc(userData.ID).update({
                       "fname": firstnamecontroller.text,
                       "lname": lastnamecontroller.text,
                       "email": emailcontroller.text,
-                      "phone": phonenumbercontroller.text
+                      "phone": phonenumbercontroller.text,
+                      "gender": gendercontroller.text,
                     }).then((value) {
                       userData.fname = firstnamecontroller.text;
                       userData.lname = lastnamecontroller.text;
                       userData.email = emailcontroller.text;
                       userData.phone = phonenumbercontroller.text;
+                      userData.gender = gendercontroller.text;
+
                       ref.read(newUserDataProivder.notifier).state = userData;
                       Navigator.pushNamed(context, '/savingprofileupdates');
                     });
                   } else if (firstnamecontroller.text.isEmpty ||
                       lastnamecontroller.text.isEmpty ||
                       emailcontroller.text.isEmpty ||
-                      phonenumbercontroller.text.isEmpty) {
+                      phonenumbercontroller.text.isEmpty ||
+                      gendercontroller.text.isEmpty) {
                     print("Please enter all fields");
                   }
                 },
