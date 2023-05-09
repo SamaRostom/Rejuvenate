@@ -17,7 +17,7 @@ class SignupScreen extends ConsumerStatefulWidget {
 class _SignupState extends ConsumerState<SignupScreen> {
   DateTime dateTime = DateTime(2000, 2, 1, 10, 20);
   String? gender;
-  bool passwordVisible = false;
+  bool passwordVisible = true;
   GenderTypeEnum? _genderTypeEnum;
   final _formKey = GlobalKey<FormState>();
   final _fnameController = TextEditingController();
@@ -62,7 +62,11 @@ class _SignupState extends ConsumerState<SignupScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/login.png', fit: BoxFit.cover,height: 350,),
+                Image.asset(
+                  'assets/login.png',
+                  fit: BoxFit.cover,
+                  height: 350,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(right: 250),
                   child: Text(
@@ -187,7 +191,9 @@ class _SignupState extends ConsumerState<SignupScreen> {
                       top: 15, left: 15, right: 15, bottom: 10),
                   child: TextFormField(
                     controller: _confirmpasswordController,
-                    obscureText: true,
+                    obscureText: passwordVisible,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
                     decoration: CommonStyle.textFieldStyle3(
                       labelText: ("Confirm Password"),
                       prefixIcon: const Icon(Icons.lock_outline_rounded),
@@ -378,8 +384,8 @@ class _SignupState extends ConsumerState<SignupScreen> {
                       child: Text(
                         'Login',
                         style: GoogleFonts.nunitoSans(
-                            fontSize: 25,
-                            decoration: TextDecoration.underline,
+                            fontSize: 23,
+                            // decoration: TextDecoration.underline,
                             color: Colors.blue[700]),
                       ),
                       onPressed: () {

@@ -15,7 +15,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginState extends ConsumerState<LoginScreen> {
   String? gender;
   final _formKey = GlobalKey<FormState>();
-  bool passwordVisible = false;
+  bool passwordVisible = true;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -47,7 +47,11 @@ class _LoginState extends ConsumerState<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/login.png', fit: BoxFit.cover, height: 350,),
+                Image.asset(
+                  'assets/login.png',
+                  fit: BoxFit.cover,
+                  height: 350,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(right: 300),
                   child: Text(
@@ -187,7 +191,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                       child: Text(
                         'Signup',
                         style: GoogleFonts.nunitoSans(
-                            fontSize: 25,
+                            fontSize: 23,
                             // decoration: TextDecoration.underline,
                             color: Colors.blue[700]),
                       ),
