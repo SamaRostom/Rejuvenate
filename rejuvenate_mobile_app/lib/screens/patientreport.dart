@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rejuvenate_mobile_app/widgets/answer_type.dart';
@@ -21,8 +21,7 @@ class PatientReport extends StatefulWidget {
 class _PatientReportState extends State<PatientReport> {
   final _nameController = TextEditingController();
   final _fController = TextEditingController();
-  final _ffController = TextEditingController();
-  DateTime dateTime = DateTime(2000, 2, 1, 10, 20);
+  AnswerTypeEnum? _answerTypeEnum;
   _PatientReportState() {
     _selectedVal = _sugarTypeList[0];
   }
@@ -34,7 +33,6 @@ class _PatientReportState extends State<PatientReport> {
   void dispose() {
     _nameController.dispose();
     _fController.dispose();
-    _ffController.dispose();
 
     super.dispose();
   }
@@ -54,7 +52,7 @@ class _PatientReportState extends State<PatientReport> {
         toolbarHeight: 100,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        foregroundColor: const Color.fromARGB(255, 1, 6, 29),
+        foregroundColor: const Color.fromARGB(255, 13, 71, 161),
         shadowColor: Colors.white,
       ),
       body: SafeArea(
@@ -82,7 +80,7 @@ class _PatientReportState extends State<PatientReport> {
                   const Text(
                     'Choose the Gender',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 1, 6, 29),
+                        color: Color.fromARGB(255, 13, 71, 161),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
@@ -91,6 +89,7 @@ class _PatientReportState extends State<PatientReport> {
                     children: [
                       Expanded(
                         child: RadioListTile<GenderTypeEnum>(
+                          activeColor: const Color.fromARGB(255, 13, 71, 161),
                           value: GenderTypeEnum.Male,
                           groupValue: _genderTypeEnum,
                           shape: OutlineInputBorder(
@@ -110,6 +109,7 @@ class _PatientReportState extends State<PatientReport> {
                       ),
                       Expanded(
                         child: RadioListTile<GenderTypeEnum>(
+                          activeColor: const Color.fromARGB(255, 13, 71, 161),
                           value: GenderTypeEnum.Female,
                           groupValue: _genderTypeEnum,
                           shape: OutlineInputBorder(
@@ -147,13 +147,13 @@ class _PatientReportState extends State<PatientReport> {
                     },
                     icon: const Icon(
                       Icons.arrow_drop_down_circle,
-                      color: Colors.blueAccent,
+                      color: Color.fromARGB(255, 13, 71, 161),
                     ),
                     decoration: const InputDecoration(
                       labelText: "Sugar Types",
                       prefixIcon: Icon(
                         Icons.accessibility_new_rounded,
-                        color: Colors.blueAccent,
+                        color: Color.fromARGB(255, 13, 71, 161),
                       ),
                     ),
                   ),
@@ -162,7 +162,7 @@ class _PatientReportState extends State<PatientReport> {
                   const Text(
                     'Do you have Blood Pressure?',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 1, 6, 29),
+                        color: Color.fromARGB(255, 13, 71, 161),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
@@ -175,7 +175,7 @@ class _PatientReportState extends State<PatientReport> {
                   const Text(
                     'Do you have any known cardiovascular problems (abnormal ECG, previous heart attack, etc)?',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 1, 6, 29),
+                        color: Color.fromARGB(255, 13, 71, 161),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -190,7 +190,7 @@ class _PatientReportState extends State<PatientReport> {
                   const Text(
                     'Are you taking any prescribed medications or dietary supplementation?',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 1, 6, 29),
+                        color: Color.fromARGB(255, 13, 71, 161),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -203,7 +203,7 @@ class _PatientReportState extends State<PatientReport> {
                   const Text(
                     "If yes enter the name of the medicine",
                     style: TextStyle(
-                        color: Color.fromARGB(255, 1, 6, 29),
+                        color: Color.fromARGB(255, 13, 71, 161),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -240,7 +240,10 @@ class _PatientReportState extends State<PatientReport> {
                                 MaterialStateProperty.all(const TextStyle(
                               fontSize: 14,
                             ))),
-                        onPressed: () async {},
+                        onPressed: () async {
+                          Map<String, dynamic> data = {"field1": _nameController.text,"field2":_genderTypeEnum,"field3":_selectedVal?.codeUnits,"field4":_fController.text,"field5":_answerTypeEnum};
+                          FirebaseFirestore.instance.collection("patientreportest").add(data);
+                        },
                         child: Column(
                           children: const [
                             Icon(
