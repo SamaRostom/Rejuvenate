@@ -28,6 +28,7 @@ class _SignupState extends ConsumerState<SignupScreen> {
   final _birthController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmpasswordController = TextEditingController();
+  final _specialtyController = TextEditingController();
 
   @override
   void dispose() {
@@ -39,6 +40,7 @@ class _SignupState extends ConsumerState<SignupScreen> {
     _birthController.dispose();
     _passwordController.dispose();
     _confirmpasswordController.dispose();
+    _specialtyController.dispose();
     super.dispose();
   }
 
@@ -108,6 +110,24 @@ class _SignupState extends ConsumerState<SignupScreen> {
                     validator: (value) {
                       if (!value!.isNotEmpty && !value.isValidName) {
                         return 'Please enter your last name';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 15, right: 15, bottom: 0),
+                  child: TextFormField(
+                    controller: _specialtyController,
+                    obscureText: false,
+                    decoration: CommonStyle.textFieldStyle3(
+                        labelText: ("Specialty"),
+                        prefixIcon: const Icon(Icons.person_outlined)),
+                    validator: (value) {
+                      if (!value!.isNotEmpty && !value.isValidName) {
+                        return 'Please enter your specialty';
                       }
                       return null;
                     },
@@ -347,7 +367,8 @@ class _SignupState extends ConsumerState<SignupScreen> {
                               _genderController,
                               dateTime,
                               _emailController,
-                              _passwordController);
+                              _passwordController,
+                              _specialtyController);
                         }
                       },
                       style: ElevatedButton.styleFrom(

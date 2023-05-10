@@ -32,7 +32,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
     SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
-        extendBodyBehindAppBar: true,
+        // extendBodyBehindAppBar: false,
         key: scaffoldKey,
         appBar: AppBar(
           backgroundColor: Colors.transparent,

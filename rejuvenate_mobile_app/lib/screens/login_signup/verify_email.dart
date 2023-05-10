@@ -41,7 +41,7 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
   }
 
   void redirectToHome(String fname, String lname, String phone, String gender,
-      DateTime birth) async {
+      DateTime birth, String specialty) async {
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -50,14 +50,13 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
             child: LoadingWidget(),
           );
         });
-    await UserService.saveUser(fname, lname, phone, gender, birth);
+    await UserService.saveUser(fname, lname, phone, gender, birth, specialty);
     await UserService().getNewUserData().then((value) {
       String Id = value[1];
       dynamic data = value[0];
       UserModel user = UserModel.fromSnapshot(data, Id);
       ref.read(newUserDataProivder.notifier).state = user;
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil('/login', (route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
     });
   }
 
@@ -115,8 +114,13 @@ class _VerifyEmailState extends ConsumerState<VerifyEmail> {
                           backgroundColor: Colors.blue[900],
                         ),
                         onPressed: () {
-                          redirectToHome(data['fname'], data['lname'],
-                              data['phone'], data['gender'], data['birth']);
+                          redirectToHome(
+                              data['fname'],
+                              data['lname'],
+                              data['phone'],
+                              data['gender'],
+                              data['birth'],
+                              data['specialty']);
                         },
                         child: const Text('Continue'),
                       ),
