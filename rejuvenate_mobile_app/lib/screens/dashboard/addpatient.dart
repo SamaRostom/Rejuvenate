@@ -2,31 +2,56 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/side_menu.dart';
 import '../../../utils/validations.dart';
+import '../../services/user_services.dart';
 
 enum GenderTypeEnum { Male, Female }
 
-class AddPatient extends StatefulWidget {
+class AddPatient extends ConsumerStatefulWidget {
   const AddPatient({super.key});
 
   @override
-  State<AddPatient> createState() => _AddPatientState();
+  ConsumerState<AddPatient> createState() => _AddPatientState();
 }
 
-class _AddPatientState extends State<AddPatient> {
+class _AddPatientState extends ConsumerState<AddPatient> {
   DateTime dateTime = DateTime(2000, 2, 1, 10, 20);
   String? gender;
   bool passwordVisible = false;
   GenderTypeEnum? _genderTypeEnum;
+  final _formKey = GlobalKey<FormState>();
+
+  final _fnameController = TextEditingController();
+  final _lnameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _genderController = TextEditingController();
+  final _birthController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _problemController = TextEditingController();
   _AddPatientState() {
     _selectedVal = _problemList[0];
   }
 
   final _problemList = ["Cleft Lip"];
-  String? _selectedVal = "Choose a problem";
+  String _selectedVal = "Choose a problem";
+
+  @override
+  void dispose() {
+    _fnameController.dispose();
+    _lnameController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _genderController.dispose();
+    _birthController.dispose();
+    _passwordController.dispose();
+    _problemController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,16 +82,11 @@ class _AddPatientState extends State<AddPatient> {
                   padding: const EdgeInsets.only(
                       top: 10, left: 15, right: 15, bottom: 0),
                   child: TextFormField(
+                    controller: _fnameController,
                     obscureText: false,
                     decoration: CommonStyle.textFieldStyle3(
                         labelText: ("First name"),
                         prefixIcon: const Icon(Icons.person_outlined)),
-                    validator: (value) {
-                      if (!value!.isNotEmpty && !value.isValidName) {
-                        return 'Please enter your first name';
-                      }
-                      return null;
-                    },
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -74,16 +94,11 @@ class _AddPatientState extends State<AddPatient> {
                   padding: const EdgeInsets.only(
                       top: 10, left: 15, right: 15, bottom: 0),
                   child: TextFormField(
+                    controller: _lnameController,
                     obscureText: false,
                     decoration: CommonStyle.textFieldStyle3(
                         labelText: ("Last name"),
                         prefixIcon: const Icon(Icons.person_outlined)),
-                    validator: (value) {
-                      if (!value!.isNotEmpty && !value.isValidName) {
-                        return 'Please enter your last name';
-                      }
-                      return null;
-                    },
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -91,45 +106,62 @@ class _AddPatientState extends State<AddPatient> {
                   padding: const EdgeInsets.only(
                       top: 10, left: 15, right: 15, bottom: 0),
                   child: TextFormField(
+                    controller: _phoneController,
                     obscureText: false,
                     decoration: CommonStyle.textFieldStyle3(
                         labelText: ("Phone number"),
                         prefixIcon: const Icon(Icons.phone_outlined)),
-                    validator: (value) {
-                      if (!value!.isNotEmpty && !value.isValidPhone) {
-                        return 'Please enter your phone number';
-                      }
-                      return null;
-                    },
+                  ),
+                ),
+                //email
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 15, right: 15, bottom: 0),
+                  child: TextFormField(
+                    controller: _emailController,
+                    obscureText: false,
+                    decoration: CommonStyle.textFieldStyle3(
+                        labelText: ("Email"),
+                        prefixIcon: const Icon(Icons.alternate_email_outlined)),
+                  ),
+                ),
+
+                //password
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 15, right: 15, bottom: 0),
+                  child: TextFormField(
+                    controller: _passwordController,
+                    obscureText: passwordVisible,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    decoration: CommonStyle.textFieldStyle3(
+                      labelText: ("Password"),
+                      prefixIcon: const Icon(Icons.lock_outline_rounded),
+                      suffixIcon: IconButton(
+                          icon: Icon(passwordVisible
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined),
+                          onPressed: () {
+                            setState(
+                              () {
+                                passwordVisible = !passwordVisible;
+                              },
+                            );
+                          }),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: DropdownButtonFormField(
-                    value: _selectedVal,
-                    items: _problemList
-                        .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(e),
-                            ))
-                        .toList(),
-                    onChanged: (val) {
-                      setState(() {
-                        _selectedVal = val;
-                      });
-                    },
-                    icon: const Icon(
-                      Icons.arrow_drop_down_circle,
-                      color: Color.fromRGBO(13, 71, 161, 1),
-                    ),
-                    decoration: const InputDecoration(
-                      labelText: "Problems",
-                      // enabledBorder: OutlineInputBorder(
-                      //     borderRadius: BorderRadius.circular(50.0),
-                      //     borderSide: const BorderSide(
-                      //         color: Colors.cyan, width: 2.0))
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 15, right: 15, bottom: 0),
+                  child: TextFormField(
+                    controller: _problemController,
+                    obscureText: false,
+                    decoration: CommonStyle.textFieldStyle3(
+                        labelText: ("Problem Type"),
+                        prefixIcon: const Icon(Icons.report_problem_outlined)),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -161,14 +193,13 @@ class _AddPatientState extends State<AddPatient> {
                                 data: const CupertinoThemeData(
                                   textTheme: CupertinoTextThemeData(
                                     dateTimePickerTextStyle: TextStyle(
-                                      color: Colors.white,
+                                      color: Color.fromARGB(255, 1, 6, 29),
                                       fontSize: 25,
                                     ),
                                   ),
                                 ),
                                 child: CupertinoDatePicker(
-                                  backgroundColor:
-                                      const Color.fromARGB(255, 1, 6, 29),
+                                  backgroundColor: Colors.white,
                                   initialDateTime: dateTime,
                                   onDateTimeChanged: (DateTime newTime) {
                                     setState(() => dateTime = newTime);
@@ -253,7 +284,27 @@ class _AddPatientState extends State<AddPatient> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40))),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/dashboard');
+                        if (_fnameController.text.isNotEmpty &&
+                            _lnameController.text.isNotEmpty &&
+                            _phoneController.text.isNotEmpty &&
+                            _emailController.text.isNotEmpty &&
+                            _passwordController.text.isNotEmpty &&
+                            _problemController.text.isNotEmpty) {
+                          UserService().signUppatient(
+                              ref,
+                              context,
+                              _fnameController,
+                              _lnameController,
+                              _phoneController,
+                              _genderController,
+                              dateTime,
+                              _emailController,
+                              _passwordController,
+                              _problemController);
+
+                          Navigator.pushNamed(context, '/dashboard');
+                        }
+                        // signUp();
                       },
                       child: const Text(
                         'Add',

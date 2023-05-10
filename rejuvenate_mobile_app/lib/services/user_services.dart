@@ -20,7 +20,8 @@ class UserService {
       TextEditingController genderController,
       DateTime birthController,
       TextEditingController emailController,
-      TextEditingController passwordController) async {
+      TextEditingController passwordController,
+      TextEditingController specialtyController) async {
     try {
       showDialog(
           barrierDismissible: false,
@@ -35,18 +36,69 @@ class UserService {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      // UserService.saveUser(fnameController.text, lnameController.text, phoneController.text, genderController.text, birthController);
-      // UserService().getNewUserData().then((value) {
-      //   UserModel user = UserModel.fromSnapshot(value);
-      //   ref.read(newUserDataProivder.notifier).state = user;
+
       Navigator.of(context).pushNamed('/verifyemail', arguments: {
         "fname": fnameController.text,
         "lname": lnameController.text,
         "phone": phoneController.text,
         "gender": genderController.text,
         "birth": birthController,
+        "specialty": specialtyController.text,
       });
       // });
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        Navigator.of(context).pop();
+        error("Error!", "The password provided is too weak.");
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(val.snackBar);
+      } else if (e.code == 'email-already-in-use') {
+        Navigator.of(context).pop();
+        error("Error!", "The account already exists for that email.");
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(val.snackBar);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future signUppatient(
+      WidgetRef ref,
+      BuildContext context,
+      TextEditingController fnameController,
+      TextEditingController lnameController,
+      TextEditingController phoneController,
+      TextEditingController genderController,
+      DateTime birthController,
+      TextEditingController emailController,
+      TextEditingController passwordController,
+      TextEditingController patientproblemController) async {
+    try {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return const Center(
+              child: LoadingWidget(),
+            );
+          });
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      String id = (ref.read(newUserDataProivder.notifier).state!.ID);
+      await UserService.saveUserpatient(
+          id,
+          fnameController.text,
+          lnameController.text,
+          phoneController.text,
+          genderController.text,
+          birthController,
+          patientproblemController.text);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Navigator.of(context).pop();
@@ -126,7 +178,7 @@ class UserService {
   }
 
   static saveUser(String fname, String lname, String phone, String gender,
-      DateTime birth) async {
+      DateTime birth, String specialty) async {
     //Dont Put Instance common as it doesnt change when the user logs out
     final FirebaseFirestore db = FirebaseFirestore.instance;
     final user = FirebaseAuth.instance.currentUser!;
@@ -140,18 +192,58 @@ class UserService {
       "birth": birth,
       "role": "user",
     };
+
+    Map<String, dynamic> doctorData = {
+      "specialty": specialty,
+      "listofpatients": [],
+      "user_id": user.uid
+    };
     final userRef = db.collection("users").doc(user.uid);
-    if ((await userRef.get()).exists) {
+    final doctorRef = db.collection("doctors").doc(user.uid);
+    if ((await userRef.get()).exists && (await doctorRef.get()).exists) {
       // To Update Anything in the User
     } else {
       await userRef.set(userData);
+      await doctorRef.set(doctorData);
     }
+  }
+
+  static saveUserpatient(String id, String fname, String lname, String phone,
+      String gender, DateTime birth, String problemtype) async {
+    final FirebaseFirestore db = FirebaseFirestore.instance;
+    final user = FirebaseAuth.instance.currentUser!;
+
+    Map<String, dynamic> userData = {
+      "email": user.email,
+      "fname": fname,
+      "lname": lname,
+      "phone": phone,
+      "gender": gender,
+      "birth": birth,
+      "problemtype": problemtype,
+      "role": "user",
+    };
+
+    Map<String, dynamic> doctorData = {
+      "listofpatients": [],
+    };
+    final userRef = db.collection("users").doc();
+    final doctorRef = db.collection("doctors").doc(id);
+    final patientid = await userRef.get().then((value) => value.reference.id);
+    final patientRef = db.collection("patient").doc(patientid);
+
+    final listofpatients =
+        await doctorRef.get().then((value) => value.data()!["listofpatients"]);
+    listofpatients.add(patientid);
+    doctorData['listofpatients'] = listofpatients;
+    print(id);
+    await userRef.set(userData);
+    await doctorRef.update(doctorData);
+    await patientRef.set({"patientreportid": ""});
   }
 
   static signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    // SharedPreferences preferences = await SharedPreferences.getInstance();
-    // preferences.setBool("remember", false);
     loggedin = false;
     Navigator.of(context).pushReplacementNamed('/login');
   }
