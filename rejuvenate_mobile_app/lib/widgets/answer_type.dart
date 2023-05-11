@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rejuvenate_mobile_app/utils/validations.dart';
 
 enum AnswerTypeEnum { Yes, NO }
 
@@ -11,6 +12,8 @@ class AnswerType extends StatefulWidget {
 
 class _AnswerTypeState extends State<AnswerType> {
   AnswerTypeEnum? _answerTypeEnum;
+  // final _answerTypeEnum = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +21,7 @@ class _AnswerTypeState extends State<AnswerType> {
       children: [
         Expanded(
           child: RadioListTile<AnswerTypeEnum>(
+            activeColor: const Color.fromARGB(255, 1, 6, 29),
             value: AnswerTypeEnum.Yes,
             groupValue: _answerTypeEnum,
             shape: OutlineInputBorder(
@@ -36,6 +40,7 @@ class _AnswerTypeState extends State<AnswerType> {
         ),
         Expanded(
           child: RadioListTile<AnswerTypeEnum>(
+            activeColor: const Color.fromARGB(255, 1, 6, 29),
             value: AnswerTypeEnum.NO,
             groupValue: _answerTypeEnum,
             shape: OutlineInputBorder(
@@ -52,6 +57,7 @@ class _AnswerTypeState extends State<AnswerType> {
             },
           ),
         ),
+        
       ],
     );
   }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rejuvenate_mobile_app/screens/patientreport.dart';
 
 import '../models/user_model.dart';
 import '../providers/user_provider.dart';
@@ -168,7 +169,8 @@ class UserService {
     }
   }
 
-  Future<List> getNewUserData() async {
+  Future<List> getNewUserData(
+  ) async {
     final user = FirebaseAuth.instance.currentUser!;
     String id = user.uid;
     return [
@@ -241,10 +243,59 @@ class UserService {
     await doctorRef.update(doctorData);
     await patientRef.set({"patientreportid": ""});
   }
+/////////////////////////////////////
+//  Future PatientReport(
+      
+//       BuildContext context,
+//       TextEditingController _nameController,
+//       TextEditingController _problemController) async {
+//         final user = FirebaseAuth.instance.currentUser!;
+//     String id = user.uid;
+//     return [
+//       await FirebaseFirestore.instance.collection('patient').doc(id).get(),
+//       id
+//     ];
+//       }
+   saveUserpatientreport(String nameController, String genderTypeEnum, String answerTypeEnum,
+      String selectedVal, String problemController) async {
+    //Dont Put Instance common as it doesnt change when the user logs out
+    final FirebaseFirestore db = FirebaseFirestore.instance;
+    final user = FirebaseAuth.instance.currentUser!;
+
+    Map<String, dynamic> userData = {
+      "name": nameController,
+      "gender": genderTypeEnum,
+      "answertype": answerTypeEnum,
+      "problemm": problemController,
+      "select": selectedVal,
+      
+    };
+
+    // Map<String, dynamic> doctorData = {
+    //   "listofpatients": [],
+    //   "user_id": user.uid,
+      
+    // };
+
+    // // final userRef = db.collection("users").doc(user.uid);
+    // final doctorRef = db.collection("doctors").doc(user.uid);
+    final patientRef = db.collection("patientreport").doc(user.uid);
+    // final patientid = await patientRef.get().then((value) => value.reference.id);
+    if ((await patientRef.get()).exists && (await patientRef.get()).exists) {
+      // To Update Anything in the User
+    } else {
+      await patientRef.set(userData);
+    }
+
+    // await userRef.set(userData);
+    // await doctorRef.update(doctorData);
+    // await patientRef.set({"patientreportid": ""});
+  }
 
   static signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     loggedin = false;
+   
     Navigator.of(context).pushReplacementNamed('/login');
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rejuvenate_mobile_app/widgets/answer_type.dart';
 import '../../utils/validations.dart';
+import '../services/user_services.dart';
 
 enum GenderTypeEnum { Male, Female }
 
@@ -20,7 +21,7 @@ class PatientReport extends StatefulWidget {
 
 class _PatientReportState extends State<PatientReport> {
   final _nameController = TextEditingController();
-  final _fController = TextEditingController();
+  final _problemController = TextEditingController();
   AnswerTypeEnum? _answerTypeEnum;
   _PatientReportState() {
     _selectedVal = _sugarTypeList[0];
@@ -32,7 +33,7 @@ class _PatientReportState extends State<PatientReport> {
   @override
   void dispose() {
     _nameController.dispose();
-    _fController.dispose();
+    _problemController.dispose();
 
     super.dispose();
   }
@@ -209,7 +210,7 @@ class _PatientReportState extends State<PatientReport> {
                     textAlign: TextAlign.center,
                   ),
                   TextFormField(
-                    controller: _fController,
+                    controller: _problemController,
                     decoration: const InputDecoration(
                       labelText: 'Medicine name',
                     ),
@@ -231,18 +232,26 @@ class _PatientReportState extends State<PatientReport> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blue[900]),
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.fromLTRB(40, 10, 40, 10)),
-                            textStyle:
-                                MaterialStateProperty.all(const TextStyle(
-                              fontSize: 14,
-                            ))),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue[900],
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 10),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30))),
                         onPressed: () async {
-                          Map<String, dynamic> data = {"field1": _nameController.text,"field2":_genderTypeEnum,"field3":_selectedVal?.codeUnits,"field4":_fController.text,"field5":_answerTypeEnum};
-                          FirebaseFirestore.instance.collection("patientreportest").add(data);
+                          if (_nameController.text.isNotEmpty &&
+                            _problemController.text.isNotEmpty )
+                            {
+                          UserService().saveUserpatientreport(
+                             
+                             _nameController.text,
+                             _genderTypeEnum.toString(),
+                             _answerTypeEnum.toString(),
+                             _selectedVal.toString(),
+                             _problemController.text);
+
+                          Navigator.pushNamed(context, '/dashboard');
+                          }
                         },
                         child: Column(
                           children: const [
@@ -254,11 +263,14 @@ class _PatientReportState extends State<PatientReport> {
                               'Submit',
                               style: TextStyle(
                                 color: Colors.white,
+                                fontSize: 30,
                               ),
                             ),
                           ],
-                        ),
+                        )
+                        
                       ),
+  
                       const SizedBox(
                         width: 20,
                       ),
