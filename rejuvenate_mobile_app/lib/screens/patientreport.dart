@@ -53,7 +53,7 @@ class _PatientReportState extends State<PatientReport> {
         toolbarHeight: 100,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        foregroundColor: const Color.fromARGB(255, 13, 71, 161),
+        foregroundColor: const Color.fromARGB(255, 1, 6, 29),
         shadowColor: Colors.white,
       ),
       body: SafeArea(
@@ -81,7 +81,7 @@ class _PatientReportState extends State<PatientReport> {
                   const Text(
                     'Choose the Gender',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 13, 71, 161),
+                        color: Color.fromARGB(255, 1, 6, 29),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
@@ -90,7 +90,7 @@ class _PatientReportState extends State<PatientReport> {
                     children: [
                       Expanded(
                         child: RadioListTile<GenderTypeEnum>(
-                          activeColor: const Color.fromARGB(255, 13, 71, 161),
+                          activeColor: const Color.fromARGB(255, 1, 6, 29),
                           value: GenderTypeEnum.Male,
                           groupValue: _genderTypeEnum,
                           shape: OutlineInputBorder(
@@ -110,7 +110,7 @@ class _PatientReportState extends State<PatientReport> {
                       ),
                       Expanded(
                         child: RadioListTile<GenderTypeEnum>(
-                          activeColor: const Color.fromARGB(255, 13, 71, 161),
+                          activeColor: const Color.fromARGB(255, 1, 6, 29),
                           value: GenderTypeEnum.Female,
                           groupValue: _genderTypeEnum,
                           shape: OutlineInputBorder(
@@ -148,13 +148,13 @@ class _PatientReportState extends State<PatientReport> {
                     },
                     icon: const Icon(
                       Icons.arrow_drop_down_circle,
-                      color: Color.fromARGB(255, 13, 71, 161),
+                      color: Color.fromARGB(255, 1, 6, 29),
                     ),
                     decoration: const InputDecoration(
                       labelText: "Sugar Types",
                       prefixIcon: Icon(
                         Icons.accessibility_new_rounded,
-                        color: Color.fromARGB(255, 13, 71, 161),
+                        color: Color.fromARGB(255, 1, 6, 29),
                       ),
                     ),
                   ),
@@ -163,7 +163,7 @@ class _PatientReportState extends State<PatientReport> {
                   const Text(
                     'Do you have Blood Pressure?',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 13, 71, 161),
+                        color: Color.fromARGB(255, 1, 6, 29),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
@@ -176,7 +176,7 @@ class _PatientReportState extends State<PatientReport> {
                   const Text(
                     'Do you have any known cardiovascular problems (abnormal ECG, previous heart attack, etc)?',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 13, 71, 161),
+                        color: Color.fromARGB(255, 1, 6, 29),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -191,7 +191,7 @@ class _PatientReportState extends State<PatientReport> {
                   const Text(
                     'Are you taking any prescribed medications or dietary supplementation?',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 13, 71, 161),
+                        color: Color.fromARGB(255, 1, 6, 29),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -204,7 +204,7 @@ class _PatientReportState extends State<PatientReport> {
                   const Text(
                     "If yes enter the name of the medicine",
                     style: TextStyle(
-                        color: Color.fromARGB(255, 13, 71, 161),
+                        color: Color.fromARGB(255, 1, 6, 29),
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
@@ -233,11 +233,11 @@ class _PatientReportState extends State<PatientReport> {
                     children: [
                       ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue[900],
+                          backgroundColor: const Color.fromARGB(255, 1, 6, 29),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 50, vertical: 10),
+                              horizontal: 30, vertical: 7),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30))),
+                              borderRadius: BorderRadius.circular(20))),
                         onPressed: () async {
                           if (_nameController.text.isNotEmpty &&
                             _problemController.text.isNotEmpty )
@@ -275,15 +275,12 @@ class _PatientReportState extends State<PatientReport> {
                         width: 20,
                       ),
                       ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blue[900]),
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.fromLTRB(40, 10, 40, 10)),
-                            textStyle:
-                                MaterialStateProperty.all(const TextStyle(
-                              fontSize: 14,
-                            ))),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 1, 6, 29),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 7),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20))),
                         onPressed: () {
                           Navigator.pushNamed(context, '/dashboard');
                         },
@@ -293,7 +290,8 @@ class _PatientReportState extends State<PatientReport> {
                                 color: Colors.white),
                             Text(
                               'Cancel',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.white,fontSize: 30,),
+                              
                             ),
                           ],
                         ),

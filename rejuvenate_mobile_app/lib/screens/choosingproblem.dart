@@ -112,7 +112,7 @@ class _ChoosingProblemState extends ConsumerState<ChoosingProblem> {
                 },
                 icon: const Icon(
                   Icons.arrow_drop_down_circle,
-                  color: Colors.blueAccent,
+                  color: Color.fromARGB(255, 1, 6, 29),
                 ),
                 decoration: const InputDecoration(
                   labelText: "Problems",
@@ -127,7 +127,7 @@ class _ChoosingProblemState extends ConsumerState<ChoosingProblem> {
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[900],
+                      backgroundColor: Color.fromARGB(255, 1, 6, 29),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 70, vertical: 20),
                       shape: RoundedRectangleBorder(
