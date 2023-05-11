@@ -26,6 +26,9 @@ class _HistoryState extends ConsumerState<History> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
+                        const SizedBox(
+                          height: 50,
+                        ),
                         FutureBuilder(
                             future: HistoryService.gethistory(ref
                                 .read(newUserDataProivder.notifier)
@@ -34,6 +37,7 @@ class _HistoryState extends ConsumerState<History> {
                             builder: ((context, snapshot) {
                               if (snapshot.hasData) {
                                 final data = snapshot.data!;
+                                // ignore: avoid_print
                                 print(data);
                                 return SizedBox(
                                   height: 400,
@@ -47,13 +51,21 @@ class _HistoryState extends ConsumerState<History> {
                                             if (snapshot.hasData) {
                                               final patientdata =
                                                   snapshot.data!;
-                                              return ListTile(
-                                                title: Text(
-                                                    patientdata["fname"] +
-                                                        " " +
-                                                        patientdata["lname"]),
-                                                subtitle: Text(
-                                                    patientdata["problemtype"]),
+                                              return Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10),
+                                                child: ListTile(
+                                                  leading: const Icon(
+                                                      Icons.person,
+                                                      color: Color.fromARGB(
+                                                          255, 4, 20, 93)),
+                                                  title: Text(
+                                                      patientdata["fname"] +
+                                                          " " +
+                                                          patientdata["lname"]),
+                                                  subtitle: Text(patientdata[
+                                                      "problemtype"]),
+                                                ),
                                               );
                                             }
                                             return Container();

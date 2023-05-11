@@ -32,7 +32,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
     SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
-        // extendBodyBehindAppBar: false,
+        extendBodyBehindAppBar: false,
         key: scaffoldKey,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -50,7 +50,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                 Image.asset(
                   'assets/login.png',
                   fit: BoxFit.cover,
-                  height: 350,
+                  height: 250,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 300),

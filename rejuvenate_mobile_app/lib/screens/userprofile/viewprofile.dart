@@ -90,7 +90,7 @@ class _ViewProfileState extends ConsumerState<ViewProfile> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 60.0),
+                    padding: const EdgeInsets.only(left: 30.0),
                     child: Text(
                       ref.watch(newUserDataProivder)!.email,
                       style: GoogleFonts.nunitoSans(

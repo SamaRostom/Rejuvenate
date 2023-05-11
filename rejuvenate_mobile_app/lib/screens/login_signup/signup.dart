@@ -67,7 +67,7 @@ class _SignupState extends ConsumerState<SignupScreen> {
                 Image.asset(
                   'assets/login.png',
                   fit: BoxFit.cover,
-                  height: 350,
+                  height: 150,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 250),

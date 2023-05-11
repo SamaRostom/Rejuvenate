@@ -18,7 +18,7 @@ class _SavingProfileUpdatesState extends State<SavingProfileUpdates> {
             children: [
               Lottie.asset('assets/checkdone.json'),
               Text(
-                "\tProfile Updated\n\t\t\t\t\tSuccefully",
+                "\tProfile Updated\n\t\t\t\t\tSuccesfully",
                 style: GoogleFonts.robotoSlab(
                     fontSize: 45,
                     fontWeight: FontWeight.bold,
