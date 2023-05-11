@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../config/size_config.dart';
+import '../../providers/user_provider.dart';
+import '../../services/history_service.dart';
 
-class DashboardDetail extends StatelessWidget {
+class DashboardDetail extends ConsumerStatefulWidget {
   const DashboardDetail({super.key});
 
+  @override
+  ConsumerState<DashboardDetail> createState() => _DashboardDetailState();
+}
+
+class _DashboardDetailState extends ConsumerState<DashboardDetail> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -14,11 +22,11 @@ class DashboardDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-                flex: 30,
+                flex: 40,
                 child: SafeArea(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 30, horizontal: 30),
+                        vertical: 80, horizontal: 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -27,8 +35,7 @@ class DashboardDetail extends StatelessWidget {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[900]
-                              ),
+                                  backgroundColor: Colors.blue[900]),
                               onPressed: () {
                                 Navigator.pushNamed(context, '/addpatient');
                               },
@@ -50,44 +57,39 @@ class DashboardDetail extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: 230,
+                          height: 500,
                           child: Stack(
                             children: [
                               Positioned(
-                                  top: 25,
-                                  left: 50,
                                   child: Material(
-                                    child: Container(
-                                      height: 180.0,
-                                      width: 500.0,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                         
-                                          ),
-                                    ),
-                                  )),
+                                child: Container(
+                                  height: 180.0,
+                                  width: 500.0,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                              )),
                               Positioned(
                                   top: 22,
                                   child: Card(
                                     elevation: 10.0,
                                     shadowColor: Colors.grey,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Container(
                                       height: 180,
                                       width: 150,
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
+                                              BorderRadius.circular(20),
                                           image: const DecorationImage(
                                             // fit:BoxFit.fill,
                                             image: AssetImage(
-                                                "assets/patient.png"),
-                                          )
-                                          ),
+                                                "assets/patient.jpg"),
+                                          )),
                                     ),
                                   )),
                               Positioned(
@@ -110,120 +112,31 @@ class DashboardDetail extends StatelessWidget {
                                           const Divider(
                                             color: Colors.black,
                                           ),
-                                          Text(
-                                            "142",
-                                            style: GoogleFonts.nunitoSans(
-                                                fontSize: 18,
-                                                color: Colors.grey),
-                                          ),
-                                        ]),
-                                  )),
-                              Positioned(
-                                top: 150,
-                                left: 270,
-                                child: TextButton(
-                                  child: const Text(
-                                    "See all",
-                                    style: TextStyle(
-                                        fontSize: 14, color: Color.fromARGB(255, 2, 68, 122)),
-                                  ),
-                                  onPressed: () => Navigator.of(context)
-                                      .pushNamed('/viewprofile'),
-                                ),
-                              ),
+                                          FutureBuilder(
+                                            future: HistoryService.gethistory(
+                                                ref
+                                                    .read(newUserDataProivder
+                                                        .notifier)
+                                                    .state!
+                                                    .ID),
+                                            builder: ((context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                final data = snapshot.data!;
 
-                              
-                              
-                            ],
-                          ),
-                        ),
-                        ///new 
-                        
-                          SizedBox(
-                          height: 230,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                  top: 25,
-                                  left: 50,
-                                  child: Material(
-                                    child: Container(
-                                      height: 180.0,
-                                      width: 500.0,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                         
-                                          ),
-                                    ),
-                                  )),
-                              Positioned(
-                                  top: 22,
-                                  child: Card(
-                                    elevation: 10.0,
-                                    shadowColor: Colors.grey,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    child: Container(
-                                      height: 180,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          image: const DecorationImage(
-                                            // fit:BoxFit.fill,
-                                            image: AssetImage(
-                                                "assets/imageresult.png"),
+                                                return Text(
+                                                  data["listofpatients"]
+                                                      .length
+                                                      .toString(),
+                                                  style: GoogleFonts.nunitoSans(
+                                                      fontSize: 18,
+                                                      color: Colors.grey),
+                                                );
+                                              }
+                                              return Container();
+                                            }),
                                           )
-                                          ),
-                                    ),
-                                  )),
-                              Positioned(
-                                  top: 70,
-                                  left: 170,
-                                  child: SizedBox(
-                                    height: 150.0,
-                                    width: 160.0,
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Number Of Image Result",
-                                            style: GoogleFonts.nunitoSans(
-                                                fontSize: 20,
-                                                color: Colors.blue[900],
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const Divider(
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "98",
-                                            style: GoogleFonts.nunitoSans(
-                                                fontSize: 18,
-                                                color: Colors.grey),
-                                          ),
                                         ]),
                                   )),
-                              Positioned(
-                                top: 150,
-                                left: 270,
-                                child: TextButton(
-                                  child: const Text(
-                                    "See all",
-                                    style: TextStyle(
-                                        fontSize: 14, color: Color.fromARGB(255, 2, 68, 122)),
-                                  ),
-                                  onPressed: () => Navigator.of(context)
-                                      .pushNamed('/viewprofile'),
-                                ),
-                              ),
-
-                              
-                              
                             ],
                           ),
                         ),

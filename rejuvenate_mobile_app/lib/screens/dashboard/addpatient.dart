@@ -21,7 +21,7 @@ class AddPatient extends ConsumerStatefulWidget {
 class _AddPatientState extends ConsumerState<AddPatient> {
   DateTime dateTime = DateTime(2000, 2, 1, 10, 20);
   String? gender;
-  bool passwordVisible = false;
+  bool passwordVisible = true;
   GenderTypeEnum? _genderTypeEnum;
   final _formKey = GlobalKey<FormState>();
 
