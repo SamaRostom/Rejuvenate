@@ -14,7 +14,7 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return DefaultTabController(
-      length: 10,
+      length: 2,
       child: Scaffold(
         drawer: loggedin == true ? const SideMenu1(): const SideMenu2(),
         appBar: AppBar(

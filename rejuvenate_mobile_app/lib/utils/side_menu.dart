@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:rejuvenate_mobile_app/services/user_services.dart';
 import 'package:ternav_icons/ternav_icons.dart';
+import 'package:flutter/cupertino.dart'; // Import Cupertino library for CupertinoSwitch
 
-class SideMenu1 extends StatelessWidget {
+class SideMenu1 extends StatefulWidget {
   const SideMenu1({
     Key? key,
   }) : super(key: key);
+
+  @override
+  _SideMenu1State createState() => _SideMenu1State();
+}
+
+class _SideMenu1State extends State<SideMenu1> {
+  bool switchTheme = false; // Add a boolean variable to track the state of the switch
+  bool switchlang = false; // Add a boolean variable to track the state of the switch
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +25,19 @@ class SideMenu1 extends StatelessWidget {
         shrinkWrap: true,
         children: [
           SizedBox(
-            height: 150,
+            height: 170,
             child: DrawerHeader(
-                child: Image.asset(
-              'assets/Logo.png',
-            )),
+              child: Image.asset(
+                'assets/Logo.png',
+              ),
+            ),
+          ),
+          DrawerListTile(
+            icon: TernavIcons.lightOutline.home_2,
+            title: "Home",
+            onTap: () {
+              Navigator.of(context).pushNamed('/');
+            },
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.profile,
@@ -50,6 +67,54 @@ class SideMenu1 extends StatelessWidget {
               Navigator.of(context).pushNamed('/dashboard');
             },
           ),
+          ListTile(
+            leading: Icon(
+              TernavIcons.lightOutline.night,
+              color: const Color(0xFF2C49A7),
+              size: 25,
+            ),
+            title: const Text(
+              "Dark theme",
+              style: TextStyle(
+                color: Color.fromARGB(255, 1, 6, 29),
+                fontSize: 20,
+              ),
+            ),
+            trailing: CupertinoSwitch(
+              activeColor: const Color(0xFF2C49A7), 
+              thumbColor: Colors.white,
+              trackColor: Colors.black12,
+              value: switchTheme,
+              onChanged: (value) => setState(() => switchTheme = value),
+            ),
+            onTap: () {
+              // Add your dark theme logic here
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              IconData(0xe67b, fontFamily: 'MaterialIcons'),
+              color: Color(0xFF2C49A7),
+              size: 25,
+            ),
+            title: const Text(
+              "English",
+              style: TextStyle(
+                color: Color.fromARGB(255, 1, 6, 29),
+                fontSize: 20,
+              ),
+            ),
+            trailing: CupertinoSwitch(
+              activeColor: const Color(0xFF2C49A7), 
+              thumbColor: Colors.white,
+              trackColor: Colors.black12,
+              value: switchlang,
+              onChanged: (value) => setState(() => switchlang = value),
+            ),
+            onTap: () {
+              // Add your language selection logic here
+            },
+          ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.logout,
             title: "Log out",
@@ -77,11 +142,12 @@ class SideMenu2 extends StatelessWidget {
         shrinkWrap: true,
         children: [
           SizedBox(
-            height: 150,
+            height: 170,
             child: DrawerHeader(
-                child: Image.asset(
-              'assets/Logo.png',
-            )),
+              child: Image.asset(
+                'assets/Logo.png',
+              ),
+            ),
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.home_2,
@@ -128,13 +194,15 @@ class DrawerListTile extends StatelessWidget {
       horizontalTitleGap: 0,
       leading: Icon(
         icon,
-        color: Colors.blue,
+        color: const Color(0xFF2C49A7),
         size: 25,
       ),
       title: Text(
         title,
-        style:
-            const TextStyle(color: Color.fromARGB(255, 1, 6, 29), fontSize: 20),
+        style: const TextStyle(
+          color: Color.fromARGB(255, 1, 6, 29),
+          fontSize: 20,
+        ),
       ),
     );
   }
