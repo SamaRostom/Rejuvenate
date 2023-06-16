@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -97,58 +97,86 @@ class _InpaintPageState extends ConsumerState<InpaintPage> {
       ),
       body: Column(
         children: [
+          const SizedBox(height: 30),
+          Image.asset(
+            'assets/upload.jpg',
+            height: 100,
+            width: 100,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 5, left: 40),
+            child: Text(
+              "Upload the image you want \n\t\t\t\t\t to see the result for",
+              style: GoogleFonts.nunitoSans(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: const Color.fromARGB(255, 1, 6, 29)),
+            ),
+          ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  const SizedBox(height: 50),
                   _image != null
                       ? Image.file(_image!)
-                      : ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.blue[900]),
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.fromLTRB(50, 20, 70, 20)),
-                              textStyle: MaterialStateProperty.all(
-                                  const TextStyle(
-                                      fontSize: 20, color: Colors.white))),
-                          onPressed: () => _getImage(ImageSource.gallery),
-                          child: const Text('Select Image'),
+                      : Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue[900],
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 70, vertical: 20),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50))),
+                            onPressed: () => _getImage(ImageSource.gallery),
+                            child: const Text('Select Image',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20)),
+                          ),
                         ),
+                  const SizedBox(height: 50),
                   _mask != null
                       ? Image.file(_mask!)
-                      : ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.blue[900]),
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.fromLTRB(50, 20, 70, 20)),
-                              textStyle: MaterialStateProperty.all(
-                                  const TextStyle(
-                                      fontSize: 20, color: Colors.white))),
-                          onPressed: () => _getMask(ImageSource.gallery),
-                          child: const Text('Select Mask'),
+                      : Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue[900],
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 70, vertical: 20),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50))),
+                            onPressed: () => _getMask(ImageSource.gallery),
+                            child: const Text('Select Mask',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20)),
+                          ),
                         ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 70, vertical: 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          )),
+                      onPressed: _inpaintImage,
+                      child: const Text(
+                        'Final Results',
+                        style: TextStyle(
+                            color: Color.fromRGBO(13, 71, 161, 1),
+                            fontSize: 20),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[900],
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 70, vertical: 20),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40))),
-            onPressed: _inpaintImage,
-            child: const Text(
-              'Final Results',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-          ),
-          // if (imageData != null) Expanded(child: Image.memory(ref.watch(outputimageProvider.notifier).state!) )
-          // else const CircularProgressIndicator(),
         ],
       ),
     );
