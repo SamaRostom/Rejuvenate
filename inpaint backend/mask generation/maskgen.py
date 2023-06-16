@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
 
     # Load the configuration of the Mask R-CNN model
-    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0  # set a threshold for post-processing
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.01  # set a threshold for post-processing
 
     # Create the predictor for the Mask R-CNN model
     predictor = DefaultPredictor(cfg)

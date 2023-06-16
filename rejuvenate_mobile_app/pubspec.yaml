@@ -38,6 +38,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.1.3
+  flutter_svg: 
   google_fonts: ^4.0.3
   image_picker: ^0.8.6+1
   loading_animation_widget: ^1.2.0+4
@@ -74,12 +75,12 @@ flutter:
     - assets/31.jpg
     - assets/patient.jpg
     - assets/Doctor.png
-
-
-
-
-
-
+    - assets/textalignright.svg
+    - assets/add.svg
+    - assets/arrowright2.svg
+    - assets/email.svg
+    - assets/mobile.svg
+    - assets/Vector (1).svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
