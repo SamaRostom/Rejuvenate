@@ -8,7 +8,7 @@ class HistoryService {
     final result = doctorRef.get();
     // return result.then();
     return result.then((value) {
-      print(value);
+      // print(value);
       return value.data();
     });
   }

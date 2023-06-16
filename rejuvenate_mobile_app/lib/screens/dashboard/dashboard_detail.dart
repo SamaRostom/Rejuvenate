@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../config/size_config.dart';
 import '../../providers/user_provider.dart';
 import '../../services/history_service.dart';
+import '../../utils/constants.dart';
+import '../../utils/side_menu.dart';
 
 class DashboardDetail extends ConsumerStatefulWidget {
   const DashboardDetail({super.key});
@@ -16,7 +19,10 @@ class _DashboardDetailState extends ConsumerState<DashboardDetail> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
+      key: _scaffoldKey,
+      endDrawer: loggedin == true ? const SideMenu1() : const SideMenu2(),
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,11 +31,24 @@ class _DashboardDetailState extends ConsumerState<DashboardDetail> {
                 flex: 40,
                 child: SafeArea(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 80, horizontal: 30),
+                    // padding: const EdgeInsets.symmetric(
+                    //     vertical: 80, horizontal: 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Padding(
+              padding: const EdgeInsets.only(left: 350.0,),
+              child: IconButton(
+                     alignment: Alignment.topLeft,
+                      icon: SvgPicture.asset('assets/textalignright.svg',
+                          semanticsLabel: 'Acme Logo',alignment: Alignment.topLeft,),
+                      onPressed: () =>
+                          _scaffoldKey.currentState!.openEndDrawer(),
+                    ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -122,7 +141,7 @@ class _DashboardDetailState extends ConsumerState<DashboardDetail> {
                                             builder: ((context, snapshot) {
                                               if (snapshot.hasData) {
                                                 final data = snapshot.data!;
-
+                                                print(data);
                                                 return Text(
                                                   data["listofpatients"]
                                                       .length
@@ -132,7 +151,21 @@ class _DashboardDetailState extends ConsumerState<DashboardDetail> {
                                                       color: Colors.grey),
                                                 );
                                               }
-                                              return Container();
+                                              else if (snapshot.hasError) {
+                                                print(snapshot.error);
+                                                return Text(
+                                                  "0",
+                                                  style: GoogleFonts.nunitoSans(
+                                                      fontSize: 18,
+                                                      color: Colors.grey),
+                                                );
+                                              }
+                                              return Text(
+                                                  "0",
+                                                  style: GoogleFonts.nunitoSans(
+                                                      fontSize: 18,
+                                                      color: Colors.grey),
+                                                );
                                             }),
                                           )
                                         ]),

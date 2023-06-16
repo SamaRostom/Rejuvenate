@@ -138,6 +138,10 @@ class _PatientProfileState extends State<PatientProfile> {
                               ),
                               height: 120,
                               width: 150,
+                              child: Image.asset(
+                        "assets/baby2.png",
+                        fit: BoxFit.cover,
+                      ),
                             ),
                           );
                         },

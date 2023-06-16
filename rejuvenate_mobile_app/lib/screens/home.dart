@@ -4,9 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ternav_icons/ternav_icons.dart';
 
 import '../providers/user_provider.dart';
+import '../services/history_service.dart';
 import '../utils/constants.dart';
 import '../utils/side_menu.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'dashboard/addpatient.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   static const routeName = "/home-screen";
@@ -265,97 +268,147 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               height: 130,
               child: Stack(
                 children: [
-                  ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: items.length + 1,
-                    itemBuilder: (context, index) {
-                      return index == 0
-                          ? Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: const Color(0xFF6989F2),
-                                ),
-                                height: 70,
-                                width: 120,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(4),
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Color(0xFF2C49A7),
+                  FutureBuilder(
+                    future: HistoryService.gethistory(
+                        ref.read(newUserDataProivder.notifier).state!.ID),
+                    builder: ((context, snapshot) {
+                      if (snapshot.hasData) {
+                        final data = snapshot.data!;
+                        print(data);
+                        return SizedBox(
+                          height: 400,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: data["listofpatients"].length,
+                            itemBuilder: (context, index) {
+                              return index == 0
+                                  ? Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
-                                      child: SvgPicture.asset(
-                                        'assets/add.svg',
-                                        semanticsLabel: 'Acme Logo',
-                                        width: 37.0,
-                                        height: 37.0,
-                                      ),
-                                    ),
-                                    Center(
-                                      child: Text(
-                                        "Add Patient",
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 15,
-                                          color: const Color.fromARGB(
-                                              255, 255, 255, 255),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          : Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: const Color(0xFF2C49A7),
-                                ),
-                                height: 70,
-                                width: 120,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 13.0, bottom: 15.0),
                                       child: Container(
-                                        width: 45,
-                                        height: 45,
-                                        padding: const EdgeInsets.all(7),
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Color(0xFF6989F2),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: const Color(0xFF6989F2),
+                                        ),
+                                        height: 70,
+                                        width: 120,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const AddPatient(),
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(4),
+                                                decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xFF2C49A7),
+                                                ),
+                                                child: SvgPicture.asset(
+                                                  'assets/add.svg',
+                                                  semanticsLabel: 'Acme Logo',
+                                                  width: 37.0,
+                                                  height: 37.0,
+                                                ),
+                                              ),
+                                            ),
+                                            Center(
+                                              child: Text(
+                                                "Add Patient",
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 15,
+                                                  color: const Color.fromARGB(
+                                                      255, 255, 255, 255),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                    Center(
-                                      child: Text(
-                                        items[index - 1],
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 17,
-                                          color: const Color.fromARGB(
-                                              255, 255, 255, 255),
+                                    )
+                                  : 
+                                  FutureBuilder(
+                                        future: HistoryService.getpatient(
+                                            data["listofpatients"][index]),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData) {
+                                            final patientdata = snapshot.data!;
+                                            return Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: const Color(0xFF2C49A7),
+                                        ),
+                                        height: 70,
+                                        width: 120,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 13.0, bottom: 15.0),
+                                              child: Container(
+                                                width: 45,
+                                                height: 45,
+                                                padding:
+                                                    const EdgeInsets.all(7),
+                                                decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xFF6989F2),
+                                                ),
+                                                child: const CircleAvatar(
+                                                    backgroundImage: AssetImage(
+                                                        'assets/Profile.png'),
+                                                  ),
+                                              ),
+                                            ),
+                                            Center(
+                                              child: Text(
+                                                patientdata["fname"] +
+                                                        " " +
+                                                        patientdata["lname"],
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 14,
+                                                  color: const Color.fromARGB(
+                                                      255, 255, 255, 255),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                    },
+                                    );
+                                          }
+                                          return Container();
+                                        });
+                                  
+                            },
+                          ),
+                        );
+                        } else if (snapshot.hasError) {
+                              return Text(snapshot.error.toString());
+                            }
+                            return Container();
+                      
+                    }),
                   ),
                   Center(
                     child: Padding(
@@ -423,6 +476,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ),
                       height: 160,
                       width: 150,
+                      child: Image.asset(
+                        "assets/baby2.png",
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   );
                 },

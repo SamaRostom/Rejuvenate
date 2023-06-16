@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:rejuvenate_mobile_app/screens/patientreport.dart';
 
 import '../models/user_model.dart';
@@ -10,6 +15,8 @@ import '../utils/constants.dart';
 import '../utils/error_message.dart';
 import '../widgets/loading_widget.dart';
 import '../utils/constants.dart' as val;
+
+import 'package:firebase_storage/firebase_storage.dart';
 
 class UserService {
   Future signUp(
@@ -145,8 +152,7 @@ class UserService {
           UserModel user = UserModel.fromSnapshot(data, Id);
           ref.read(newUserDataProivder.notifier).state = user;
           loggedin = true;
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil('/dashboard', (route) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
         });
       } else {
         // ignore: use_build_context_synchronously
@@ -169,8 +175,7 @@ class UserService {
     }
   }
 
-  Future<List> getNewUserData(
-  ) async {
+  Future<List> getNewUserData() async {
     final user = FirebaseAuth.instance.currentUser!;
     String id = user.uid;
     return [
@@ -185,6 +190,34 @@ class UserService {
     final FirebaseFirestore db = FirebaseFirestore.instance;
     final user = FirebaseAuth.instance.currentUser!;
 
+    // // Get the default image from the app's assets folder
+    // final byteData = await rootBundle.load('assets/Profile.png');
+    // final tempDir = await getTemporaryDirectory();
+    // final file = File('${tempDir.path}/Profile.png');
+    // await file.writeAsBytes(byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+
+    //  // Upload the image to Firebase Storage
+    // final Reference ref = FirebaseStorage.instance.ref().child('${tempDir.path}/Profile.png');
+    // final UploadTask uploadTask = ref.putFile(file);
+    // final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
+
+    // // Get the download URL of the image
+    // final String downloadUrl = await snapshot.ref.getDownloadURL();
+    final image = Image.file(
+      File('assets/Profile.png'),
+    );
+
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('profilepic')
+        .child('${user.uid}.png');
+
+    // final file = File(image); 
+    final f = File('assets/Profile.png');
+    await ref.putFile(f).whenComplete(() {});
+
+    final url = await ref.getDownloadURL();
+
     Map<String, dynamic> userData = {
       "email": user.email,
       "fname": fname,
@@ -192,6 +225,7 @@ class UserService {
       "phone": phone,
       "gender": gender,
       "birth": birth,
+      "profilepic": url,
       "role": "user",
     };
 
@@ -245,7 +279,7 @@ class UserService {
   }
 /////////////////////////////////////
 //  Future PatientReport(
-      
+
 //       BuildContext context,
 //       TextEditingController _nameController,
 //       TextEditingController _problemController) async {
@@ -256,8 +290,12 @@ class UserService {
 //       id
 //     ];
 //       }
-   saveUserpatientreport(String nameController, String genderTypeEnum, String answerTypeEnum,
-      String selectedVal, String problemController) async {
+  saveUserpatientreport(
+      String nameController,
+      String genderTypeEnum,
+      String answerTypeEnum,
+      String selectedVal,
+      String problemController) async {
     //Dont Put Instance common as it doesnt change when the user logs out
     final FirebaseFirestore db = FirebaseFirestore.instance;
     final user = FirebaseAuth.instance.currentUser!;
@@ -268,13 +306,12 @@ class UserService {
       "answertype": answerTypeEnum,
       "problemm": problemController,
       "select": selectedVal,
-      
     };
 
     // Map<String, dynamic> doctorData = {
     //   "listofpatients": [],
     //   "user_id": user.uid,
-      
+
     // };
 
     // // final userRef = db.collection("users").doc(user.uid);
@@ -295,7 +332,7 @@ class UserService {
   static signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     loggedin = false;
-   
+
     Navigator.of(context).pushReplacementNamed('/login');
   }
 
@@ -313,8 +350,7 @@ class UserService {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailController.text.trim());
       error("Important", "Password Reset Email Sent");
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil('/viewprofile', (route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
     } on FirebaseAuthException catch (e) {
       print(e);
       error("Error!", e.message.toString());

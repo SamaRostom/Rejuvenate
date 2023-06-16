@@ -67,54 +67,54 @@ class _SideMenu1State extends State<SideMenu1> {
               Navigator.of(context).pushNamed('/dashboard');
             },
           ),
-          ListTile(
-            leading: Icon(
-              TernavIcons.lightOutline.night,
-              color: const Color(0xFF2C49A7),
-              size: 25,
-            ),
-            title: const Text(
-              "Dark theme",
-              style: TextStyle(
-                color: Color.fromARGB(255, 1, 6, 29),
-                fontSize: 20,
-              ),
-            ),
-            trailing: CupertinoSwitch(
-              activeColor: const Color(0xFF2C49A7), 
-              thumbColor: Colors.white,
-              trackColor: Colors.black12,
-              value: switchTheme,
-              onChanged: (value) => setState(() => switchTheme = value),
-            ),
-            onTap: () {
-              // Add your dark theme logic here
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              IconData(0xe67b, fontFamily: 'MaterialIcons'),
-              color: Color(0xFF2C49A7),
-              size: 25,
-            ),
-            title: const Text(
-              "English",
-              style: TextStyle(
-                color: Color.fromARGB(255, 1, 6, 29),
-                fontSize: 20,
-              ),
-            ),
-            trailing: CupertinoSwitch(
-              activeColor: const Color(0xFF2C49A7), 
-              thumbColor: Colors.white,
-              trackColor: Colors.black12,
-              value: switchlang,
-              onChanged: (value) => setState(() => switchlang = value),
-            ),
-            onTap: () {
-              // Add your language selection logic here
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(
+          //     TernavIcons.lightOutline.night,
+          //     color: const Color(0xFF2C49A7),
+          //     size: 25,
+          //   ),
+          //   title: const Text(
+          //     "Dark theme",
+          //     style: TextStyle(
+          //       color: Color.fromARGB(255, 1, 6, 29),
+          //       fontSize: 20,
+          //     ),
+          //   ),
+          //   trailing: CupertinoSwitch(
+          //     activeColor: const Color(0xFF2C49A7), 
+          //     thumbColor: Colors.white,
+          //     trackColor: Colors.black12,
+          //     value: switchTheme,
+          //     onChanged: (value) => setState(() => switchTheme = value),
+          //   ),
+          //   onTap: () {
+          //     // Add your dark theme logic here
+          //   },
+          // ),
+          // ListTile(
+          //   leading: const Icon(
+          //     IconData(0xe67b, fontFamily: 'MaterialIcons'),
+          //     color: Color(0xFF2C49A7),
+          //     size: 25,
+          //   ),
+          //   title: const Text(
+          //     "English",
+          //     style: TextStyle(
+          //       color: Color.fromARGB(255, 1, 6, 29),
+          //       fontSize: 20,
+          //     ),
+          //   ),
+          //   trailing: CupertinoSwitch(
+          //     activeColor: const Color(0xFF2C49A7), 
+          //     thumbColor: Colors.white,
+          //     trackColor: Colors.black12,
+          //     value: switchlang,
+          //     onChanged: (value) => setState(() => switchlang = value),
+          //   ),
+          //   onTap: () {
+          //     // Add your language selection logic here
+          //   },
+          // ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.logout,
             title: "Log out",

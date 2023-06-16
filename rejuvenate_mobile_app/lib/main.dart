@@ -6,6 +6,7 @@ import 'package:rejuvenate_mobile_app/screens/home.dart';
 import 'package:rejuvenate_mobile_app/screens/report.dart';
 import 'screens/choosingproblem.dart';
 import 'screens/dashboard/addpatient.dart';
+import 'screens/dashboard/dashboard_detail.dart';
 import 'screens/inpaint/finalresult.dart';
 import 'screens/inpaint/inpaint.dart';
 import 'screens/inpaint/uploadimage.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => const SignupScreen(),
         '/forgetpassword': (context) => const ForgetPassword(),
         '/verifyemail': (context) => const VerifyEmail(),
-        '/dashboard': (context) => const Dashboard(),
+        '/dashboard': (context) => const DashboardDetail(),
         '/editprofile': (context) => const EditProfile(),
         '/viewprofile': (context) => const ViewProfile(),
         '/patientprofile': (context) => const PatientProfile(),
