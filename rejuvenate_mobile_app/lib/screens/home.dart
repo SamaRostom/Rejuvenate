@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rejuvenate_mobile_app/screens/patientprofile.dart';
 import 'package:ternav_icons/ternav_icons.dart';
 
 import '../providers/user_provider.dart';
@@ -36,15 +37,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           Navigator.pushNamed(context, '/');
           break;
         case 1:
-          Navigator.pushNamed(context, '/patientreport');
+          Navigator.pushNamed(context, '/dashboard');
           break;
         case 2:
-          Navigator.pushNamed(context, '/report');
+          Navigator.pushNamed(context, '/choosingproblem');
           break;
         case 3:
-          Navigator.pushNamed(context, '/patientprofile');
-          break;
-        case 4:
           Navigator.pushNamed(context, '/viewprofile');
           break;
       }
@@ -76,33 +74,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   : const Icon(Icons.home_outlined),
               label: '',
             ),
-            BottomNavigationBarItem(
-              icon: _selectedIndex == 1
-                  ? Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        const CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Color(0xFF2C49A7),
-                        ),
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          bottom: 0,
-                          left: 0,
-                          child: Icon(
-                            TernavIcons.lightOutline.document,
-                            size: 23,
-                          ),
-                        ),
-                      ],
-                    )
-                  : Icon(
-                      TernavIcons.lightOutline.document,
-                      size: 23,
-                    ),
-              label: '',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: _selectedIndex == 1
+            //       ? Stack(
+            //           alignment: Alignment.center,
+            //           children: [
+            //             const CircleAvatar(
+            //               radius: 20,
+            //               backgroundColor: Color(0xFF2C49A7),
+            //             ),
+            //             Positioned(
+            //               top: 0,
+            //               right: 0,
+            //               bottom: 0,
+            //               left: 0,
+            //               child: Icon(
+            //                 TernavIcons.lightOutline.document,
+            //                 size: 23,
+            //               ),
+            //             ),
+            //           ],
+            //         )
+            //       : Icon(
+            //           TernavIcons.lightOutline.document,
+            //           size: 23,
+            //         ),
+            //   label: '',
+            // ),
             BottomNavigationBarItem(
               icon: _selectedIndex == 2
                   ? Stack(
@@ -224,7 +222,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 ),
                               ),
                               Text(
-                                ref.watch(newUserDataProivder)!.fname,
+                                ref.watch(newUserDataProivder)!.fname??"",
                                 style: GoogleFonts.poppins(
                                   height: 1.2,
                                   fontSize: 28,
@@ -337,77 +335,99 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                         ),
                                       ),
                                     )
-                                  : 
-                                  FutureBuilder(
-                                        future: HistoryService.getpatient(
-                                            data["listofpatients"][index]),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.hasData) {
-                                            final patientdata = snapshot.data!;
-                                            return Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          color: const Color(0xFF2C49A7),
-                                        ),
-                                        height: 70,
-                                        width: 120,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 13.0, bottom: 15.0),
+                                  : FutureBuilder(
+                                      future: HistoryService.getpatient(
+                                          data["listofpatients"][index]),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          final patientdata = snapshot.data!["data"];
+                                          final patientId = snapshot.data!["id"];
+                                          return GestureDetector(
+                                            onTap: () {
+                                              ref.read(patientDataProivder.notifier).state = patientdata;
+                                              ref.read(patientIDProivder.notifier).state = patientId;
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const PatientProfile(),
+                                                ),
+                                              );
+                                            },
+                                            child: Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
                                               child: Container(
-                                                width: 45,
-                                                height: 45,
-                                                padding:
-                                                    const EdgeInsets.all(7),
-                                                decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Color(0xFF6989F2),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                  color:
+                                                      const Color(0xFF2C49A7),
                                                 ),
-                                                child: const CircleAvatar(
-                                                    backgroundImage: AssetImage(
-                                                        'assets/Profile.png'),
-                                                  ),
+                                                height: 70,
+                                                width: 120,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 13.0,
+                                                              bottom: 15.0),
+                                                      child: Container(
+                                                        width: 45,
+                                                        height: 45,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(7),
+                                                        decoration:
+                                                            const BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color:
+                                                              Color(0xFF6989F2),
+                                                        ),
+                                                        child:
+                                                            const CircleAvatar(
+                                                          backgroundImage:
+                                                              AssetImage(
+                                                                  'assets/Profile.png'),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Center(
+                                                      child: Text(
+                                                        patientdata["fname"] +" " + patientdata["lname"],
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          fontSize: 14,
+                                                          color: const Color
+                                                                  .fromARGB(255,
+                                                              255, 255, 255),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                            Center(
-                                              child: Text(
-                                                patientdata["fname"] +
-                                                        " " +
-                                                        patientdata["lname"],
-                                                style: GoogleFonts.poppins(
-                                                  fontSize: 14,
-                                                  color: const Color.fromARGB(
-                                                      255, 255, 255, 255),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                          }
-                                          return Container();
-                                        });
-                                  
+                                          );
+                                        }
+                                        return Container();
+                                      });
                             },
                           ),
                         );
-                        } else if (snapshot.hasError) {
-                              return Text(snapshot.error.toString());
-                            }
-                            return Container();
-                      
+                      } else if (snapshot.hasError) {
+                        return Text(snapshot.error.toString());
+                      }
+                      return Container();
                     }),
                   ),
                   Center(

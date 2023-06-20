@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rejuvenate_mobile_app/screens/patientprofile.dart';
 import 'dart:math';
+import '../services/user_services.dart';
 import '../utils/constants.dart';
 
-class ReportScreen extends StatefulWidget {
+class ReportScreen extends ConsumerStatefulWidget {
   const ReportScreen({super.key});
 
   @override
-  State<ReportScreen> createState() => _ReportScreenState();
+  ConsumerState<ReportScreen> createState() => _ReportScreenState();
 }
 
-class _ReportScreenState extends State<ReportScreen> {
+class _ReportScreenState extends ConsumerState<ReportScreen> {
   List answers = [
     {"answers":["Type 1", "Type 2", "Gestational", "Pre-diabetes", "None"], "type":"One"},
     {"answers":["Yes", "No"], "type":"One"},
@@ -245,10 +248,12 @@ class _ReportScreenState extends State<ReportScreen> {
                     onTap: () {
                       setState(() {
                         if (currentquestion == questions.length - 1) {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => const Report()));
+                          selectedAnswers[6].add(textController.text);
+                          UserService.addPatientReport(selectedAnswers,ref);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const PatientProfile()));
                           print(selectedAnswers);
 
                         }

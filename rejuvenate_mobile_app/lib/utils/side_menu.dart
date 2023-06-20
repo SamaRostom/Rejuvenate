@@ -50,7 +50,7 @@ class _SideMenu1State extends State<SideMenu1> {
             icon: TernavIcons.lightOutline.document,
             title: "Patient Report",
             onTap: () {
-              Navigator.of(context).pushNamed('/patientreport');
+              Navigator.of(context).pushNamed('/report');
             },
           ),
           DrawerListTile(

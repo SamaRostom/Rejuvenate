@@ -14,13 +14,13 @@ class HistoryService {
   }
 
   static Future<Map<String, dynamic>?> getpatient(String id) {
-    final FirebaseFirestore db = FirebaseFirestore.instance;
-    final patientsRef = db.collection("users").doc(id);
-    final result = patientsRef.get();
-    // return result.then();
-    return result.then((value) {
-      print(value);
-      return value.data();
-    });
-  }
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+  final patientsRef = db.collection("users").doc(id);
+  final result = patientsRef.get();
+  return result.then((value) {
+    print(value);
+    return {'id': value.id, 'data': value.data()};
+  });
+}
+
 }

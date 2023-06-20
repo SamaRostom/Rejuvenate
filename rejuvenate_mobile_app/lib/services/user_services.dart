@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -335,6 +336,83 @@ class UserService {
 
     Navigator.of(context).pushReplacementNamed('/login');
   }
+
+  static addPatientReport(List<List> selectedAnswers, WidgetRef ref) async {
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser!;
+
+  // Encode the nested array as a JSON string
+  final answersJson = jsonEncode(selectedAnswers);
+
+  Map<String, dynamic> patientData = {
+    "answers": answersJson,
+    "patientid": ref.watch(patientIDProivder.notifier).state,
+  };
+
+  final patientRef = db.collection("patientreport").doc();
+  if ((await patientRef.get()).exists && (await patientRef.get()).exists) {
+  } else {
+    await patientRef.set(patientData);
+  }
+}
+//  static Future<void> loadAnswersFromFirestore(WidgetRef ref) async {
+//     final FirebaseFirestore db = FirebaseFirestore.instance;
+//     final user = FirebaseAuth.instance.currentUser!;
+
+//     final patientRef = db.collection("patientreport").doc();
+//     final snapshot = await patientRef.get();
+//     final selectedAnswers = snapshot.data()?['answers'];
+
+//     if (selectedAnswers != null && ref.watch(patientIDProivder.notifier).state == snapshot.data()?['patientid']) {
+//       // Decode the JSON string back into a nested array
+//       final decodedAnswers = jsonDecode(selectedAnswers);
+      
+//       // Update the state with the decoded answers
+//       ref.read(selectedAnswersProvider.notifier).state = decodedAnswers;
+//     }
+//     else{
+//       ref.read(selectedAnswersProvider.notifier).state = [["No answer"],["No answer"],["No answer"],["No answer"],["No answer"],["No answer"],["No answer"]];
+//     }
+//   }
+
+static Future<void> loadAnswersFromFirestore(WidgetRef ref) async {
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser!;
+  final patientID = ref.watch(patientIDProivder.notifier).state;
+
+  final snapshot = await db.collection("patientreport").get();
+  final matchingDocuments = snapshot.docs
+      .where((doc) => doc.data()['patientid'] == patientID)
+      .toList();
+
+  if (matchingDocuments.isNotEmpty) {
+    // Retrieve answers from the first matching document
+    final selectedAnswers = matchingDocuments.first.data()['answers'];
+
+    if (selectedAnswers != null) {
+      // Decode the JSON string back into a nested array
+      final decodedAnswers = jsonDecode(selectedAnswers);
+
+      // Update the state with the decoded answers
+      ref.read(selectedAnswersProvider.notifier).state = decodedAnswers;
+      return;
+    }
+  }
+
+  // Set the default state when no answers are found
+  ref.read(selectedAnswersProvider.notifier).state = [
+    ["No answer"],
+    ["No answer"],
+    ["No answer"],
+    ["No answer"],
+    ["No answer"],
+    ["No answer"],
+    ["No answer"]
+  ];
+}
+
+
+
 
   resetPassword(
       BuildContext context, TextEditingController emailController) async {

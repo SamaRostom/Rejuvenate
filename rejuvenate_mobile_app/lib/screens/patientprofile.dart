@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rejuvenate_mobile_app/services/user_services.dart';
+import '../providers/user_provider.dart';
 import '../utils/constants.dart';
+import 'report.dart';
 
-class PatientProfile extends StatefulWidget {
+class PatientProfile extends ConsumerStatefulWidget {
   const PatientProfile({super.key});
 
   @override
-  State<PatientProfile> createState() => _PatientProfileState();
+  ConsumerState<PatientProfile> createState() => _PatientProfileState();
 }
 
-class _PatientProfileState extends State<PatientProfile> {
+class _PatientProfileState extends ConsumerState<PatientProfile> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+    final patientdata = ref.watch(patientDataProivder.notifier).state;
+    final answers = ref.watch(selectedAnswersProvider);
     final items = [
       'Item 1',
       'Item 2',
@@ -43,7 +49,7 @@ class _PatientProfileState extends State<PatientProfile> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Sama Rostom",
+                  patientdata!["fname"] + " " + patientdata["lname"],
                   style: GoogleFonts.poppins(
                       fontSize: 25,
                       color: const Color.fromARGB(255, 255, 255, 255),
@@ -171,103 +177,125 @@ class _PatientProfileState extends State<PatientProfile> {
                             width: 40,
                             child: Row(
                               children: [
-                                Container(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: SvgPicture.asset(
-                                  'assets/arrowright2.svg',
-                                  semanticsLabel: 'Acme Logo',
-                                  width: 23.0,
-                                  height: 23.0,
-                                ),
-                                ),
-                                // Add additional widgets to the row as needed
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: const Color(0xFF6989F2),
-                            ),
-                            height: 40,
-                            width: 40,
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: SvgPicture.asset(
-                                  'assets/Vector (1).svg',
-                                  semanticsLabel: 'Acme Logo',
-                                  width: 23.0,
-                                  height: 23.0,
-                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const ReportScreen()),
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: SvgPicture.asset(
+                                    'assets/arrowright2.svg',
+                                    semanticsLabel: 'Acme Logo',
+                                    width: 23.0,
+                                    height: 23.0,
+                                  ),
+                                  ),
                                 ),
                                 // Add additional widgets to the row as needed
                               ],
                             ),
                           ),
                         ),
+                        // const SizedBox(
+                        //   width: 10,
+                        // ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 20),
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(15),
+                        //       color: const Color(0xFF6989F2),
+                        //     ),
+                        //     height: 40,
+                        //     width: 40,
+                        //     child: Row(
+                        //       children: [
+                        //         Container(
+                        //           padding: const EdgeInsets.only(left: 10),
+                        //           child: SvgPicture.asset(
+                        //           'assets/Vector (1).svg',
+                        //           semanticsLabel: 'Acme Logo',
+                        //           width: 23.0,
+                        //           height: 23.0,
+                        //         ),
+                        //         ),
+                        //         // Add additional widgets to the row as needed
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                      
-                    for (int i = 0; i < questions.length; i++)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom:20.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: const Color(0xFF6989F2)),
-                        width: 380,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                    FutureBuilder(
+                      future: UserService.loadAnswersFromFirestore(ref),
+                      builder: (context, snapshot) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              questions[i],
-                              // textAlign: TextAlign.center,
-                              style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                color: const Color.fromARGB(255, 255, 250, 250),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
+                          
+                        for (int i = 0; i < questions.length; i++)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom:20.0),
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
-                                color: const Color.fromARGB(85, 255, 255, 255),
-                              ),
-                              width: 360,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left:15.0, top: 10, bottom: 10),
-                                child: Text(
-                                  'No',
+                                color: const Color(0xFF6989F2)),
+                            width: 380,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  questions[i],
+                                  // textAlign: TextAlign.center,
                                   style: GoogleFonts.poppins(
                                     fontSize: 20,
-                                    color:
-                                        const Color.fromARGB(255, 234, 231, 231),
+                                    color: const Color.fromARGB(255, 255, 250, 250),
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: const Color.fromARGB(85, 255, 255, 255),
+                                  ),
+                                  width: 360,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left:15.0, top: 10, bottom: 10),
+                                    child: 
+                                    answers != null ? Text(
+                                      answers[i].toString(),
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 20,
+                                        color:
+                                            const Color.fromARGB(255, 234, 231, 231),
+                                      ),
+                                    ) : Text(
+                                      "No answer",
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 20,
+                                        color:
+                                            const Color.fromARGB(255, 234, 231, 231),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                     ],)
+                         ],);
+                      }
+                    )
                   ],
                 ),
               ),
