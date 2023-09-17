@@ -7,4 +7,4 @@ empowering individuals to visualize improved results and boost their confidence.
 Graduation project - MIU
 
 ## Language used: 
-Flutter & Dart, Python
+Dart & Flutter, Python
